@@ -1,5 +1,5 @@
 <?php
-$ID =intval($_GET['ID']);
+
 
     if(!isset($_SESSION)){
         session_start();
@@ -8,8 +8,8 @@ $ID =intval($_GET['ID']);
     if(isset($_SESSION['admin'])){
     include('../conexao.php');
     require('../menu.php');
-    
-    
+
+    $ID = $_SESSION['admin'];
     $sql_usuarios = "SELECT * FROM usuarios"; 
     $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
     $num_usuarios = $query_usuarios->num_rows;
@@ -69,9 +69,9 @@ $ID =intval($_GET['ID']);
         <td><?php echo $usuarios['ID'];?></td> 
         <td><?php echo $usuarios['nome'];?></td>
         
-        <?php if($usuarios['admin'] == 0){?>
+        <?php if($usuarios['token'] != 1){?>
         <td>Não</td>
-        <?php }else if($usuarios['admin']==1){ ?>
+        <?php }else { ?>
         <td>Sim</td>
         <?php }?>
         <td style="text-align: center;">

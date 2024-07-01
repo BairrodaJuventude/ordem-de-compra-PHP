@@ -2,12 +2,16 @@
     if(!isset($_SESSION)){
         session_start();
     }
-    if(isset($_SESSION['admin'])&&(isset($_SESSION['usuario']))){
+    if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
     include('../conexao.php');
     require('../menu.php');
    
-        
-    $ID = intval($_GET['ID']);
+    if(isset($_SESSION['admin']))
+    {
+        $ID = $_SESSION['admin'];
+    }else {
+        $ID = $_SESSION['usuario'];
+    }
     $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
     $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
     $usuario = $query_usuarios->fetch_assoc();
@@ -24,7 +28,15 @@
     <title>Painel</title>
 </head>
 <body>
-<?php if($_SESSION['usuario']){ echo $top_adm;}else if($_SESSION['admin']){echo $top;}?>
+<?php
+    if(isset($_SESSION['admin']))
+    {
+        echo $top_adm;
+    }else
+    {
+        echo $top;
+}
+?>
  <main>
     <div class="dev1"><span></span></div>
     <div class="dev2">

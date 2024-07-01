@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Primeiro Commit" />
+    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Primeiro Commit">
+      <change afterPath="$PROJECT_DIR$/php/my/cadastrar_setor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/cadastrar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/lista_usuario.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista_usuario.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,10 +32,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2ieb0zjOqCQ8OZL1jJ7ZPdUYhsB" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -36,6 +49,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "Luiz-Henrique",
+    "last_opened_file_path": "C:/xampp/htdocs/ordem-de-compra-PHP",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -66,6 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1719853770999</updated>
       <workItem from="1719853772163" duration="335000" />
+      <workItem from="1719855247777" duration="7759000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />

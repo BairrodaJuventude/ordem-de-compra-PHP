@@ -5,6 +5,10 @@ if (isset($_SESSION['admin'])) {
     include('../conexao.php');
     require('../menu.php');
 
+    $ID = intval($_GET['ID']);
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
 
     $mensagem_sucesso = "";
     $erro = "";
@@ -13,20 +17,13 @@ if (isset($_SESSION['admin'])) {
         $nome = $_POST['nome'];
         $email = $_POST['email'];
         $senha_fraca = $_POST['senha'];
-        $setor = $_POST['setor'];
         $token = $_POST['token'];
 
-        $sql_setor = "SELECT * INTO setor WHERE setor = '$setor'";
-        $query_setor = $mysql->query($sql_setor) or die($mysql->error);
-        $num_setor = $query_setor->close();
-
-        if (empty($nome) || empty($email) || empty($senha_fraca) || empty($setor) || empty($adm) && $num_setor!=0) {
+        if (empty($nome) || empty($email) || empty($senha_fraca) || empty($adm)) {
             $erro = "Preencha todos os dados!";
         } else {
-
             $senha = password_hash($senha_fraca, PASSWORD_DEFAULT);
-
-            $sql_code = "INSERT INTO usuarios (nome, email, senha, token) VALUES ('$nome', '$email', '$senha', '$token')";
+            $sql_code = "INSERT INTO usuarios (nome, email, senha, Token) VALUES ('$nome', '$email', '$senha', '$adm')";
             $deu_certo = $mysql->query($sql_code);
 
             if ($deu_certo) {
@@ -85,16 +82,6 @@ if (isset($_SESSION['admin'])) {
                     <label for="senha" class="form-label">Senha:</label>
                     <input name="senha" type="password" class="form-control" required>
                 </div>
-                    <div class="mb-3">
-                        <label for="setor" class="form-label">Setor do Usuário:</label>
-                        <select name="setor" class="form-select" required>
-                            <option value="" selected disabled>Selecione</option>
-                            <?php while($num_setor!=0 && $setores= $query_setor->fetch_assoc()){?>
-                                <option value="<?php echo $setores['id_setor'];?>" <?php echo $setores['nome'];?></option>
-                            <?php }?>
-                        </select>
-                    </div>
-
                 <div class="mb-3">
                     <label for="token" class="form-label">Tipo de Usuário:</label>
                     <select name="token" class="form-select" required>
@@ -105,7 +92,6 @@ if (isset($_SESSION['admin'])) {
                         <option value="7">Coordenador</option>
                         <option value="9">Comprador</option>
                     </select>
-                </div>
                <br>
                 <button id="button" type="submit" class="btn btn-primary">Cadastrar</button>
                 <a href="lista_usuarios.php" class="btn btn-secondary">Cancelar</a>

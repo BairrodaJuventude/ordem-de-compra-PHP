@@ -7,7 +7,7 @@ include('../conexao.php');
 require('../menu.php');
 
     
-$ID = intval($_GET['ID']);
+$ID = $_SESSION['admin'];
 $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
 $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
 $usuario = $query_usuarios->fetch_assoc();
@@ -40,9 +40,9 @@ $usuario = $query_usuarios->fetch_assoc();
   <table class="table">
     <thead>
       <tr>
-        <th><a id="d" href="cadastrar.php?ID=<?php echo $ID;?>">Cadastrar Novo Usuario</a></th>
-        <th><a id="d" href="lista_usuario.php?ID=<?php echo $ID;?>">Lista De Usuarios</a></th>
-        <th><a id="d" href="lista.php?ID=<?php echo $ID;?>">Lista De Ordens</a></th>
+        <th><a id="d" href="cadastrar.php">Cadastrar Novo Usuario</a></th>
+        <th><a id="d" href="lista_usuario.php">Lista De Usuarios</a></th>
+        <th><a id="d" href="lista.php">Lista De Ordens</a></th>
         
       </tr>
      

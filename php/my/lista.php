@@ -2,11 +2,17 @@
   if(!isset($_SESSION)){
     session_start();
 }
-if(isset($_SESSION['admin'])&&(isset($_SESSION['usuario']))){
+if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
 include('../conexao.php');
 require('../menu.php');
-    
-$ID = intval($_GET['ID']);
+
+if (isset($_SESION['admin']))
+{
+    $ID = $_SESION['admin'];
+}else{
+    $ID = $_SESION['usuario'];
+}
+
 if($ID == 63){
   $sql_usuarios ="SELECT * FROM ordens WHERE Status = 'Autorizado'";
   $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);

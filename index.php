@@ -31,13 +31,18 @@
                             if(!isset($_SESSION)){
                                 session_start();
                                 $ID = $usuario['ID'];
-                                $_SESSION['usuario'] = $usuario['ID'];
-                                $_SESSION['admin'] = $usuario['admin'];
+                                if($usuario['token']==1)
+                                {
+                                    $_SESSION['admin'] = $usuario['ID'];
+                                } else
+                                {
+                                    $_SESSION['usuario'] = $usuario['ID'];
+                                }
 
-                                if($_SESSION['admin']){
-                                    header("location: php/my/index.php?ID=$ID");
-                                }else if($_SESSION['usuario']){
-                                    header("location: php/my/index.php?ID=$ID");
+                                if(isset($_SESSION['admin'])){
+                                    header("location: php/my/index.php");
+                                }else if(isset($_SESSION['usuario'])){
+                                    header("location: php/my/index.php");
                                 }
                             }
                         }else{
