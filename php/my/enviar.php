@@ -2,49 +2,40 @@
 if(!isset($_SESSION)){
   session_start();
 }
-if(isset($_SESSION['admin'])&&(isset($_SESSION['usuario']))){
-include('../conexao.php');
-require('../menu.php');
-  
-$ID = intval($_GET['ID']);
-$sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
-$query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-$usuario = $query_usuarios->fetch_assoc();
+if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
+    include('../conexao.php');
+    require('../menu.php');
+    if(isset($_SESSION['admin'])){
+            $ID = $_SESSION['admin'];
+    }else{
+            $ID = $_SESSION['usuario'];
+    }
+    $sql_setores = "SELECT * FROM setores";
+    $query_setores = $mysql->query($sql_setores) or die($mysql->error);
+    $num_setores = $query_setores->num_rows;
+    $setores = $query_setores->fetch_assoc();
 
-$nome = $usuario['nome'];
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+    $nome = $usuario['nome'];
+    if(count($_POST) > 0){
 
-if(count($_POST) > 0){  
+        $fornece = $_POST['fornece'];
+        $setor = $_POST['setor'];
+        $assi1 = $nome;
 
-$fornece = $_POST['fornece'];
-$setor = $_POST['setor'];
-$assi1 = $nome; 
+        $erro = false;
+        if(empty($fornece)){
+          $erro = "Preencha o Fornecedor!";
+        }
 
+        else if($erro===false){
+          $sql_code = "INSERT INTO `ordens`(`ID`, `fornece`, `setor`, `requisitante`, `coordenador`, `direcao`,'Não Informado',NOW())";
+          $deu_certo = $mysql->query($sql_code) or die($mysql->error);
 
-
-$erro = false;
-
-
-if(empty($fornece)){
-  $erro = "Preencha o Fornecedor!";
-}
-
-else if(isset($erro)){
-  $sql_code = "INSERT INTO `ordens`(`ID`, `fornece`, `setor`, `requisitante`, `coordenador`, `direcao`,'Não Informado',NOW())";
-  $deu_certo = $mysql->query($sql_code) or die($mysql->error);
- 
-
-}
-}
-
-?>
-
-
-
-<?php
-} else {
-    header("Location:../logout.php");
-    die();
-}
+        }
+    }
 ?>
 
 
@@ -57,8 +48,6 @@ else if(isset($erro)){
       echo "Enviado com Sucesso!";
     }
     ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,9 +64,9 @@ else if(isset($erro)){
   </head>
 
 <body>
-<?php if ($_SESSION['usuario']) {
+<?php if (isset($_SESSION['usuario'])) {
     echo $top;
-} else if ($_SESSION['admin']) {
+} else if (isset($_SESSION['admin'])) {
     echo $top_adm;
 } ?>
 
@@ -99,15 +88,10 @@ else if(isset($erro)){
       </tr>
       <tr>
         <th><b>Setor:</b> <select class="span12" name="setor" id="a" required>
-                <option value="Selecionar">Selecionar</option>
-                <option value="Cef">Cef</option>
-                <option value="Cozinha">Cozinha</option>
-                <option value="Administração">Administração</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Financeiro">Financeiro</option>
-                <option value="Cias">Cias</option>
-                <option value="Clic">Clic</option>
-                <option value="Cep">Cep</option>
+                <option value="">Selecionar</option>
+                <?php for($i=0; $num_setores>=$i;){?>
+                <option value="<?php  $i++; echo $setores['id_setor'];?>"><?php echo $setores['setor'];?></option>
+                <?php } ?>
               </select></th>
         <th></th>
         <th></th>
@@ -131,11 +115,10 @@ else if(isset($erro)){
         <td><input type="text" class="description" ></td>
           <td>
               <select class="span12" name="dis1" id="a" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Cef">Cef</option>
-                  <option value="Cozinha">Cozinha</option>
-                  <option value="Administração">Administração</option>
-                  <option value="Cep">Cep</option>
+                  <option value="">Selecionar</option>
+                  <?php for($i=0; $num_setores>=$i; $i++){?>
+                      <option value="<?php echo $setores['id_setor'];?>"><?php echo $setores['setor'];?></option>
+                  <?php } ?>
               </select>
           </td>    
           <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" ></td>
@@ -147,11 +130,10 @@ else if(isset($erro)){
         <td><input type="text" class="description" ></td>
           <td>
               <select class="span12" name="dis2" id="a" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Cef">Cef</option>
-                  <option value="Cozinha">Cozinha</option>
-                  <option value="Administração">Administração</option>
-                  <option value="Cep">Cep</option>
+                  <option value="">Selecionar</option>
+                  <?php while($setores2 = $query_setores->fetch_assoc()){?>
+                      <option value="<?php echo $setores2['id_setor'];?>"><?php echo $setores2['setor'];?></option>
+                  <?php } ?>
               </select>
           </td>    
           <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" ></td>
@@ -164,11 +146,10 @@ else if(isset($erro)){
         <td><input type="text" class="description" ></td>
           <td>
               <select class="span12" name="dis3" id="a" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Cef">Cef</option>
-                  <option value="Cozinha">Cozinha</option>
-                  <option value="Administração">Administração</option>
-                  <option value="Cep">Cep</option>
+                  <option value="">Selecionar</option>
+                  <?php while($setores = $query_setores->fetch_assoc()){?>
+                      <option value="<?php echo $setores['id_setor'];?>"><?php echo $setores['setor'];?></option>
+                  <?php } ?>
               </select>
           </td>    
           <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" ></td>
@@ -181,11 +162,10 @@ else if(isset($erro)){
         <td><input type="text" class="description" ></td>
           <td>
               <select class="span12" name="dis4" id="a" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Cef">Cef</option>
-                  <option value="Cozinha">Cozinha</option>
-                  <option value="Administração">Administração</option>
-                  <option value="Cep">Cep</option>
+                  <option value="">Selecionar</option>
+                  <?php while($setores = $query_setores->fetch_assoc()){?>
+                      <option value="<?php echo $setores['id_setor'];?>"><?php echo $setores['setor'];?></option>
+                  <?php } ?>
               </select>
           </td>    
           <td><input type="text" class="unitPrice" step="0.01"  oninput="updateTotal(this)" ></td>
@@ -201,7 +181,7 @@ else if(isset($erro)){
    <table class="table">
     <thead>
       <tr>
-        <th><b>Requisitante:</b> <input id="a" name="assi1" value="<?php echo $usuario['nome']; ?>" readonly type="text"></th>
+        <th><b>Requisitante:</b> <input id="a" name="assi1" value="<?php echo $nome; ?>" readonly type="text"></th>
         <th></th>
         <th></th>
         <th></th>
@@ -285,4 +265,7 @@ $(document).ready(function() {
 <script src="../../javaScript/mobile-navbar.js"></script>
 
 </html>
-
+<?php } else {
+    header("Location:../logout.php");
+    die();
+}

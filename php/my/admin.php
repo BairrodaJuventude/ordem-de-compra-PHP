@@ -42,6 +42,7 @@ $usuario = $query_usuarios->fetch_assoc();
       <tr>
         <th><a id="d" href="cadastrar.php">Cadastrar Novo Usuario</a></th>
         <th><a id="d" href="lista_usuario.php">Lista De Usuarios</a></th>
+          <th><a id="d" href="cadastrar_setor.php">Cadastrar Novo Setor</a></th>
         <th><a id="d" href="lista.php">Lista De Ordens</a></th>
         
       </tr>

@@ -17,10 +17,6 @@
                     include('php/conexao.php');
                     $nome = $mysql->escape_string($_POST['nome']);
                     $senha = $_POST['senha'];
-                    $sql_usuarios = "SELECT * FROM usuarios"; 
-                    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-                    $num_usuarios = $query_usuarios->num_rows;
-
                     $sql_code = "SELECT * FROM usuarios WHERE nome = '$nome'";
                     $sql_query = $mysql->query($sql_code) or die($mysql->error);
                     if($sql_query->num_rows == 0){

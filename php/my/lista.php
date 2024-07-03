@@ -6,28 +6,16 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
 include('../conexao.php');
 require('../menu.php');
 
-if (isset($_SESION['admin']))
+if (isset($_SESSION['admin']))
 {
-    $ID = $_SESION['admin'];
-}else{
-    $ID = $_SESION['usuario'];
+    $ID = $_SESSION['admin'];
+}else if (isset($_SESSION['usuario'])){
+    $ID = $_SESSION['usuario'];
 }
-
-if($ID == 63){
-  $sql_usuarios ="SELECT * FROM ordens WHERE Status = 'Autorizado'";
-  $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-  $num_usuarios = $query_usuarios->num_rows;
+  $sql_ordens ="SELECT * FROM ordens WHERE requisitante = "$ID" ";
+  $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
+  $num_ordens = $query_ordens->num_rows;
 }else{
-  $sql_usuarios ="SELECT * FROM ordens"; 
-  $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-  $num_usuarios = $query_usuarios->num_rows;
-}
-
-
-
-?>
-
-<?php }else{
     header("Location:../logout.php");
     die();
 } ?>
@@ -52,7 +40,11 @@ if($ID == 63){
 </head>
 <body>
   <?php 
-    if($_SESSION['usuario']){ echo $top;}else if($_SESSION['admin']){echo $top_adm;}  
+    if(isset($_SESSION['usuario'])) {
+        echo $top;
+    }else if(isset($_SESSION['admin'])){
+        echo $top_adm;
+    }
   ?>
     <main>
       <div  class="container-fluid p-5 text-center ">
@@ -76,31 +68,31 @@ if($ID == 63){
           </tbody>
         
           
-  <?php if($num_usuarios == 0)   {?>
+  <?php if($num_ordens == 0)   {?>
 
       <tr>
         <td>Nenhuma Ordem Lançada...</td>
       </tr>
       
-  <?php }else if($num_usuarios != 0 ){
-        while($usuarios =  $query_usuarios->fetch_assoc()){
+  <?php }else if($num_ordens != 0){
+        while($ordem =  $query_ordens->fetch_assoc()){
   ?>
               
       <tr>
-          <td><?php echo $usuarios['ID'];?></td> 
-          <td><?php echo $usuarios['fornece'];?></td> 
-          <td><?php echo $usuarios['setor'];?></td>
-          <td><?php echo $usuarios['Data'];?></td>
-          <td><?php  echo $usuarios['Status'];?></td>
-          <td><?php if($ID == 57){ ?></td>
+          <td><?php echo $ordem['ID'];?></td> 
+          <td><?php echo $ordem['fornece'];?></td> 
+          <td><?php echo $ordem['setor'];?></td>
+          <td><?php echo $ordem['Data'];?></td>
+          <td><?php  echo $ordem['Status'];?></td>
+          <td><?php if(){ ?></td>
 
 
-  <?php if($usuarios['Status'] == "Em Espera"){?>
-            <a id="d" href="editar.php?ID=<?php echo $ID,"&idme=",$usuarios['ID'];?>">Editar</a>
+  <?php if($ordem['Status'] == "Em Espera"){?>
+            <a id="d" href="editar.php?idme=",<?php $ordem['ID'];?>">Editar</a>
   <?php }else{}}?> 
 
 
-          <a id="d" href="visualiza.php?ID=<?php echo $ID;?>&&idme=<?php echo $usuarios['ID'];?>">Detalhes</a>
+          <a id="d" href="visualiza.php?idme=<?php echo $ordem['ID'];?>">Detalhes</a>
           </td>
         </tr>
         
@@ -125,10 +117,4 @@ if($ID == 63){
 </body>
 </html>
 
-
                                               <!Fim do HTML!>
-
-
-
-
-

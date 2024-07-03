@@ -85,15 +85,6 @@ if (isset($_SESSION['admin'])) {
                     <label for="senha" class="form-label">Senha:</label>
                     <input name="senha" type="password" class="form-control" required>
                 </div>
-                    <div class="mb-3">
-                        <label for="setor" class="form-label">Setor do Usuário:</label>
-                        <select name="setor" class="form-select" required>
-                            <option value="" selected disabled>Selecione</option>
-                            <?php while($num_setor!=0 && $setores= $query_setor->fetch_assoc()){?>
-                                <option value="<?php echo $setores['id_setor'];?>" <?php echo $setores['nome'];?></option>
-                            <?php }?>
-                        </select>
-                    </div>
 
                 <div class="mb-3">
                     <label for="token" class="form-label">Tipo de Usuário:</label>
@@ -108,7 +99,7 @@ if (isset($_SESSION['admin'])) {
                 </div>
                <br>
                 <button id="button" type="submit" class="btn btn-primary">Cadastrar</button>
-                <a href="lista_usuarios.php" class="btn btn-secondary">Cancelar</a>
+                <a href="lista_usuario.php" class="btn btn-secondary">Cancelar</a>
             </form>
         </section>
     </div>

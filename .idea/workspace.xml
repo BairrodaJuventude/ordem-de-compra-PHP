@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Primeiro Commit">
-      <change afterPath="$PROJECT_DIR$/php/my/cadastrar_setor.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/menu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/cadastrar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/cadastrar_setor.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar_setor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/lista_usuario.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista_usuario.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +53,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -81,6 +80,9 @@
       <updated>1719853770999</updated>
       <workItem from="1719853772163" duration="335000" />
       <workItem from="1719855247777" duration="7759000" />
+      <workItem from="1719917171421" duration="52000" />
+      <workItem from="1719918090567" duration="194000" />
+      <workItem from="1719932887585" duration="11377000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
