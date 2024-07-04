@@ -3,7 +3,7 @@ $(function () {
     $(document).on('click', '#addInput', function () {
         for (var i = 0; i < 1; i++){
             $('<a class="btn btn-danger" href="javascript:void(0)" id="remInput">'+
-                '<span class="glyphicon glyphicon-minus" aria-hidden="true">Remover</span> '+
+                '<span class="glyphicon glyphicon-minus" aria-hidden="true">-</span> '+
                 '</a>'+
                 '<tr>\n' +
                 '        <td><input type="text" class="unit" ></td>\n' +

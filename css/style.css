@@ -74,7 +74,7 @@ nav {
 }
 
 main {
-  background-color: rgb(227, 32, 32);
+  background-color: rgb(253, 253, 253);
   background-size: cover;
   height: 500px;
 }
@@ -159,3 +159,4 @@ main {
 .btn {
   background-color: #1C1C1C;
 }
+
