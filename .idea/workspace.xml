@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Tabela Setores,Relaçao entre tabelas setores e a tabela ordens, alguns ajustes na listagem e no envio das ordens de compra.">
-      <change afterPath="$PROJECT_DIR$/php/my/Status.php" afterDir="false" />
+    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="ajuste na listagem das ordens ja prontas(Terminar), Analizando a parte de verificaçao de cada ordem de compra">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/conexao.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/conexao.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/cadastrar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/cadastrar_setor.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar_setor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/comp.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/coord.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/direcao.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/editar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/editar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/lista_usuario.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista_usuario.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teste.php" beforeDir="false" afterPath="$PROJECT_DIR$/teste.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +81,8 @@
       <workItem from="1719918090567" duration="194000" />
       <workItem from="1719932887585" duration="11617000" />
       <workItem from="1720022838392" duration="12802000" />
-      <workItem from="1720060172144" duration="17605000" />
+      <workItem from="1720060172144" duration="18006000" />
+      <workItem from="1720089376723" duration="7973000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
@@ -111,7 +100,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719971436585</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ajuste na listagem das ordens ja prontas(Terminar), Analizando a parte de verificaçao de cada ordem de compra">
+      <option name="closed" value="true" />
+      <created>1720078468744</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1720078468745</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +128,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primeiro Commit" />
     <MESSAGE value="Tabela Setores,Relaçao entre tabelas setores e a tabela ordens, alguns ajustes na listagem e no envio das ordens de compra." />
-    <option name="LAST_COMMIT_MESSAGE" value="Tabela Setores,Relaçao entre tabelas setores e a tabela ordens, alguns ajustes na listagem e no envio das ordens de compra." />
+    <MESSAGE value="ajuste na listagem das ordens ja prontas(Terminar), Analizando a parte de verificaçao de cada ordem de compra" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajuste na listagem das ordens ja prontas(Terminar), Analizando a parte de verificaçao de cada ordem de compra" />
   </component>
 </project>

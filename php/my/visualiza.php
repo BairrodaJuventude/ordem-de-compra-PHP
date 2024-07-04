@@ -56,88 +56,158 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
         <h1>ORDEM DE COMPRA</h1>
     </div>
     <div class="container mt-3">
-        <section id="c">
-            <form action="" method="post">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th><b>Fornecedor:</b><input id="a" value="<?php echo $ordens['fornece'];?>" name="fornece" readonly type="text"></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <th><b>Setor:</b><input id="a" value="<?php echo $ordens['setor'];?>" name="setor" readonly type="text"></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                </table>
-                <table method="post" border="1" class="table table-hover">
+    <section id="c">
+        <table class="table">
+            <thead>
+            <tr>
+                <form action="" method="post">
                     <tr>
-                        <th>Unidade:</th>
-                        <th>Quantidade:</th>
-                        <th>Descrição De Produto</th>
-                        <th>Tipo De Despesa</th>
-                        <th>Preço Da Unidade</th>
-                        <th>Valor Total:</th>
+                        <th><b>Fornecedor:</b><input id="a" value="<?php echo $ordens['fornece'];?>" name="fornece" type="text" readonly required></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
+                    <tr>
+                        <th><b>Setor:</b> <select class="span12" name="setor" id="a" readonly required>
+                                    <option value="<?php echo $ordens['setor'];?>"><?php echo $ordens['setor'];?></option>
+                            </select></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+            </thead>
+        </table>
+        <table method="post" border="1" class="table table-hover">
+            <tr>
+                <th>Unidade:</th>
+                <th>Quantidade:</th>
+                <th>Descrição De Produto</th>
+                <th>Tipo De Despesa</th>
+                <th>Preço Da Unidade</th>
+                <th>Valor Total:</th>
+            </tr>
+            <tr>
+                <td><input type="text" class="unit" name="uni1" value="<?php echo $ordens['uni1'];?>"readonly></td>
+                <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant1"value="<?php echo $ordens['quant1'];?>"readonly></td>
+                <td><input type="text"  class="description"name="desc1" value="<?php echo $ordens['prod1'];?>" readonly></td>
+                <td>
+                    <select class="span12" name="setor1" id="a" readonly>
+                            <option value="<?php echo $ordens['desp1'];?>"><?php echo $ordens['desp1'];?></option>
+                    </select>
+                </td>
+                <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni1" value=" <?php echo $ordens['preco1'];?>"readonly></td>
+                <td class="totalValue" id="valor">0.00</td>
+            </tr>
 
-                    <tr>
-                        <td><input type="text" class="unit" value="<?php echo $ordens['uni1'];?>" readonly></td>
-                        <td><input type="number" class="quantity" value="<?php echo $ordens['quant1'];?>" readonly oninput="updateTotal(this)"></td>
-                        <td><input type="text" class="description" value="<?php echo $ordens['prod1'];?>" readonly></td>
-                        <td>
-                            <select class="span12" name="dis1" id="a" readonly>
-                                <option value="Selecionar">Selecionar</option>
-                                <option value="Cef">Cef</option>
-                                <option value="Cozinha">Cozinha</option>
-                                <option value="Administração">Administração</option>
-                                <option value="Cep">Cep</option>
-                            </select>
-                        </td>    
-                        <td><input type="text" class="unitPrice" value="<?php echo $ordens['preco1'];?>" readonly step="0.01" oninput="updateTotal(this)"></td>
-                        <td class="totalValue"></td>
-                    </tr>
-                  
-                    <tr>
-                        <th><b>Valor Geral</b></th>
-                        <th><input placeholder="00,00" type="text" class="Value" id="valor-Total" readonly></th>
-                    </tr>
-                </table>
+            <tr>
+                <td><input type="text" class="unit" name="uni2"readonly></td>
+                <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant2" readonly></td>
+                <td><input type="text" class="description" name="desc2"readonly ></td>
+                <td>
+                    <select class="span12"  id="a"name="setor2"readonly>
+                        <option value="">Selecionar</option>
 
-                <table class="table">
-                        <thead>
-                        <tr>
-                            <th><b>Requisitante:</b> <input id="a" name="assi1" value="<?php  $ordens['requisitante']; ?>" readonly type="text"></th>                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <th><b>Coordenador:</b>
-                                <select id="a" name="Status">
-                                    <option value="Em Espera">Em Espera</option>
-                                    <option value="Autorizado">Autorizar pelo setor</option>
-                                    <option value="Em Espera">Em Espera</option>
-                                    <option value="Autorizado">Autorizado a compra</option>
-                                    <option value="Autorizado">A caminho</option>
-                                    <option value="Autorizado">Concluido</option>
-                                </select>
-                            </th>
-                        </tr>
-                        
-                    </thead>
-                </table>
-                <button id="button" type="submit">Enviar</button>
+                            <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+
+                    </select>
+                </td>
+                <td><input type="text" class="unitPrice" step="0.01"  oninput="updateTotal(this)"name="precUni2"readonly ></td>
+                <td class="totalValue"  id="valor" name="vt2">0.00</td>
+            </tr>
+
+            <tr>
+                <td><input type="text" class="unit"name="uni3"readonly ></td>
+                <td><input type="number" class="quantity" oninput="updateTotal(this)"name="quant3" readonly></td>
+                <td><input type="text" class="description" name="desc3"readonly></td>
+                <td>
+                    <select class="span12"  id="a"name="setor3" >
+                        <option value="">Selecionar</option>
+
+                            <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+
+                    </select>
+                </td>
+                <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni3" ></td>
+                <td class="totalValue" name="vt3">0.00</td>
+            </tr>
+
+            <tr>
+                <td><input type="text" class="unit" name="uni4" ></td>
+                <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant4" ></td>
+                <td><input type="text" class="description" name="desc4" ></td>
+                <td>
+                    <select class="span12" id="a" name="setor4">
+                        <option value="">Selecionar</option>
+
+                            <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+
+                    </select>
+                </td>
+                <td><input type="text" class="unitPrice" step="0.01" value=""  oninput="updateTotal(this)"name="precUni4" ></td>
+                <td class="totalValue" >0.00</td>
+            </tr>
+
+
+
+            <th><b>Valor Geral</b></th>
+            <th><input placeholder="00,00" type="text" name="valorTotal" value="" class="Value" id="valor-Total" readonly></th>
+        </table>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th><b>Requisitante:</b> </th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <th><b>Coordenador:</b>
+                    <select id="a" name="assiCoord">
+                        <?php
+                            $id_coor = $ordens['coordenador'];
+                            $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE ID = $id_coor ";
+                            $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
+                            $assinatura = $query_usuarios_assinatura->fetch_assoc();
+                                ?>
+                                <option><?php echo $assinatura['nome'];?></option>
+
+
+
+                    </select>
+                </th><?php?>
+            </tr>
+
+            <tr>
+                <th><b>Direção:</b>
+
+                </th>
+            </tr>
+            </thead>
+
+
+            <button id="button" type="submit">Enviar</button>
+            <span></span>
             </form>
-            <!-- Botão de editar -->
-            <a href="pagina_de_edicao.php?ID=<?php echo $ID; ?>&idme=<?php echo $id; ?>" class="btn btn-primary">Editar</a>
-        </section>
+        </table>
+    </section>
     </div>
 </main>
 
 <script>
+
+    function somarTotais() {
+        let somas = 0.0;
+        tabela.forEach((e, i)=>{
+            const total = e[5];
+            if (!e[5]) return;
+            somas += total;
+        })
+        return somas;
+    }
+
+    $('#valor-Total').val( somarTotais() )
+
     function updateTotal(element) {
         const row = element.parentNode.parentNode;
         const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
@@ -159,10 +229,22 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
 
         document.getElementById('valor-Total').value = grandTotal.toFixed(2);
     }
+
+    $(document).ready(function() {
+        $(".unitPrice, #valor-Total").maskMoney({
+            prefix: 'R$ ',
+            allowNegative: false,
+            thousands: '.',
+            decimal: ','
+        });
+    });
 </script>
 
 </body>
-</html>
+
+<script src="../../javaScript/mobile-navbar.js"></script>
+
+    </html>
 
 <?php
 } else {

@@ -131,7 +131,7 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
         <th><b>Setor:</b> <select class="span12" name="setor" id="a" required>
                 <option value="">Selecionar</option>
                 <?php while($setores = $query_setores->fetch_assoc()){?>
-                <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+                <option value="<?php  echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
                 <?php } ?>
               </select></th>
         <th></th>
@@ -187,7 +187,7 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
         <td><input type="number" class="quantity" oninput="updateTotal(this)"name="quant3" ></td>
         <td><input type="text" class="description" name="desc3"></td>
           <td>
-              <select class="span12"  id="a"name="setor3" >
+              <select class="span12"  id="a"name="setor3">
                   <option value="">Selecionar</option>
                   <?php while($setores = $query_setores4->fetch_assoc()){?>
                       <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
