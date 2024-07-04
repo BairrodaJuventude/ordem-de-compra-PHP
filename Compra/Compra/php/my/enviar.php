@@ -189,28 +189,13 @@ else if(isset($erro)){
               </select>
           </td>    
           <td><input type="text" class="unitPrice" step="0.01"  oninput="updateTotal(this)" ></td>
-          <td class="totalValue">0.00</td>
-
+          <td class="totalValue">0.00</td> 
       </tr>
 
-       <tr>
-           <td><button type="button" id="addInput">Adicionar +1</button></td>
-           <td><div id="dynamicDiv"></div></td>
-       </tr>
-
-
-
-
-
-
+      
 
       <th><b>Valor Geral</b></th>
       <th><input placeholder="00,00" type="text" class="Value" id="valor-Total" readonly></th>
-
-
-
-
-
    </table>
 
    <table class="table">
@@ -248,17 +233,6 @@ else if(isset($erro)){
     </section>
 </div>
 </main>
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 
@@ -305,11 +279,10 @@ $(document).ready(function() {
             });
           });
 </script>
-<script src="../../javaScript/mobile-navbar.js"></script>
-<script src="../../javaScript/add.js"></script>
-
-
 
 </body>
+
+<script src="../../javaScript/mobile-navbar.js"></script>
+
 </html>
 
