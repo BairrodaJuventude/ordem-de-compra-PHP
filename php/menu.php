@@ -13,6 +13,7 @@ $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
 $usuario = $query_usuarios->fetch_assoc();
 
 $token = $usuario['token'];
+$token2 = $usuario['token2'];
 
 $base_header = "
 <header>
@@ -34,7 +35,7 @@ $base_header = "
     </nav>
 </header>";
 
-if ($token == 3) {
+if ($token!= 1) {
     $top = $base_header;
 } else {
     $top = "

@@ -4,14 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Primeiro Commit">
+    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Tabela Setores,Relaçao entre tabelas setores e a tabela ordens, alguns ajustes na listagem e no envio das ordens de compra.">
+      <change afterPath="$PROJECT_DIR$/php/my/Status.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/conexao.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/conexao.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/menu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/cadastrar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/cadastrar_setor.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar_setor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/comp.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/coord.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/direcao.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/editar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/editar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/lista_usuario.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista_usuario.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste.php" beforeDir="false" afterPath="$PROJECT_DIR$/teste.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,22 +49,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Luiz-Henrique",
-    "last_opened_file_path": "C:/xampp/htdocs/ordem-de-compra-PHP",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;PHP Script.teste.php.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Luiz-Henrique&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/ordem-de-compra-PHP&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\programador\PhpstormProjects\ordem-de-compra-PHP" />
@@ -82,7 +91,9 @@
       <workItem from="1719855247777" duration="7759000" />
       <workItem from="1719917171421" duration="52000" />
       <workItem from="1719918090567" duration="194000" />
-      <workItem from="1719932887585" duration="11377000" />
+      <workItem from="1719932887585" duration="11617000" />
+      <workItem from="1720022838392" duration="12802000" />
+      <workItem from="1720060172144" duration="17605000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
@@ -92,7 +103,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719853874688</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Tabela Setores,Relaçao entre tabelas setores e a tabela ordens, alguns ajustes na listagem e no envio das ordens de compra.">
+      <option name="closed" value="true" />
+      <created>1719971436585</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719971436585</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,6 +130,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primeiro Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primeiro Commit" />
+    <MESSAGE value="Tabela Setores,Relaçao entre tabelas setores e a tabela ordens, alguns ajustes na listagem e no envio das ordens de compra." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tabela Setores,Relaçao entre tabelas setores e a tabela ordens, alguns ajustes na listagem e no envio das ordens de compra." />
   </component>
 </project>

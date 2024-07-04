@@ -1,8 +1,4 @@
-
 <?php
-$ID = intval($_GET['ID']);
-$idme = intval($_GET['idme']);
-
 if(!isset($_SESSION)){
     session_start();
 }
@@ -10,28 +6,28 @@ if(!isset($_SESSION)){
 if(isset($_SESSION['admin'])){
     include('../conexao.php');
     require('../menu.php');
-
+    $idUsuario = intval($_GET['idUsu']);
     
-    $sql_usuario = "SELECT * FROM usuarios WHERE ID = $idme";
+    $sql_usuario = "SELECT * FROM usuarios WHERE ID = '$idUsuario'";
     $query_usuario = $mysql->query($sql_usuario) or die($mysql->error);
     $usuario = $query_usuario->fetch_assoc();
 
    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
+        $nome = $mysql->escape_string($_POST['nome']);
+        $email = $mysql->escape_string($_POST['email']);
+        $senha = $mysql->escape_string($_POST['senha']);
 
         
         if (!empty($senha)) {
             $senha = password_hash($senha, PASSWORD_DEFAULT);
-            $sql_update = "UPDATE usuarios SET nome='$nome', email='$email', senha='$senha' WHERE ID = $idme";
+            $sql_update = "UPDATE usuarios SET nome='$nome', email='$email', senha='$senha', atualiza=NOW() WHERE ID = '$idUsuario'";
         } else {
-            $sql_update = "UPDATE usuarios SET nome='$nome', email='$email' WHERE ID = $idme";
+            $sql_update = "UPDATE usuarios SET nome='$nome', email='$email', atualiza=NOW() WHERE ID = $idUsuario";
         }
 
         if ($mysql->query($sql_update)) {
-            echo "<script>alert('Usuário atualizado com sucesso!'); window.location.href='lista_usuarios.php?ID=$ID';</script>";
+            echo "<script>alert('Usuário atualizado com sucesso!'); window.location.href='lista_usuario.php';</script>";
         } else {
             echo "<script>alert('Erro ao atualizar usuário');</script>";
         }
@@ -71,7 +67,7 @@ if(isset($_SESSION['admin'])){
                     <input type="password" class="form-control" id="senha" name="senha" placeholder="Deixe em branco para manter a senha atual">
                 </div>
                 <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                <a href="lista_usuarios.php?ID=<?php echo $ID; ?>" class="btn btn-secondary">Cancelar</a>
+                <a href="lista_usuarios.php" class="btn btn-secondary">Cancelar</a>
             </form>
         </section>
     </div>

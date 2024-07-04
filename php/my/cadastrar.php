@@ -10,23 +10,19 @@ if (isset($_SESSION['admin'])) {
     $erro = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
+        $nome = $mysql->escape_string($_POST['nome']);
+        $email = $mysql->escape_string($_POST['email']);
         $senha_fraca = $_POST['senha'];
-        $setor = $_POST['setor'];
         $token = $_POST['token'];
+        $token2 = $_POST['token2'];
 
-        $sql_setor = "SELECT * INTO setor WHERE setor = '$setor'";
-        $query_setor = $mysql->query($sql_setor) or die($mysql->error);
-        $num_setor = $query_setor->close();
-
-        if (empty($nome) || empty($email) || empty($senha_fraca) || empty($setor) || empty($adm) && $num_setor!=0) {
+        if (empty($nome) || empty($email) || empty($senha_fraca) || empty($token) || empty($token2)) {
             $erro = "Preencha todos os dados!";
         } else {
 
             $senha = password_hash($senha_fraca, PASSWORD_DEFAULT);
 
-            $sql_code = "INSERT INTO usuarios (nome, email, senha, token) VALUES ('$nome', '$email', '$senha', '$token')";
+            $sql_code = "INSERT INTO usuarios (nome, email, senha, atualiza, token, token2, Status) VALUES ('$nome', '$email', '$senha', '0000-00-00 00:00:00' , '$token', '$token2', '1')";
             $deu_certo = $mysql->query($sql_code);
 
             if ($deu_certo) {
@@ -89,6 +85,17 @@ if (isset($_SESSION['admin'])) {
                 <div class="mb-3">
                     <label for="token" class="form-label">Tipo de Usuário:</label>
                     <select name="token" class="form-select" required>
+                        <option value="" selected disabled>Selecione</option>
+                        <option value="1">Admin</option>
+                        <option value="3">Usuario</option>
+                        <option value="5">Direção</option>
+                        <option value="7">Coordenador</option>
+                        <option value="9">Comprador</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="token2" class="form-label">Tipo de Usuário:</label>
+                    <select name="token2" class="form-select" required>
                         <option value="" selected disabled>Selecione</option>
                         <option value="1">Admin</option>
                         <option value="3">Usuario</option>

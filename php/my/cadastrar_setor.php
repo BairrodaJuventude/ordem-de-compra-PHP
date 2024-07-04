@@ -1,27 +1,19 @@
 <?php
+if (!isset($_SESSION)){
 session_start();
-
+}
 if (isset($_SESSION['admin'])) {
     include('../conexao.php');
     require('../menu.php');
-
-    $ID = $_SESSION['admin'];
-    if(!empty($ID)){
-    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
-    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-    $usuario = $query_usuarios->fetch_assoc();
-
     $mensagem_sucesso = "";
     $erro = "";
 
-    if (["REQUEST_METHOD"] == "POST") {
-        $nomeSetor = $_POST['nome'];
-        $token = $_POST['token'];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nomeSetor = $mysql->escape_string($_POST['nome']);
 
-        if (empty($nome) || empty($email) || empty($senha_fraca) || empty($adm)) {
+        if (empty($nomeSetor)){
             $erro = "Preencha todos os dados!";
         } else {
-            $senha = password_hash($senha_fraca, PASSWORD_DEFAULT);
             $sql_code = "INSERT INTO setores (setor) VALUES ('$nomeSetor')";
             $deu_certo = $mysql->query($sql_code);
 
@@ -32,10 +24,6 @@ if (isset($_SESSION['admin'])) {
             }
         }
     }
-} else {
-    header("Location: ../logout.php");
-    die();
-}
 ?>
 
 <!DOCTYPE html>
