@@ -5,25 +5,24 @@ if (isset($_SESSION['admin'])) {
     include('../conexao.php');
     require('../menu.php');
 
-    $ID = intval($_GET['ID']);
-    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
-    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-    $usuario = $query_usuarios->fetch_assoc();
 
     $mensagem_sucesso = "";
     $erro = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
+        $nome = $mysql->escape_string($_POST['nome']);
+        $email = $mysql->escape_string($_POST['email']);
         $senha_fraca = $_POST['senha'];
-        $adm = $_POST['adm'];
+        $token = $_POST['token'];
+        $token2 = $_POST['token2'];
 
-        if (empty($nome) || empty($email) || empty($senha_fraca) || empty($adm)) {
+        if (empty($nome) || empty($email) || empty($senha_fraca) || empty($token) || empty($token2)) {
             $erro = "Preencha todos os dados!";
         } else {
+
             $senha = password_hash($senha_fraca, PASSWORD_DEFAULT);
-            $sql_code = "INSERT INTO usuarios (nome, email, senha, admin) VALUES ('$nome', '$email', '$senha', '$adm')";
+
+            $sql_code = "INSERT INTO usuarios (nome, email, senha, atualiza, token, token2, Status) VALUES ('$nome', '$email', '$senha', '0000-00-00 00:00:00' , '$token', '$token2', '1')";
             $deu_certo = $mysql->query($sql_code);
 
             if ($deu_certo) {
@@ -82,9 +81,10 @@ if (isset($_SESSION['admin'])) {
                     <label for="senha" class="form-label">Senha:</label>
                     <input name="senha" type="password" class="form-control" required>
                 </div>
+
                 <div class="mb-3">
-                    <label for="adm" class="form-label">Tipo de Usuário:</label>
-                    <select name="adm" class="form-select" required>
+                    <label for="token" class="form-label">Tipo de Usuário:</label>
+                    <select name="token" class="form-select" required>
                         <option value="" selected disabled>Selecione</option>
                         <option value="1">Admin</option>
                         <option value="3">Usuario</option>
@@ -92,9 +92,21 @@ if (isset($_SESSION['admin'])) {
                         <option value="7">Coordenador</option>
                         <option value="9">Comprador</option>
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="token2" class="form-label">Tipo de Usuário:</label>
+                    <select name="token2" class="form-select" required>
+                        <option value="" selected disabled>Selecione</option>
+                        <option value="1">Admin</option>
+                        <option value="3">Usuario</option>
+                        <option value="5">Direção</option>
+                        <option value="7">Coordenador</option>
+                        <option value="9">Comprador</option>
+                    </select>
+                </div>
                <br>
                 <button id="button" type="submit" class="btn btn-primary">Cadastrar</button>
-                <a href="lista_usuarios.php" class="btn btn-secondary">Cancelar</a>
+                <a href="lista_usuario.php" class="btn btn-secondary">Cancelar</a>
             </form>
         </section>
     </div>

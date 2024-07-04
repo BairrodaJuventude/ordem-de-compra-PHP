@@ -2,63 +2,83 @@
 if(!isset($_SESSION)){
   session_start();
 }
-if(isset($_SESSION['admin'])&&(isset($_SESSION['usuario']))){
-include('../conexao.php');
-require('../menu.php');
-  
-$ID = intval($_GET['ID']);
-$sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
-$query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-$usuario = $query_usuarios->fetch_assoc();
+if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
+    include('../conexao.php');
+    require('../menu.php');
+    if(isset($_SESSION['admin'])){
+            $ID = $_SESSION['admin'];
+    }else{
+            $ID = $_SESSION['usuario'];
+    }
 
-$nome = $usuario['nome'];
-
-if(count($_POST) > 0){  
-
-$fornece = $_POST['fornece'];
-$setor = $_POST['setor'];
-$assi1 = $nome; 
-
-
-
-$erro = false;
+    $sql_setores = "SELECT * FROM setores";
+    $query_setores = $mysql->query($sql_setores) or die($mysql->error);
+    $num_setores = $query_setores->num_rows;
+    $query_setores2 = $mysql->query($sql_setores) or die($mysql->error);
+    $query_setores3 = $mysql->query($sql_setores) or die($mysql->error);
+    $query_setores4 = $mysql->query($sql_setores) or die($mysql->error);
+    $query_setores5 = $mysql->query($sql_setores) or die($mysql->error);
 
 
-if(empty($fornece)){
-  $erro = "Preencha o Fornecedor!";
-}
 
-else if(isset($erro)){
-  $sql_code = "INSERT INTO `ordens`(`ID`, `fornece`, `setor`, `requisitante`, `coordenador`, `direcao`,'Não Informado',NOW())";
-  $deu_certo = $mysql->query($sql_code) or die($mysql->error);
- 
+    $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
+    $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
+    $num_assinatura = $query_usuarios_assinatura->num_rows;
 
-}
-}
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+    $assi1 = $usuario['ID'];
+    if(count($_POST) > 0){
+        $assiCoord = $mysql->escape_string($_POST['assiCoord']);
+        $fornece = $mysql->escape_string($_POST['fornece']);
+        $setor = $mysql->escape_string($_POST['setor']);
+        $uni1 = $mysql->escape_string($_POST['uni1']);
+        $uni2 = $mysql->escape_string($_POST['uni2']);
+        $uni3 = $mysql->escape_string($_POST['uni3']);
+        $uni4 = $mysql->escape_string($_POST['uni4']);
+        $quant1 = $mysql->escape_string($_POST['quant1']);
+        $quant2 = $mysql->escape_string($_POST['quant2']);
+        $quant3 = $mysql->escape_string($_POST['quant3']);
+        $quant4 = $mysql->escape_string($_POST['quant4']);
+        $setor1 = $mysql->escape_string($_POST['setor1']);
+        $setor2 = $mysql->escape_string($_POST['setor2']);
+        $setor3 = $mysql->escape_string($_POST['setor3']);
+        $setor4 = $mysql->escape_string($_POST['setor4']);
+        $desc1 =  $mysql->escape_string($_POST['desc1']);
+        $desc2 =  $mysql->escape_string($_POST['desc2']);
+        $desc3 =  $mysql->escape_string($_POST['desc3']);
+        $desc4 =  $mysql->escape_string($_POST['desc4']);
+        $precUni1 = $mysql->escape_string($_POST['precUni1']);
+        $precUni2 = $mysql->escape_string($_POST['precUni2']);
+        $precUni3 = $mysql->escape_string($_POST['precUni3']);
+        $precUni4 = $mysql->escape_string($_POST['precUni4']);
+        $total = $_POST['valorTotal'];
 
+        $erro = false;
+        if((empty($fornece) || empty($assiCoord) || empty($setor)|| empty($uni1) || empty($quant1) || empty($setor1 ) || empty($desc1) || empty($desc1) || empty($precUni1)))  {
+          $erro = "Preencha Os Campos Restantes!";
+        }
+
+        else if($erro==false){
+          $sql_code = "INSERT INTO `ordens`( `fornece`, `setor`, `requisitante`, `coordenador`, `uni1`, `uni2`, `uni3`, `uni4`, `quant1`, `quant2`, `quant3`, `quant4`, `prod1`, `prod2`, `prod3`, `prod4`, `desp1`, `desp2`, `desp3`, `desp4`, `preco1`, `preco2`, `preco3`, `preco4`, `total`, `Status`, `Data`) 
+                                    VALUES ('$fornece','$setor','$assi1','$assiCoord','$uni1','$uni2','$uni3','$uni4','$quant1','$quant2','$quant3','$quant4','$desc1','$desc2','$desc3','$desc4','$setor1','$setor2','$setor3','$setor4','$precUni1','$precUni2','$precUni3','$precUni4','$total','',Now())";
+          $deu_certo = $mysql->query($sql_code) or die($mysql->error);
+
+        }
+    }
 ?>
 
 
 
 <?php
-} else {
-    header("Location:../logout.php");
-    die();
-}
-?>
-
-
-
-<?php
-    if(isset($erro)){
+    if(!empty($erro)){
       echo $erro;
     }
     if(isset($deu_certo)){
-      echo "Enviado com Sucesso!";
+        $mensagem_sucesso = "Enviado com Sucesso!";
     }
     ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,9 +95,9 @@ else if(isset($erro)){
   </head>
 
 <body>
-<?php if ($_SESSION['usuario']) {
+<?php if (isset($_SESSION['usuario'])) {
     echo $top;
-} else if ($_SESSION['admin']) {
+} else if (isset($_SESSION['admin'])) {
     echo $top_adm;
 } ?>
 
@@ -85,6 +105,16 @@ else if(isset($erro)){
 <div class="container-fluid p-5 text-center">
   <h1>ORDEM DE COMPRA</h1>
 </div>
+    <?php if (isset($erro)): ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $erro; ?>
+        </div>
+    <?php endif; ?>
+    <?php if (isset($mensagem_sucesso)): ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $mensagem_sucesso; ?>
+        </div>
+    <?php endif; ?>
 <div class="container mt-3">
 <section id="c">
   <table class="table">
@@ -99,15 +129,10 @@ else if(isset($erro)){
       </tr>
       <tr>
         <th><b>Setor:</b> <select class="span12" name="setor" id="a" required>
-                <option value="Selecionar">Selecionar</option>
-                <option value="Cef">Cef</option>
-                <option value="Cozinha">Cozinha</option>
-                <option value="Administração">Administração</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Financeiro">Financeiro</option>
-                <option value="Cias">Cias</option>
-                <option value="Clic">Clic</option>
-                <option value="Cep">Cep</option>
+                <option value="">Selecionar</option>
+                <?php while($setores = $query_setores->fetch_assoc()){?>
+                <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+                <?php } ?>
               </select></th>
         <th></th>
         <th></th>
@@ -124,103 +149,114 @@ else if(isset($erro)){
         <th>Preço Da Unidade</th>
         <th>Valor Total:</th>
       </tr>
-
       <tr>
-        <td><input type="text" class="unit" ></td>
-        <td><input type="number" class="quantity" oninput="updateTotal(this)" ></td>
-        <td><input type="text" class="description" ></td>
+        <td><input type="text" class="unit" name="uni1" ></td>
+        <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant1"></td>
+        <td><input type="text"  class="description"name="desc1" ></td>
           <td>
-              <select class="span12" name="dis1" id="a" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Cef">Cef</option>
-                  <option value="Cozinha">Cozinha</option>
-                  <option value="Administração">Administração</option>
-                  <option value="Cep">Cep</option>
+              <select class="span12" name="setor1" id="a" >
+                  <option value="">Selecionar</option>
+                  <?php while ($setores = $query_setores2->fetch_assoc()){ ?>
+                      <option value="<?php echo $setores['setor'];?>">
+                          <?php echo $setores['setor'];?>
+                      </option>
+                  <?php } ?>
               </select>
           </td>    
-          <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" ></td>
-          <td class="totalValue" id="valor">0.00</td>      
+          <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni1" ></td>
+          <td class="totalValue" id="valor">0.00</td>
       </tr>
       <tr>
-        <td><input type="text" class="unit" ></td>
-        <td><input type="number" class="quantity" oninput="updateTotal(this)" ></td>
-        <td><input type="text" class="description" ></td>
+        <td><input type="text" class="unit" name="uni2"></td>
+        <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant2" ></td>
+        <td><input type="text" class="description" name="desc2" ></td>
           <td>
-              <select class="span12" name="dis2" id="a" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Cef">Cef</option>
-                  <option value="Cozinha">Cozinha</option>
-                  <option value="Administração">Administração</option>
-                  <option value="Cep">Cep</option>
+              <select class="span12"  id="a"name="setor2">
+                  <option value="">Selecionar</option>
+                  <?php while($setores = $query_setores3->fetch_assoc()){?>
+                      <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+                  <?php } ?>
               </select>
-          </td>    
-          <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" ></td>
-          <td class="totalValue" id="valor">0.00</td> 
-      </tr>
-
-      <tr>
-        <td><input type="text" class="unit" ></td>
-        <td><input type="number" class="quantity" oninput="updateTotal(this)" ></td>
-        <td><input type="text" class="description" ></td>
-          <td>
-              <select class="span12" name="dis3" id="a" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Cef">Cef</option>
-                  <option value="Cozinha">Cozinha</option>
-                  <option value="Administração">Administração</option>
-                  <option value="Cep">Cep</option>
-              </select>
-          </td>    
-          <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" ></td>
-          <td class="totalValue">0.00</td> 
+          </td>
+          <td><input type="text" class="unitPrice" step="0.01"  oninput="updateTotal(this)"name="precUni2" ></td>
+          <td class="totalValue"  id="valor" name="vt2">0.00</td>
       </tr>
 
       <tr>
-        <td><input type="text" class="unit" ></td>
-        <td><input type="number" class="quantity" oninput="updateTotal(this)" ></td>
-        <td><input type="text" class="description" ></td>
+        <td><input type="text" class="unit"name="uni3" ></td>
+        <td><input type="number" class="quantity" oninput="updateTotal(this)"name="quant3" ></td>
+        <td><input type="text" class="description" name="desc3"></td>
           <td>
-              <select class="span12" name="dis4" id="a" >
-                  <option value="Selecionar">Selecionar</option>
-                  <option value="Cef">Cef</option>
-                  <option value="Cozinha">Cozinha</option>
-                  <option value="Administração">Administração</option>
-                  <option value="Cep">Cep</option>
+              <select class="span12"  id="a"name="setor3" >
+                  <option value="">Selecionar</option>
+                  <?php while($setores = $query_setores4->fetch_assoc()){?>
+                      <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+                  <?php } ?>
               </select>
-          </td>    
-          <td><input type="text" class="unitPrice" step="0.01"  oninput="updateTotal(this)" ></td>
-          <td class="totalValue">0.00</td> 
+          </td>
+          <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni3" ></td>
+          <td class="totalValue" name="vt3">0.00</td>
       </tr>
 
+      <tr>
+        <td><input type="text" class="unit" name="uni4" ></td>
+        <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant4" ></td>
+        <td><input type="text" class="description" name="desc4" ></td>
+          <td>
+              <select class="span12" id="a" name="setor4">
+                  <option value="">Selecionar</option>
+                  <?php while($setores = $query_setores5->fetch_assoc()){?>
+                      <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+                  <?php } ?>
+              </select>
+          </td>
+          <td><input type="text" class="unitPrice" step="0.01" value=""  oninput="updateTotal(this)"name="precUni4" ></td>
+          <td class="totalValue" >0.00</td>
+      </tr>
+       <tr>
+           <td><button>teste</button></td>
+       </tr>
       
 
       <th><b>Valor Geral</b></th>
-      <th><input placeholder="00,00" type="text" class="Value" id="valor-Total" readonly></th>
+      <th><input placeholder="00,00" type="text" name="valorTotal" value="" class="Value" id="valor-Total" readonly></th>
    </table>
 
    <table class="table">
     <thead>
       <tr>
-        <th><b>Requisitante:</b> <input id="a" name="assi1" value="<?php echo $usuario['nome']; ?>" readonly type="text"></th>
+        <th><b>Requisitante:</b> <?php echo $usuario['nome']; ?></th>
         <th></th>
         <th></th>
         <th></th>
       </tr>
       <tr>
         <th><b>Coordenador:</b>
-        <select id="a">
-                  <option value="Selecionar">Marcelo</option>
-                  <option value="Cef">Guilherme</option>
-                  <option value="Cozinha">Nei</option>
-                  <option value="Administração">Lacir</option>
+        <select id="a" name="assiCoord">
+                  <option value="">Selecionar</option>
+                  <?php
+                          if($num_assinatura==0){
+                            $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token2 = '7' ";
+                            $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
+                            while ($assinatura = $query_usuarios_assinatura->fetch_assoc()){
+                    ?>
+                  <option value="<?php echo $assinatura['ID'];?>"><?php echo $assinatura['nome'];?></option>
+
+                    <?php
+                            }}else{
+                    while ($assinatura = $query_usuarios_assinatura->fetch_assoc()){?>
+                      <option value="<?php echo $assinatura['ID'];?>"><?php echo $assinatura['nome'];?></option>
+                    <?php }
+                  }
+
+                       ?>
               </select>
         </th>
       </tr>
 
       <tr>
-        <th><b>Direção:</b><select id="a">
-                  <option value="Selecionar">Marcelo</option>
-                </select>
+        <th><b>Direção:</b>
+
         </th>
       </tr>
     </thead>
@@ -285,4 +321,7 @@ $(document).ready(function() {
 <script src="../../javaScript/mobile-navbar.js"></script>
 
 </html>
-
+<?php } else {
+    header("Location:../logout.php");
+    die();
+}

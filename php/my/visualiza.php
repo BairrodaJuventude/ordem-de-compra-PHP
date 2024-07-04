@@ -3,12 +3,16 @@ if(!isset($_SESSION)){
     session_start();
 }
 
-if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
+if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
     include('../conexao.php');
     require('../menu.php');
-    
-    $ID = intval($_GET['ID']);
-    $id = intval($_GET['idme']);
+
+    if(isset($_SESSION['admin'])&&!isset($_SESSION['usuario'])) {
+        $ID =$_SESSION['admin'];
+    }else if(!isset($_SESSION['admin'])&&isset($_SESSION['usuario'])){
+        $ID = $_SESSION['usuario'];
+    }
+    $id_ordem = intval($_GET['idme']);
 
     $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
     $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
@@ -20,19 +24,16 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
         $Status = $_POST['Status'];
         $erro = false;
         
-        if(empty($erro)){
-            $sql_code = "UPDATE `ordens` SET coordenador = '$nome', Status = '$Status' WHERE ID = '$id'";
+        if(empty($erro) && ($usuario['token']==7 ||$usuario['token2']==7 )){
+            $sql_code = "UPDATE `ordens` SET coordenador = '$nome', Status = '$Status' WHERE ID = '$id_ordem'";
             $deu_certo = $mysql->query($sql_code) or die($mysql->error);
         }
     }
 
-    $sql = "SELECT * FROM ordens WHERE ID = '$ID'";
-    $query = $mysql->query($sql) or die($mysql->error);
-    $usuar = $query->fetch_assoc();
+    $sql_ordem = "SELECT * FROM ordens WHERE ID = '$id_ordem'";
+    $query_ordem = $mysql->query($sql_ordem) or die($mysql->error);
+    $ordens = $query_ordem->fetch_assoc();
 
-    $sql_usuarios = "SELECT * FROM ordens WHERE ID = '$id'";
-    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-    $usuario = $query_usuarios->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +49,7 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
 </head>
 <body>
 
-<?php if($_SESSION['usuario']){ echo $top;}else if($_SESSION['admin']){echo $top_adm;}?>
+<?php if(isset($_SESSION['usuario'])){ echo $top;}else if(isset($_SESSION['admin'])){echo $top_adm;}?>
 
 <main>
     <div class="container-fluid p-5 text-center ">
@@ -60,13 +61,13 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
                 <table class="table">
                     <thead>
                         <tr>
-                            <th><b>Fornecedor:</b><input id="a" value="<?php echo $usuario['fornece'];?>" name="fornece" readonly type="text"></th>
+                            <th><b>Fornecedor:</b><input id="a" value="<?php echo $ordens['fornece'];?>" name="fornece" readonly type="text"></th>
                             <th></th>
                             <th></th>
                             <th></th>
                         </tr>
                         <tr>
-                            <th><b>Setor:</b><input id="a" value="<?php echo $usuario['setor'];?>" name="setor" readonly type="text"></th>
+                            <th><b>Setor:</b><input id="a" value="<?php echo $ordens['setor'];?>" name="setor" readonly type="text"></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -84,9 +85,9 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
                     </tr>
 
                     <tr>
-                        <td><input type="text" class="unit" value="<?php echo $usuario['uni1'];?>" readonly></td>
-                        <td><input type="number" class="quantity" value="<?php echo $usuario['quant1'];?>" readonly oninput="updateTotal(this)"></td>
-                        <td><input type="text" class="description" value="<?php echo $usuario['prod1'];?>" readonly></td>
+                        <td><input type="text" class="unit" value="<?php echo $ordens['uni1'];?>" readonly></td>
+                        <td><input type="number" class="quantity" value="<?php echo $ordens['quant1'];?>" readonly oninput="updateTotal(this)"></td>
+                        <td><input type="text" class="description" value="<?php echo $ordens['prod1'];?>" readonly></td>
                         <td>
                             <select class="span12" name="dis1" id="a" readonly>
                                 <option value="Selecionar">Selecionar</option>
@@ -96,8 +97,8 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
                                 <option value="Cep">Cep</option>
                             </select>
                         </td>    
-                        <td><input type="text" class="unitPrice" value="<?php echo $usuario['preco1'];?>" readonly step="0.01" oninput="updateTotal(this)"></td>
-                        <td class="totalValue"><?php echo $usuario['vt1'];?></td>      
+                        <td><input type="text" class="unitPrice" value="<?php echo $ordens['preco1'];?>" readonly step="0.01" oninput="updateTotal(this)"></td>
+                        <td class="totalValue"></td>
                     </tr>
                   
                     <tr>
@@ -107,9 +108,9 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
                 </table>
 
                 <table class="table">
-                    <thead>
+                        <thead>
                         <tr>
-                            <th><b>Requisitante:</b> <input id="a" name="assi1" value="<?php echo $usuario['nome']; ?>" readonly type="text"></th>                            <th></th>
+                            <th><b>Requisitante:</b> <input id="a" name="assi1" value="<?php  $ordens['requisitante']; ?>" readonly type="text"></th>                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
