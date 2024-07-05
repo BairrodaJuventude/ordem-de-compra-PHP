@@ -107,7 +107,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                     <select class="span12"  id="a"name="setor2"readonly>
                         <option value="">Selecionar</option>
 
-                            <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+                            <option value="<?php echo $ordens['setor'];?>"><?php echo $ordens['setor'];?></option>
 
                     </select>
                 </td>
@@ -123,7 +123,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                     <select class="span12"  id="a"name="setor3" >
                         <option value="">Selecionar</option>
 
-                            <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+                            <option value="<?php echo $ordens['setor'];?>"><?php echo $ordens['setor'];?></option>
 
                     </select>
                 </td>
@@ -139,7 +139,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                     <select class="span12" id="a" name="setor4">
                         <option value="">Selecionar</option>
 
-                            <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
+                            <option value="<?php echo $ordens['setor'];?>"><?php echo $ordens['setor'];?></option>
 
                     </select>
                 </td>
@@ -156,7 +156,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
         <table class="table">
             <thead>
             <tr>
-                <th><b>Requisitante:</b> </th>
+                <th><b>Requisitante:</b><?php  ?> </th>
                 <th></th>
                 <th></th>
                 <th></th>

@@ -98,10 +98,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
   <?php }else{
         while($ordem = $query_ordens->fetch_assoc()){
             $data = date_create($ordem['Data']);
-            $id_setor = $ordem['setor'];
-            $sql_setor ="SELECT * FROM setores WHERE id_setor = '$id_setor' ";
-            $query_setor = $mysql->query($sql_setor) or die($mysql->error);
-            $setores = $query_setor->fetch_assoc();
+
 
 
             ?>

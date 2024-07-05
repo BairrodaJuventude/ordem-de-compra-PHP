@@ -10,17 +10,6 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
     }else{
             $ID = $_SESSION['usuario'];
     }
-
-    $sql_setores = "SELECT * FROM setores";
-    $query_setores = $mysql->query($sql_setores) or die($mysql->error);
-    $num_setores = $query_setores->num_rows;
-    $query_setores2 = $mysql->query($sql_setores) or die($mysql->error);
-    $query_setores3 = $mysql->query($sql_setores) or die($mysql->error);
-    $query_setores4 = $mysql->query($sql_setores) or die($mysql->error);
-    $query_setores5 = $mysql->query($sql_setores) or die($mysql->error);
-
-
-
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
     $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
     $num_assinatura = $query_usuarios_assinatura->num_rows;
@@ -213,9 +202,20 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
       <tr>
         <th><b>Setor:</b> <select class="span12" name="setor" id="a" required>
                 <option value="">Selecionar</option>
-                <?php while($setores = $query_setores->fetch_assoc()){?>
-                <option value="<?php  echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
-                <?php } ?>
+                <option value="INFANTIL">INFANTIL</option>
+                <option value="ESCOLA">ESCOLA</option>
+                <option value="ESP_CULTURAL">ESP_CULTURAL</option>
+                <option value=" OFICINAS_ESPORTIVAS"> OFICINAS_ESPORTIVAS</option>
+                <option value="OFICINAS_CULTURAIS">OFICINAS_CULTURAIS</option>
+                <option value="LABORATORIOS">LABORATORIOS</option>
+                <option value="PSICOSSOCIAL">PSICOSSOCIAL</option>
+                <option value="RECURSOS">RECURSOS</option>
+                <option value="RELACIONAMENTO">RELACIONAMENTO</option>
+                <option value="COZINHA">COZINHA</option>
+                <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                <option value="TRANSPORTE">TRANSPORTE</option>
+                <option value="ALMOXARIFADO">ALMOXARIFADO</option>
+                <option value="RH">RH</option>
               </select></th>
         <th></th>
         <th></th>
@@ -242,11 +242,20 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
           <td>
               <select class="span12" name="setor1" id="a" required>
                   <option value="">Selecionar</option>
-                  <?php while ($setores = $query_setores2->fetch_assoc()){ ?>
-                      <option value="<?php echo $setores['setor'];?>">
-                          <?php echo $setores['setor'];?>
-                      </option>
-                  <?php } ?>
+                  <option value="INFANTIL">INFANTIL</option>
+                  <option value="ESCOLA">ESCOLA</option>
+                  <option value="ESP_CULTURAL">ESP_CULTURAL</option>
+                  <option value=" OFICINAS_ESPORTIVAS"> OFICINAS_ESPORTIVAS</option>
+                  <option value="OFICINAS_CULTURAIS">OFICINAS_CULTURAIS</option>
+                  <option value="LABORATORIOS">LABORATORIOS</option>
+                  <option value="PSICOSSOCIAL">PSICOSSOCIAL</option>
+                  <option value="RECURSOS">RECURSOS</option>
+                  <option value="RELACIONAMENTO">RELACIONAMENTO</option>
+                  <option value="COZINHA">COZINHA</option>
+                  <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                  <option value="TRANSPORTE">TRANSPORTE</option>
+                  <option value="ALMOXARIFADO">ALMOXARIFADO</option>
+                  <option value="RH">RH</option>
               </select>
           </td>    
           <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni1" required></td>
@@ -259,9 +268,20 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
           <td>
               <select class="span12"  id="a"name="setor2required">
                   <option value="">Selecionar</option>
-                  <?php while($setores = $query_setores3->fetch_assoc()){?>
-                      <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
-                  <?php } ?>
+                  <option value="INFANTIL">INFANTIL</option>
+                  <option value="ESCOLA">ESCOLA</option>
+                  <option value="ESP_CULTURAL">ESP_CULTURAL</option>
+                  <option value=" OFICINAS_ESPORTIVAS"> OFICINAS_ESPORTIVAS</option>
+                  <option value="OFICINAS_CULTURAIS">OFICINAS_CULTURAIS</option>
+                  <option value="LABORATORIOS">LABORATORIOS</option>
+                  <option value="PSICOSSOCIAL">PSICOSSOCIAL</option>
+                  <option value="RECURSOS">RECURSOS</option>
+                  <option value="RELACIONAMENTO">RELACIONAMENTO</option>
+                  <option value="COZINHA">COZINHA</option>
+                  <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                  <option value="TRANSPORTE">TRANSPORTE</option>
+                  <option value="ALMOXARIFADO">ALMOXARIFADO</option>
+                  <option value="RH">RH</option>
               </select>
           </td>
           <td><input type="text" class="unitPrice" step="0.01"  oninput="updateTotal(this)"name="precUni2"required ></td>
@@ -275,9 +295,20 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
           <td>
               <select class="span12"  id="a"name="setor3"required>
                   <option value="">Selecionar</option>
-                  <?php while($setores = $query_setores4->fetch_assoc()){?>
-                      <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
-                  <?php } ?>
+                  <option value="INFANTIL">INFANTIL</option>
+                  <option value="ESCOLA">ESCOLA</option>
+                  <option value="ESP_CULTURAL">ESP_CULTURAL</option>
+                  <option value=" OFICINAS_ESPORTIVAS"> OFICINAS_ESPORTIVAS</option>
+                  <option value="OFICINAS_CULTURAIS">OFICINAS_CULTURAIS</option>
+                  <option value="LABORATORIOS">LABORATORIOS</option>
+                  <option value="PSICOSSOCIAL">PSICOSSOCIAL</option>
+                  <option value="RECURSOS">RECURSOS</option>
+                  <option value="RELACIONAMENTO">RELACIONAMENTO</option>
+                  <option value="COZINHA">COZINHA</option>
+                  <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                  <option value="TRANSPORTE">TRANSPORTE</option>
+                  <option value="ALMOXARIFADO">ALMOXARIFADO</option>
+                  <option value="RH">RH</option>
               </select>
           </td>
           <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni3"required ></td>
@@ -291,14 +322,25 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
           <td>
               <select class="span12" id="a" name="setor4"required>
                   <option value="">Selecionar</option>
-                  <?php while($setores = $query_setores5->fetch_assoc()){?>
-                      <option value="<?php echo $setores['setor'];?>"><?php echo $setores['setor'];?></option>
-                  <?php } ?>
+                  <option value="INFANTIL">INFANTIL</option>
+                  <option value="ESCOLA">ESCOLA</option>
+                  <option value="ESP_CULTURAL">ESP_CULTURAL</option>
+                  <option value=" OFICINAS_ESPORTIVAS"> OFICINAS_ESPORTIVAS</option>
+                  <option value="OFICINAS_CULTURAIS">OFICINAS_CULTURAIS</option>
+                  <option value="LABORATORIOS">LABORATORIOS</option>
+                  <option value="PSICOSSOCIAL">PSICOSSOCIAL</option>
+                  <option value="RECURSOS">RECURSOS</option>
+                  <option value="RELACIONAMENTO">RELACIONAMENTO</option>
+                  <option value="COZINHA">COZINHA</option>
+                  <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                  <option value="TRANSPORTE">TRANSPORTE</option>
+                  <option value="ALMOXARIFADO">ALMOXARIFADO</option>
+                  <option value="RH">RH</option>
               </select>
           </td>
           <td><input type="text" class="unitPrice" step="0.01"oninput="updateTotal(this)"name="precUni4"required ></td>
           <td class="totalValue" >0.00</td>
-          <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">-</button></td>
+
       </tr>
        </tbody>
    </table>
@@ -380,19 +422,29 @@ document.getElementById('addInput').addEventListener('click', function() {
 
 const newRow = document.createElement('tr');
 newRow.innerHTML = `
-<td><input type="text" class="unit"></td>
-<td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-<td><input type="text" class="description"></td>
+<td><input type="text" class="unit" name=""></td>
+<td><input type="number" class="quantity" oninput="updateTotal(this)"name=""></td>
+<td><input type="text" class="description"name=""></td>
 <td>
     <select class="span12" name="dis">
         <option value="Selecionar">Selecionar</option>
-        <option value="Cef">Cef</option>
-        <option value="Cozinha">Cozinha</option>
-        <option value="Administração">Administração</option>
-        <option value="Cep">Cep</option>
+        <option value="INFANTIL">INFANTIL</option>
+                <option value="ESCOLA">ESCOLA</option>
+                <option value="ESP_CULTURAL">ESP_CULTURAL</option>
+                <option value=" OFICINAS_ESPORTIVAS"> OFICINAS_ESPORTIVAS</option>
+                <option value="OFICINAS_CULTURAIS">OFICINAS_CULTURAIS</option>
+                <option value="LABORATORIOS">LABORATORIOS</option>
+                <option value="PSICOSSOCIAL">PSICOSSOCIAL</option>
+                <option value="RECURSOS">RECURSOS</option>
+                <option value="RELACIONAMENTO">RELACIONAMENTO</option>
+                <option value="COZINHA">COZINHA</option>
+                <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                <option value="TRANSPORTE">TRANSPORTE</option>
+                <option value="ALMOXARIFADO">ALMOXARIFADO</option>
+                <option value="RH">RH</option>
     </select>
 </td>
-<td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)"></td>
+<td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)"name=""></td>
 <td class="totalValue">0.00</td>
 <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Remover</button></td>
 `;
@@ -417,7 +469,7 @@ decimal: ','
 </body>
 
 <script src="../../javaScript/mobile-navbar.js"></script>
-<script src="../../javaScript/add.js"></script>
+
 
 </html>
 <?php } else {
