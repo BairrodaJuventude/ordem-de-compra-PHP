@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="ajuste na listagem das ordens ja prontas(Terminar), Analizando a parte de verificaçao de cada ordem de compra">
+      <change afterPath="$PROJECT_DIR$/javaScript/add.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,10 +17,17 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Luiz-Henrique" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
