@@ -61,7 +61,7 @@ if(isset($deu_certo)){
     <script src="/compra/javaScript/jquery-3.7.1.min.js"></script>
     <script src="/compra/javaScript/jquery.maskMoney.js"></script>
     <title>Projeto</title>
-    
+
     <style>
         @media (max-width: 768px) {
             .table th, .table td {
@@ -80,13 +80,16 @@ if(isset($deu_certo)){
     </style>
 </head>
 
-<body>
+<body  onload="preencherData()">
 
 <?php if ($_SESSION['usuario']) {
     echo $top;
 } else if ($_SESSION['admin']) {
     echo $top_adm;
 } ?>
+
+
+
 
 <footer style="height: 84vh;">
     <div class="container-fluid p-5 text-center">
@@ -97,6 +100,12 @@ if(isset($deu_certo)){
             <form action="" method="post">
                 <table class="table">
                     <thead>
+
+                    <tr>
+                        <th for="data"><b>Data:</b>
+                        <input type="text" id="data" name="data" readonly></th>
+                    </tr>
+
                     <tr>
                         <th><b>Fornecedor:</b><input id="a" name="fornece" type="text" required></th>
                         <th></th>
@@ -120,6 +129,12 @@ if(isset($deu_certo)){
                         <th></th>
                         <th></th>
                         <th></th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <!-- Contador de linhas adicionadas -->
+                            <span style="color: brown" id="linhaCount" class="linha-count">4 Colunas adicionadas</span>
+                        </th>
                     </tr>
                     </thead>
                 </table>
@@ -160,7 +175,7 @@ if(isset($deu_certo)){
                         <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
                         <td><input type="text" class="description"></td>
                         <td>
-                            <select class="span12" name="dis1" id="a">
+                            <select class="span12" name="dis2" id="a">
                                 <option value="Selecionar">Selecionar</option>
                                 <option value="Cef">Cef</option>
                                 <option value="Cozinha">Cozinha</option>
@@ -178,7 +193,7 @@ if(isset($deu_certo)){
                         <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
                         <td><input type="text" class="description"></td>
                         <td>
-                            <select class="span12" name="dis1" id="a">
+                            <select class="span12" name="dis3" id="a">
                                 <option value="Selecionar">Selecionar</option>
                                 <option value="Cef">Cef</option>
                                 <option value="Cozinha">Cozinha</option>
@@ -196,7 +211,7 @@ if(isset($deu_certo)){
                         <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
                         <td><input type="text" class="description"></td>
                         <td>
-                            <select class="span12" name="dis1" id="a">
+                            <select class="span12" name="dis" id="a">
                                 <option value="Selecionar">Selecionar</option>
                                 <option value="Cef">Cef</option>
                                 <option value="Cozinha">Cozinha</option>
@@ -218,8 +233,8 @@ if(isset($deu_certo)){
                 <table class="table">
                     <thead>
                     <tr>
-                        <th><b>Valor Geral</b></th>
-                        <th><input placeholder="00,00" type="text" class="Value" id="valor-Total" readonly></th>
+                        <th><b>Valor Geral</b>
+                        <input placeholder="00,00" type="text" class="Value" id="valor-Total" readonly></th>
                     </tr>
                     <tr>
                         <th><b>Requisitante:</b> <input id="a" name="assi1" value="<?php echo $usuario['nome']; ?>" readonly type="text"></th>
@@ -260,63 +275,9 @@ if(isset($deu_certo)){
     </div>
 </footer>
 
-<script>
-    function updateTotal(element) {
-        const row = element.parentNode.parentNode;
-        const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
-        const unitPrice = parseFloat(row.querySelector('.unitPrice').value.replaceAll("R$ ", "").replaceAll(".", "").replaceAll(",", ".")) || 0;
-        const totalValue = row.querySelector('.totalValue');
-        const total = (quantity * unitPrice).toFixed(2);
-        totalValue.textContent = isNaN(total) ? '0.00' : total;
-        updateGrandTotal();
-    }
 
-    function updateGrandTotal() {
-        const totalCells = document.querySelectorAll('.totalValue');
-        let grandTotal = 0;
-        totalCells.forEach(cell => {
-            grandTotal += parseFloat(cell.textContent) || 0;
-        });
-        document.getElementById('valor-Total').value = grandTotal.toFixed(2);
-    }
-
-    document.getElementById('addInput').addEventListener('click', function() {
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td><input type="text" class="unit"></td>
-            <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-            <td><input type="text" class="description"></td>
-            <td>
-                <select class="span12" name="dis">
-                    <option value="Selecionar">Selecionar</option>
-                    <option value="Cef">Cef</option>
-                    <option value="Cozinha">Cozinha</option>
-                    <option value="Administração">Administração</option>
-                    <option value="Cep">Cep</option>
-                </select>
-            </td>
-            <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)"></td>
-            <td class="totalValue">0.00</td>
-            <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Remover</button></td>
-        `;
-        document.getElementById('tableBody').appendChild(newRow);
-    });
-
-    function removeRow(button) {
-        button.parentNode.parentNode.remove();
-        updateGrandTotal();
-    }
-
-    $(document).ready(function() {
-        $(".unitPrice, #valor-Total").maskMoney({
-            prefix: 'R$ ',
-            allowNegative: false,
-            thousands: '.',
-            decimal: ','
-        });
-    });
-</script>
 <script src="../../javaScript/mobile-navbar.js"></script>
+<script src="../../javaScript/enviar.js"></script>
 <script src="../../javaScript/add.js"></script>
 
 </body>
