@@ -44,7 +44,7 @@ function addRow() {
         // Cria uma nova linha para a tabela
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-            <td><input type="text" class="unit"></td>
+            <td><input type="text" class="unit" name="unit"></td>
             <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
             <td><input type="text" class="description"></td>
             <td>
@@ -75,7 +75,7 @@ function addRow() {
 // Função para remover uma linha da tabela
 function removeRow(button) {
     // Remove a linha pai do botão clicado
-    button.closest('tr').remove();
+    button.closest( 'tr').remove();
 
     // Atualiza o valor total geral após a remoção
     updateGrandTotal();
