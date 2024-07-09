@@ -6,26 +6,27 @@ if(!isset($_SESSION)){
 if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
     include('../conexao.php');
     require('../menu.php');
-
+//        faz uma verificacao de sessao para fazer uma requisisao das informacoes do usuario
     if(isset($_SESSION['admin'])&&!isset($_SESSION['usuario'])) {
         $ID =$_SESSION['admin'];
     }else if(!isset($_SESSION['admin'])&&isset($_SESSION['usuario'])){
         $ID = $_SESSION['usuario'];
     }
+//    Capta o identificador da ordem de compra via URI
     $id_ordem = intval($_GET['idme']);
-
+//    Faz uma requisisao das informasoes do usuario logado
     $sql_usuario ="SELECT * FROM usuarios WHERE ID = '$ID'";
     $query_usuarios = $mysql->query($sql_usuario) or die($mysql->error);
     $usuario = $query_usuarios->fetch_assoc();
-
+//    Faz uma listagem de todos os coordenadores cadastrados de acordo com seus tokens
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
     $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
     $num_assinatura = $query_usuarios_assinatura->num_rows;
-
+//    Faz uma requisisao das informasoes da ordem de compra de acordo com o identificador
     $sql_ordem = "SELECT * FROM ordens WHERE ID = '$id_ordem'";
     $query_ordem = $mysql->query($sql_ordem) or die($mysql->error);
     $ordens = $query_ordem->fetch_assoc();
-
+//  Faz uma contagem de arrays do tipo POST
     if(count($_POST) > 0){
         $direcao = 0;
         $status = $ordens['Status'];
@@ -33,13 +34,14 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
         if (isset($_POST['status'])){
             $status = $_POST['status'];
         }
-        
+//        Verificacao de token para o campo de autorizacao
         if(($usuario['token']==7 ||$usuario['token2']==7 || $usuario['token'] == 1 || $usuario['token2'] == 1
             || $usuario['token'] == 5 || $usuario['token2'] == 5|| $usuario['token'] == 9
             || $usuario['token2'] == 9 || $usuario['token'] = 3 || $usuario['token2'] == 3)){
             if($ordens['Status'] == 4){
                 $resebido = 0;
                 $resebido = $_POST['reseb'];
+
                 $sql_code = "UPDATE `ordens` SET resebido = '$resebido' WHERE ID = '$id_ordem'";
                 $deu_certo = $mysql->query($sql_code) or die($mysql->error);
                 header("location: lista.php");
@@ -53,8 +55,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
 
 
 
-
-
+    //    Requisicao de usuarios com o token de direcao para o direcionamento
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token AND token2 = '5'";
     $query_usuarios_assinatura2 = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
     $num_assinatura = $query_usuarios_assinatura2->num_rows;
@@ -405,6 +406,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             <th><b>Valor Geral</b></th>
             <th><input placeholder="00,00" type="text" name="valorTotal" value="<?php echo $ordens['total']; ?>" class="Value" id="valor-Total" readonly></th>
         </table>
+<!--        Vericacao de tokens para a mostra de Um campo de autorizacao de envio   -->
         <?php if ($usuario['token']==7 || $usuario['token2'] == 7){?>
             <button id="button" style="background-color: #ff0000; color: white;" name="status" value="2" type="submit">Rejeitar</button>
             <button id="button" style="background-color: #0000ff; color: white;" name="status" value="1" type="submit">Autorizar</button>
@@ -422,6 +424,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                 <th><b>Requisitante:</b>
 
                     <?php
+//                        Busca da assinatura do requisitante
                         $idRequisitante = $ordens['requisitante'];
                         $sql_ordemRe = "SELECT * FROM usuarios WHERE ID = '$idRequisitante'";
                         $query_ordemRe = $mysql->query($sql_ordemRe) or die($mysql->error);
@@ -436,6 +439,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             <tr>
                 <th><b>Coordenador:</b>
                         <?php
+//                        Busca da assinatura do coordenador
                             $id_coor = $ordens['coordenador'];
                             $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE ID = $id_coor ";
                             $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
@@ -452,7 +456,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                 <th><b>Direção:</b>
 
                     <select id="a" name="assiDi">
-
+<!--                        Busca da assinatura do Direcao-->
                         <?php
                        if ($usuario['token'] == 7 || $usuario['token2'] == 7 || $usuario['token'] == 1 || $usuario['token2'] == 1) {
 

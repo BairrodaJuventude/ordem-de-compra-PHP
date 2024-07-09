@@ -8,7 +8,7 @@ if (isset($_SESSION['admin'])) {
 
     $mensagem_sucesso = "";
     $erro = "";
-
+//    Verificacao de credenciais de usuario
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome = $mysql->escape_string($_POST['nome']);
         $email = $mysql->escape_string($_POST['email']);
@@ -21,7 +21,7 @@ if (isset($_SESSION['admin'])) {
         } else {
 
             $senha = password_hash($senha_fraca, PASSWORD_DEFAULT);
-
+//              Usuario enviado para o banco de dados
             $sql_code = "INSERT INTO usuarios (nome, email, senha, atualiza, token, token2, Status) VALUES ('$nome', '$email', '$senha', '0000-00-00 00:00:00' , '$token', '$token2', '1')";
             $deu_certo = $mysql->query($sql_code);
 

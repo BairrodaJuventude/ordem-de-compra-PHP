@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Envio de Ordem (Terminar), Visualuzar ordem ja enviada(Terminar),&#10;Estatos De Autorizaçao da Ordem(Terminar),&#10;Fazer verificaçao de Segurança.">
-      <change afterPath="$PROJECT_DIR$/javaScript/enviar.js" afterDir="false" />
+    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Arquivos da apresentaçao guilherme">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javaScript/jquery.mask.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/logout.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/logout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teste.php" beforeDir="false" afterPath="$PROJECT_DIR$/teste.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +98,7 @@
       <workItem from="1720376658808" duration="4002000" />
       <workItem from="1720405727173" duration="160000" />
       <workItem from="1720406229117" duration="9563000" />
-      <workItem from="1720455596304" duration="2628000" />
+      <workItem from="1720455596304" duration="3227000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
@@ -141,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720149807008</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Arquivos da apresentaçao guilherme">
+      <option name="closed" value="true" />
+      <created>1720521893408</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1720521893408</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +163,7 @@
     <MESSAGE value="ajuste na listagem das ordens ja prontas(Terminar), Analizando a parte de verificaçao de cada ordem de compra" />
     <MESSAGE value="Envio de Ordem (Terminar), Visualuzar ordem ja enviada(Terminar),&#10;Estatos De Autorizaçao da Ordem(Terminar)" />
     <MESSAGE value="Envio de Ordem (Terminar), Visualuzar ordem ja enviada(Terminar),&#10;Estatos De Autorizaçao da Ordem(Terminar),&#10;Fazer verificaçao de Segurança." />
-    <option name="LAST_COMMIT_MESSAGE" value="Envio de Ordem (Terminar), Visualuzar ordem ja enviada(Terminar),&#10;Estatos De Autorizaçao da Ordem(Terminar),&#10;Fazer verificaçao de Segurança." />
+    <MESSAGE value="Arquivos da apresentaçao guilherme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arquivos da apresentaçao guilherme" />
   </component>
 </project>

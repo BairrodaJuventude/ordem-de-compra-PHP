@@ -2,6 +2,7 @@
     if(!isset($_SESSION)){
         session_start();
     }
+//    Verifica se existe uma sessao admim ou sessao usuario
     if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
     include('../conexao.php');
     require('../menu.php');
@@ -12,6 +13,7 @@
     }else {
         $ID = $_SESSION['usuario'];
     }
+//    Pega as informacoes do usuario de acordo com o identificador
     $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
     $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
     $usuario = $query_usuarios->fetch_assoc();

@@ -4,16 +4,18 @@
     if(!isset($_SESSION)){
         session_start();
     }
-    
+//    verificacao de sessao admin
     if(isset($_SESSION['admin'])){
     include('../conexao.php');
     require('../menu.php');
 
     $ID = $_SESSION['admin'];
+//    consulta ao banco de dados, Para a listagem de todos usuarios
     $sql_usuarios = "SELECT * FROM usuarios"; 
     $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
     $num_usuarios = $query_usuarios->num_rows;
 
+//    verificacao de edicao/desativacao de usuario
     $editar = false; 
     if($editar == 1){
         $editar = "<h1>Tem certeza que deseja excluir este usuario</h1>";
@@ -58,13 +60,14 @@
         <th>Opções</th>
       </tr>
       </tbody>
-      
-         
-      <?php if($num_usuarios == 0){?>
+      <?php
+//      Verificacao se ha algum usuario no banco
+      if($num_usuarios == 0){?>
         <tr>
           <td>Nenhum Usuario Cadastrado...</td>
         </tr>
         <?php }else if($num_usuarios != 0 ){
+//          Listagem de todos usuarios cadastrados
           while($usuarios =  $query_usuarios->fetch_assoc()){
             $dataCadastro = date_create($usuarios['cadastro']);
             ?>

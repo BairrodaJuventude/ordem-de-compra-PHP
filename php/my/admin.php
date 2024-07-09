@@ -2,16 +2,10 @@
 if(!isset($_SESSION)){
     session_start();
 }
+//      Filtro de usuario na pagina
 if(isset($_SESSION['admin'])){
 include('../conexao.php');
 require('../menu.php');
-
-    
-$ID = $_SESSION['admin'];
-$sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
-$query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-$usuario = $query_usuarios->fetch_assoc();
-
 ?>
 
 

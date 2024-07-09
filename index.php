@@ -13,13 +13,14 @@
         <form method="post" class="login-form">
             <h2>Login</h2>
             <?php
-//            faz uma pesquisa no banco de dados usando
+//            faz uma pesquisa no banco de dados para verificar se o usuario esta cadastrado
             if(isset($_POST['nome']) && (isset($_POST['senha']))){
                     include('php/conexao.php');
                     $nome = $mysql->escape_string($_POST['nome']);
                     $senha = $_POST['senha'];
                     $sql_code = "SELECT * FROM usuarios WHERE nome = '$nome'";
                     $sql_query = $mysql->query($sql_code) or die($mysql->error);
+//                    Verifica se existe algum usuario com esse nome
                     if($sql_query->num_rows == 0){
                         echo "<p class='error-msg'>Os Dados Informados Estão Incorretos.</p>";
                     }else{

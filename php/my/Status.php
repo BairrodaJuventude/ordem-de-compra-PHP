@@ -1,4 +1,5 @@
 <?php
+//  Muda o Status do Usuario se ele esta desativado ou ativado
 include "../conexao.php";
 $id_usuario = intval($_GET['idUsu']);
 $sql_usuarios = "SELECT * FROM usuarios where ID = '$id_usuario'";

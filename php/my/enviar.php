@@ -10,10 +10,11 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
     }else{
             $ID = $_SESSION['usuario'];
     }
+//    Buscando todos os usuarios com o token de coordenador
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
     $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
     $num_assinatura = $query_usuarios_assinatura->num_rows;
-
+//  Busca de dados de usuario requisitante para a assinatura
     $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
     $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
     $usuario = $query_usuarios->fetch_assoc();
@@ -521,7 +522,7 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
         }
         $total = $_POST['valorTotal'];
 
-
+//  Cadastro de ordom de compra
         $sql_code = "
 INSERT INTO `ordens` 
     (ID,`fornece`, `setor`, `requisitante`, `coordenador`, `direcao`, `comprador`, `resebido`, `estado`,
@@ -559,9 +560,6 @@ INSERT INTO `ordens`
 
 
     }
-
-//    INSERT INTO `ordens`( `fornece`, `setor`, `requisitante`, `coordenador`, `uni1`, `uni2`, `uni3`, `uni4`, `quant1`, `quant2`, `quant3`, `quant4`, `prod1`, `prod2`, `prod3`, `prod4`, `desp1`, `desp2`, `desp3`, `desp4`, `preco1`, `preco2`, `preco3`, `preco4`, `total`, `Status`, `Data`)
-//            VALUES ('$fornece','$setor','$assi1','$assiCoord','$uni1','$uni2','$uni3','$uni4','$quant1','$quant2','$quant3','$quant4','$desc1','$desc2','$desc3','$desc4','$setor1','$setor2','$setor3','$setor4','$precUni1','$precUni2','$precUni3','$precUni4','$total','0','Now()')";
         ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -572,8 +570,6 @@ INSERT INTO `ordens`
             <link rel="icon" href="../../img/a.jpg">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!--            <script src="/compra/javaScript/jquery-3.7.1.min.js"></script>-->
-<!--            <script src="/compra/javaScript/jquery.maskMoney.js"></script>-->
             <title>Projeto</title>
         </head>
 
@@ -841,6 +837,7 @@ INSERT INTO `ordens`
                                 <select id="a" name="assiCoord" required>
                                     <option value="">Selecionar</option>
                                     <?php
+//                                    Consulta ao banco de dados para a listagens dos coordenadores
                                     if($num_assinatura==0){
                                         $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token2 = '7' ";
                                         $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);

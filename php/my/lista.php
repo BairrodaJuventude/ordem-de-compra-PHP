@@ -5,13 +5,13 @@
 if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
 include('../conexao.php');
 require('../menu.php');
-
+//  Buscando todas as ordens de compra ja enviadas
 $sql_ordensG ="SELECT * FROM ordens ";
 $query_ordensG = $mysql->query($sql_ordensG) or die($mysql->error);
 $ordensG = $query_ordensG->fetch_assoc();
 
 $num_ordens = 0;
-
+// filtro de qual usuario pode ver tal ordem ordem de compra
 if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
 
     $ID = $_SESSION['admin'];
