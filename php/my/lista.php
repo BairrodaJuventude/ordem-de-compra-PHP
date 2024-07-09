@@ -10,6 +10,8 @@ $sql_ordensG ="SELECT * FROM ordens ";
 $query_ordensG = $mysql->query($sql_ordensG) or die($mysql->error);
 $ordensG = $query_ordensG->fetch_assoc();
 
+$num_ordens = 0;
+
 if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
 
     $ID = $_SESSION['admin'];
@@ -20,24 +22,41 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
 }else if (isset($_SESSION['usuario']) && !isset($_SESSION['admin'])){
 
     $ID = $_SESSION['usuario'];
-    $sql_usuario ="SELECT * FROM usuarios WHERE ID = '$ID'";
+
+    $sql_usuario ="SELECT * FROM usuarios WHERE ID = '$ID' ";
     $query_usuarios = $mysql->query($sql_usuario) or die($mysql->error);
     $usuario = $query_usuarios->fetch_assoc();
-    if (($usuario['token'] == 7 || $usuario['token2'] == 7) && $ordensG['estado']== '0'){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE coordenador = '$ID'";
+    if($usuario['token'] == 5 && $usuario['token2'] == 7){
+         $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID'||coordenador = '$ID' && resebido = '0'";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
-    }else if(($usuario['token'] == 5 || $usuario['token2'] == 5)&& $ordensG['estado']=='1'){
-
-         $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID'";
+    }elseif($usuario['token'] == 7 && $usuario['token2'] == 5){
+         $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID' || coordenador = '$ID' && resebido = '0'";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
-    }else if(($usuario['token'] == 9 || $usuario['token2'] == 9)&&$ordensG['estado']=='2'){
+    }elseif ($usuario['token'] == 7 || $usuario['token2'] == 7){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE direcao != '0'";
+        $sql_ordens ="SELECT * FROM ordens WHERE coordenador = '$ID'AND Status = '0' OR requisitante = '$ID'  AND resebido = '0'";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
+
+    }elseif( $usuario['token'] == 5 || $usuario['token2'] == 5 ){
+        $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID' AND Status = '1' OR requisitante = '$ID' AND resebido = '0'";
+        $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
+        $num_ordens = $query_ordens->num_rows;
+
+    }elseif($usuario['token'] == 9 || $usuario['token2'] == 9){
+
+        $sql_ordens ="SELECT * FROM ordens WHERE Status = '3'";
+        $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
+        $num_ordens = $query_ordens->num_rows;
+    }elseif ($usuario['token'] == 3 || $usuario['token2'] == 3){
+
+        $sql_ordens ="SELECT * FROM ordens WHERE requisitante = '$ID'AND resebido = '0'";
+        $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
+        $num_ordens = $query_ordens->num_rows;
+
     }
 }?>
                                               <!Fim do PHP!>
@@ -85,18 +104,14 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
                 <th>Detalhes</th>
               </tr>
           </tbody>
-        
-          
-  <?php if($num_ordens == 0)   {
-
-      ?>
+  <?php if($num_ordens == 0){?>
 
       <tr>
         <td>Nenhuma Ordem Lançada...</td>
       </tr>
-      
+
   <?php }else{
-        while($ordem = $query_ordens->fetch_assoc()){
+        while($ordem = $query_ordens->fetch_assoc() ){
             $data = date_create($ordem['Data']);
 
 
@@ -120,13 +135,15 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
                 if($ordem['Status'] == 0){
                   echo"Em espera Coordenador";
                 } else if($ordem['Status'] == 1){
-                  echo"Autorizado Pelo Coordenador, Em Espera Do(a) Diretor";
+                  echo"Autorizado Pelo(a) Coordenador(a), Em Espera Do(a) Diretor(a)";
                 }else if ($ordem['Status'] == 2){
                     echo"Rejeitado Pelo Coordenador";
                 } else if($ordem['Status'] == 3){
                     echo"Autorizado Pelo Diretor, Em Espera Da Compra";
                 }else if($ordem['Status'] == 4){
-                    echo "Finalizado.";
+                    echo "Item Comprado";
+                }else if($ordem['Status'] == 5){
+                    echo "Rejeitado Pelo Diretor";
                 }
               ?>
           </td>
@@ -151,7 +168,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
     <div  class="container-fluid p-5 text-center ">
       <div class="row justify-content-center">
         <div class="col-md-4">
-          <a href="index.php" class="btn btn-primary btn-lg">Voltar</a>
+
           </div>
 
     </div>

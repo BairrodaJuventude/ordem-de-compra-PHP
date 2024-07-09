@@ -13,7 +13,8 @@
         <form method="post" class="login-form">
             <h2>Login</h2>
             <?php
-                if(isset($_POST['nome']) && (isset($_POST['senha']))){
+//            faz uma pesquisa no banco de dados usando
+            if(isset($_POST['nome']) && (isset($_POST['senha']))){
                     include('php/conexao.php');
                     $nome = $mysql->escape_string($_POST['nome']);
                     $senha = $_POST['senha'];
