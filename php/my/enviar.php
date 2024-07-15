@@ -894,7 +894,9 @@ INSERT INTO `ordens`
 
 
 
-            //
+            // Para o acrecimo de um botao de adicionar colunas
+
+
             // document.getElementById('addInput').addEventListener('click', function() {
             // const newRow = document.createElement('tr');
             // newRow.innerHTML = `

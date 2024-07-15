@@ -56,16 +56,16 @@ if (isset($_SESSION['admin'])) {
         <h1>CADASTRAR NOVO USUÁRIO</h1>
     </div>
     </div>
-                <?php if ($erro): ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo $erro; ?>
-                    </div>
-                <?php endif; ?>
-                <?php if ($mensagem_sucesso): ?>
-                    <div class="alert alert-success" role="alert">
-                        <?php echo $mensagem_sucesso; ?>
-                    </div>
-                <?php endif; ?>
+    <?php if ($erro): ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $erro; ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($mensagem_sucesso): ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $mensagem_sucesso; ?>
+        </div>
+    <?php endif; ?>
     <div class="container mt-3">
         <section id="c">
             <form action="" method="post">
@@ -106,7 +106,7 @@ if (isset($_SESSION['admin'])) {
                         <option value="11">Projetos</option>
                     </select>
                 </div>
-               <br>
+                <br>
                 <button id="button" type="submit" class="btn btn-primary">Cadastrar</button>
                 <a href="lista_usuario.php" class="btn btn-secondary">Cancelar</a>
             </form>

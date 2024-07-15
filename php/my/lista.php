@@ -91,6 +91,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
 
 <div class="container mt-3">
   <div class="row">
+
       <section id="c"> 
         <table class="table">
           <tbody>
@@ -135,23 +136,24 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
                 if($ordem['Status'] == 0){
                   echo"Em espera Coordenador";
                 } else if($ordem['Status'] == 1){
-                  echo"Autorizado Pelo(a) Coordenador(a), Em Espera Do(a) Diretor(a)";
+                  echo"Autorizado Pelo(a) Coordenador(a), Em Espera Do(a) Aprovador(a)";
                 }else if ($ordem['Status'] == 2){
                     echo"Rejeitado Pelo Coordenador";
                 } else if($ordem['Status'] == 3){
-                    echo"Autorizado Pelo Diretor, Em Espera Da Compra";
+                    echo"Autorizado Pelo Aprovador, Em Espera Da Compra";
                 }else if($ordem['Status'] == 4){
                     echo "Item Comprado";
                 }else if($ordem['Status'] == 5){
-                    echo "Rejeitado Pelo Diretor";
+                    echo "Rejeitado Pelo Aprovador";
                 }
               ?>
           </td>
 
 
 
-  <?php if($ordem['Status'] == "Em Espera"){?>
-            <a id="d" href="editar.php?idme=",<?php $ordem['ID'];?>">Editar</a>
+  <?php if($ordem['Status'] == 2 ){?>
+            <td><a id="d" href="editar_ordem.php?idme=<?php echo $ordem['ID'];?>">Editar</a></td>
+
 
   <?php }else{?>
           <td><a id="d" href="visualiza.php?idme=<?php echo $ordem['ID'];?>">Detalhes</a></td>

@@ -18,6 +18,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
     $sql_usuario ="SELECT * FROM usuarios WHERE ID = '$ID'";
     $query_usuarios = $mysql->query($sql_usuario) or die($mysql->error);
     $usuario = $query_usuarios->fetch_assoc();
+
 //    Faz uma listagem de todos os coordenadores cadastrados de acordo com seus tokens
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
     $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
@@ -451,36 +452,44 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                 <th></th>
                 <th></th>
             </tr>
+            <?php  if(($usuario['token'] != 3 || $usuario['token2'] != 3 ) && ($ordens['Status'] != 1)) {?>
+                <tr>
+                    <th><b>Direção:</b>
 
-            <tr>
-                <th><b>Direção:</b>
+                            <select id="a" name="assiDi">
+        <!--                        Busca da assinatura do Direcao-->
+                                <?php
 
-                    <select id="a" name="assiDi">
-<!--                        Busca da assinatura do Direcao-->
-                        <?php
-                       if ($usuario['token'] == 7 || $usuario['token2'] == 7 || $usuario['token'] == 1 || $usuario['token2'] == 1) {
+                                   if ($usuario['token'] == 7 || $usuario['token2'] == 7 || $usuario['token'] == 1 || $usuario['token2'] == 1) {
 
-                            while ($assinatura2 = $query_usuarios_assinatura2->fetch_assoc()){
-                                ?>
-                                <option value="<?php echo $assinatura2['ID'];?>"><?php echo $assinatura2['nome'];?></option>
-                                <?php }
+                                        while ($assinatura2 = $query_usuarios_assinatura2->fetch_assoc()){?>
+                                            <option value="<?php echo $assinatura2['ID'];?>"><?php echo $assinatura2['nome'];?></option>
+                                            <?php
+                                        }
+                                   } else{
+                                        $id_dire = $ordens['direcao'];
+                                        $sql_usuarios_assinatura2 = "SELECT * FROM usuarios WHERE ID = '$id_dire' ";
+                                        $query_usuarios_assinatura2 = $mysql->query($sql_usuarios_assinatura2) or die($mysql->error);
+                                        $assinatura2 = $query_usuarios_assinatura2->fetch_assoc();?>
+                                        <option value="<?php echo $id_dire?>"><?php echo $assinatura2['nome']; ?></option>
+                                       <?php
+                                   }?>
+                            </select>
 
-                    } else{
-                            $id_dire = $ordens['direcao'];
-                            $sql_usuarios_assinatura2 = "SELECT * FROM usuarios WHERE ID = '$id_dire' ";
-                            $query_usuarios_assinatura2 = $mysql->query($sql_usuarios_assinatura2) or die($mysql->error);
-                            $assinatura2 = $query_usuarios_assinatura2->fetch_assoc();?>
-                            <option value="<?php echo $id_dire?>"><?php echo $assinatura2['nome']; ?></option>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
 
-                        <?php }?>
-                    </select>
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
-
-            </tr>
-            </thead>
+                </tr>
+                <?php
+            }else{
+                if ($ordens['Status'] == 2){?>
+                    <button>Salvar</button>
+                    <?php
+                }
+            }?>
+        </thead>
 
             <span></span>
 
