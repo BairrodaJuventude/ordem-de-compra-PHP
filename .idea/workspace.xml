@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Arquivos da apresentaçao guilherme">
-      <change afterPath="$PROJECT_DIR$/php/my/editar_ordem.php" afterDir="false" />
+    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Update do editar ordem de compra(Incompleto)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/cadastrar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/editar_ordem.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/editar_ordem.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +102,9 @@
       <workItem from="1720406229117" duration="9563000" />
       <workItem from="1720455596304" duration="3227000" />
       <workItem from="1721063293231" duration="1238000" />
-      <workItem from="1721065637781" duration="6208000" />
+      <workItem from="1721065637781" duration="6484000" />
+      <workItem from="1721149950602" duration="3235000" />
+      <workItem from="1721244101100" duration="1645000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
@@ -147,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720521893408</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Criacao do editar ordem de compra(Incompleto)">
+      <option name="closed" value="true" />
+      <created>1721073097935</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1721073097935</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +178,8 @@
     <MESSAGE value="Envio de Ordem (Terminar), Visualuzar ordem ja enviada(Terminar),&#10;Estatos De Autorizaçao da Ordem(Terminar)" />
     <MESSAGE value="Envio de Ordem (Terminar), Visualuzar ordem ja enviada(Terminar),&#10;Estatos De Autorizaçao da Ordem(Terminar),&#10;Fazer verificaçao de Segurança." />
     <MESSAGE value="Arquivos da apresentaçao guilherme" />
-    <option name="LAST_COMMIT_MESSAGE" value="Arquivos da apresentaçao guilherme" />
+    <MESSAGE value="Criacao do editar ordem de compra(Incompleto)" />
+    <MESSAGE value="Update do editar ordem de compra(Incompleto)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update do editar ordem de compra(Incompleto)" />
   </component>
 </project>

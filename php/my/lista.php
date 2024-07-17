@@ -15,7 +15,7 @@ $num_ordens = 0;
 if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
 
     $ID = $_SESSION['admin'];
-    $sql_ordens ="SELECT * FROM ordens ";
+    $sql_ordens ="SELECT * FROM ordens ORDER BY `ordens`.`Data` DESC";
     $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
     $num_ordens = $query_ordens->num_rows;
 
@@ -28,32 +28,32 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
     $usuario = $query_usuarios->fetch_assoc();
 
     if($usuario['token'] == 5 && $usuario['token2'] == 7){
-         $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID'||coordenador = '$ID' && resebido = '0'";
+         $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID'|| coordenador = '$ID' && resebido = '0'  ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
     }elseif($usuario['token'] == 7 && $usuario['token2'] == 5){
-         $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID' || coordenador = '$ID' && resebido = '0'";
+         $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID' || coordenador = '$ID' && resebido = '0' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
     }elseif ($usuario['token'] == 7 || $usuario['token2'] == 7){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE coordenador = '$ID'AND Status = '0' OR requisitante = '$ID'  AND resebido = '0'";
+        $sql_ordens ="SELECT * FROM ordens WHERE coordenador = '$ID'AND Status = '0' OR requisitante = '$ID'  AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
 
     }elseif( $usuario['token'] == 5 || $usuario['token2'] == 5 ){
-        $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID' AND Status = '1' OR requisitante = '$ID' AND resebido = '0'";
+        $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID' AND Status = '1' OR requisitante = '$ID' AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
 
     }elseif($usuario['token'] == 9 || $usuario['token2'] == 9){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE Status = '3'";
+        $sql_ordens ="SELECT * FROM ordens WHERE Status = '3' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
     }elseif ($usuario['token'] == 3 || $usuario['token2'] == 3){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE requisitante = '$ID'AND resebido = '0'";
+        $sql_ordens ="SELECT * FROM ordens WHERE requisitante = '$ID'AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
 
