@@ -90,10 +90,11 @@ if (isset($_SESSION['admin'])) {
                         <option value="3">Usuario</option>
                         <option value="5">Direção</option>
                         <option value="7">Coordenador</option>
-                        <option value="9">Comprador</option>
                         <option value="11">Projetos</option>
+                        <option value="12">Compras</option>
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label for="token2" class="form-label">Tipo de Usuário:</label>
                     <select name="token2" class="form-select" required>
@@ -102,11 +103,11 @@ if (isset($_SESSION['admin'])) {
                         <option value="3">Usuario</option>
                         <option value="5">Direção</option>
                         <option value="7">Coordenador</option>
-                        <option value="9">Comprador</option>
                         <option value="11">Projetos</option>
+                        <option value="12">Compras</option>
                     </select>
                 </div>
-               <br>
+                <br>
                 <button id="button" type="submit" class="btn btn-primary">Cadastrar</button>
                 <a href="lista_usuario.php" class="btn btn-secondary">Cancelar</a>
             </form>

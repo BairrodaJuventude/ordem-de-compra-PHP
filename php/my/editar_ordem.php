@@ -518,34 +518,40 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
         }
         $total = $_POST['valorTotal'];
 
-//  Cadastro de ordom de compra
+        $assi1 = $dados['requisitante'];
+        $assiCoord = $dados['coordenador'];
+
+
         $sql_code = "
-INSERT INTO `ordens` 
-    (ID,`fornece`, `setor`, `requisitante`, `coordenador`, `direcao`, `comprador`, `resebido`, `estado`,
-    `uni1`, `uni2`, `uni3`, `uni4`, `uni5`, `uni6`, `uni7`, `uni8`, `uni9`, `uni10`, `uni11`, `uni12`,
-    `uni13`, `uni14`, `uni15`, `uni16`, `uni17`, `uni18`, `uni19`, `uni20`, `quant1`, `quant2`, `quant3`,
-     `quant4`, `quant5`, `quant6`, `quant7`, `quant8`, `quant9`, `quant10`, `quant11`, `quant12`, `quant13`,
-     `quant14`, `quant15`, `quant16`, `quant17`, `quant18`, `quant19`, `quant20`, `prod1`, `prod2`, `prod3`,
-     `prod4`, `prod5`, `prod6`, `prod7`, `prod8`, `prod9`, `prod10`, `prod11`, `prod12`, `prod13`, `prod14`,
-     `prod15`, `prod16`, `prod17`, `prod18`, `prod19`, `prod20`, `desp1`, `desp2`, `desp3`, `desp4`, `desp5`,
-     `desp6`, `desp7`, `desp8`, `desp9`, `desp10`, `desp11`, `desp12`, `desp13`, `desp14`, `desp15`, `desp16`,
-     `desp17`, `desp18`, `desp19`, `desp20`, `preco1`, `preco2`, `preco3`, `preco4`, `preco5`, `preco6`, `preco7`,
-     `preco8`, `preco9`, `preco10`, `preco11`, `preco12`, `preco13`, `preco14`, `preco15`, `preco16`, `preco17`,
-     `preco18`, `preco19`, `preco20`, `total`, `Status`, `Data`) 
-              VALUES 
-    ('','$fornece', '$setor', '$assi1', '$assiCoord', '0', '0', '0', '0', '$uni1', '$uni2', '$uni3','$uni4', '$uni5',
-     '$uni6', '$uni7','$uni8', '$uni9', '$uni10', '$uni11', '$uni12', '$uni13', '$uni14', '$uni15', '$uni16',
-     '$uni17', '$uni18', '$uni19', '$uni20','$quant1', '$quant2', '$quant3', '$quant4', '$quant5','$quant6',
-     '$quant7', '$quant8', '$quant9', '$quant10', '$quant11', '$quant12', '$quant13', '$quant14', '$quant15',
-     '$quant16', '$quant17', '$quant18', '$quant19', '$quant20', '$desc1', '$desc2', '$desc3','$desc4', '$desc5',
-     '$desc6', '$desc7', '$desc8', '$desc9', '$desc10', '$desc11', '$desc12', '$desc13', '$desc14', '$desc15',
-     '$desc16', '$desc17', '$desc18', '$desc19', '$desc20', '$setor1','$setor2', '$setor3', '$setor4', '$setor5',
-     '$setor6', '$setor7', '$setor8', '$setor9', '$setor10', '$setor11', '$setor12', '$setor13', '$setor14',
-     '$setor15', '$setor16', '$setor17', '$setor18', '$setor19','$setor20', '$precUni1', '$precUni2', '$precUni3',
-     '$precUni4', '$precUni5', '$precUni6', '$precUni7', '$precUni8', '$precUni9', '$precUni10', '$precUni11',
-     '$precUni12', '$precUni13', '$precUni14', '$precUni15', '$precUni16', '$precUni17','$precUni18', '$precUni19',
-     '$precUni20', '$total', '0', NOW())
-";
+UPDATE `ordens` SET `fornece`='$fornece',`setor`='$setor',
+`requisitante`='$assi1',`coordenador`='$assiCoord',`direcao`='0',
+`comprador`='0',`resebido`='0',`estado`='0',
+`uni1`='$uni1',`uni2`='$uni2',`uni3`='$uni3',`uni4`='$uni4',
+`uni5`='$uni5',`uni6`='$uni6',`uni7`='$uni7',`uni8`='$uni8',
+`uni9`='$uni9',`uni10`='$uni10',`uni11`='$uni11',`uni12`='$uni12',
+`uni13`='$uni13',`uni14`='$uni14',`uni15`='$uni15',`uni16`='$uni16',
+`uni17`='$uni17',`uni18`='$uni18',`uni19`='$uni19',`uni20`='$uni20',
+`quant1`='$quant1',`quant2`='$quant2',`quant3`='$quant3',`quant4`='$quant4',
+`quant5`='$quant5',`quant6`='$quant6',`quant7`='$quant7',`quant8`='$quant8',
+`quant9`='$quant9',`quant10`='$quant10',`quant11`='$quant11',`quant12`='$quant12',
+`quant13`='$quant13',`quant14`='$quant14',`quant15`='$quant15',`quant16`='$quant16',
+`quant17`='$quant17',`quant18`='$quant18',`quant19`='$quant19',`quant20`='$quant20',
+`prod1`='$desc1',`prod2`='$desc2',`prod3`='$desc3',`prod4`='$desc4',
+`prod5`='$desc5',`prod6`='$desc6',`prod7`='$desc7',`prod8`='$desc8',
+`prod9`='$desc9',`prod10`='$desc10',`prod11`='$desc11',`prod12`='$desc12',
+`prod13`='$desc13',`prod14`='$desc14',`prod15`='$desc15',`prod16`='$desc16',
+`prod17`='$desc17',`prod18`='$desc18',`prod19`='$desc19',`prod20`='$desc20',
+`desp1`='$setor1',`desp2`='$setor2',`desp3`='$setor3',`desp4`='$setor4',
+`desp5`='$setor5',`desp6`='$setor6',`desp7`='$setor7',`desp8`='$setor8',
+`desp9`='$setor9',`desp10`='$setor10',`desp11`='$setor11',`desp12`='$setor12',
+`desp13`='$setor13',`desp14`='$setor14',`desp15`='$setor15',`desp16`='$setor16',
+`desp17`='$setor17',`desp18`='$setor18',`desp19`='$setor19',`desp20`='$setor20',
+`preco1`='$precUni1',`preco2`='$precUni2',`preco3`='$precUni3',`preco4`='$precUni4',
+`preco5`='$precUni5',`preco6`='$precUni6',`preco7`='$precUni7',`preco8`='$precUni8',
+`preco9`='$precUni9',`preco10`='$precUni10',`preco11`='$precUni11',`preco12`='$precUni12',
+`preco13`='$precUni13',`preco14`='$precUni14',`preco15`='$precUni15',`preco16`='$precUni16',
+`preco17`='$precUni17',`preco18`='$precUni18',`preco19`='$precUni19',`preco20`='$precUni20',
+`total`='$total',`Status`='0',`Data`=''";
         $deu_certo = $mysql->query($sql_code) or die($mysql->error);
 
         if ($deu_certo) {
