@@ -47,7 +47,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
         $num_ordens = $query_ordens->num_rows;
     }elseif ($usuario['token'] == 11 || $usuario['token2'] == 11){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE Status = '1'  AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
+        $sql_ordens ="SELECT * FROM ordens WHERE Status = '1' OR Status = '2' AND resebido = '0'  ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
 

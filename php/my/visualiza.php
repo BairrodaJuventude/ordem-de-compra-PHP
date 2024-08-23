@@ -20,46 +20,68 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
     $usuario = $query_usuarios->fetch_assoc();
 
 //    Faz uma listagem de todos os coordenadores cadastrados de acordo com seus tokens
-    $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
-    $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
-    $num_assinatura = $query_usuarios_assinatura->num_rows;
+    $sql_usuarios_usuario = "SELECT * FROM usuarios WHERE token = '7' ";
+    $queryusuarios_usuario = $mysql->query($sql_usuarios_usuario) or die($mysql->error);
+    $num_projetos = $queryusuarios_usuario->num_rows;
 //    Faz uma requisisao das informasoes da ordem de compra de acordo com o identificador
     $sql_ordem = "SELECT * FROM ordens WHERE ID = '$id_ordem'";
     $query_ordem = $mysql->query($sql_ordem) or die($mysql->error);
     $ordens = $query_ordem->fetch_assoc();
+
+    if($usuario['token'] == 11 || $usuario['token2'] == 11 ){
+        $sql_projetos = "SELECT * FROM projetos";
+        $query_projetos = $mysql->query($sql_projetos) or die($mysql->error);
+        $num_projetos = $query_projetos->num_rows;
+
+
+    }else{}
+
 //  Faz uma contagem de arrays do tipo POST
     if(count($_POST) > 0){
         $direcao = 0;
         $status = $ordens['Status'];
-        $direcao = $_POST['assiDi'];
+        if(!empty($_POST['assiDi'])){
+            $direcao = $_POST['assiDi'];
+        }
         if (isset($_POST['status'])){
             $status = $_POST['status'];
         }
-//        Verificacao de token para o campo de autorizacao
-        if(($usuario['token']==7 ||$usuario['token2']==7 || $usuario['token'] == 1 || $usuario['token2'] == 1
-            || $usuario['token'] == 5 || $usuario['token2'] == 5|| $usuario['token'] == 9
-            || $usuario['token2'] == 9 || $usuario['token'] = 3 || $usuario['token2'] == 3)){
-            if($ordens['Status'] == 4){
-                $resebido = 0;
-                $resebido = $_POST['reseb'];
 
-                $sql_code = "UPDATE `ordens` SET resebido = '$resebido' WHERE ID = '$id_ordem'";
-                $deu_certo = $mysql->query($sql_code) or die($mysql->error);
-                header("location: lista.php");
-            }elseif(isset($direcao) && isset($status)) {
-                $sql_code = "UPDATE `ordens` SET Status = '$status', direcao = '$direcao' WHERE ID = '$id_ordem'";
-                $deu_certo = $mysql->query($sql_code) or die($mysql->error);
-                header("location: lista.php");
+//        Verificacao de tokens para o campo de autorizacao
+        if($usuario['token']== 12 ||$usuario['token2']== 12 ){
+            $sql_code = "UPDATE `ordens` SET Status = '$status' WHERE ID = '$id_ordem'";
+            $deu_certo = $mysql->query($sql_code) or die($mysql->error);
+            header("location: lista.php");
             }
+
+        if(($usuario['token'] == 11 || $usuario['token2'] == 11) && (isset($_POST['projeto']))){
+
+            if (empty($_POST['projeto'])){
+                echo "Erro ao selecionar o projeto!";
+            }
+
+            $id_projeto = $_POST['projeto'];
+            $sql = "SELECT * FROM projetos WHERE ID = '$id_projeto'";
+            $query = $mysql->query($sql) or die($mysql->error);
+            $dados = $query->fetch_assoc();
+
+            $novo_valor = $dados['valor']-$ordens['total'];
+
+            $sql_code = "UPDATE `ordens` SET Status = '2' WHERE ID = '$id_ordem'";
+            $sql_code2 = "UPDATE projetos SET valor = '$novo_valor'";
+            $deu_certo = $mysql->query($sql_code) or die($mysql->error);
+            $deu_certo2 = $mysql->query($sql_code2) or die($mysql->error);
+            header("location: lista.php");
         }
     }
 
 
 
+
     //    Requisicao de usuarios com o token de direcao para o direcionamento
-    $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token AND token2 = '5'";
-    $query_usuarios_assinatura2 = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
-    $num_assinatura = $query_usuarios_assinatura2->num_rows;
+    $sql_usuarios_usuario = "SELECT * FROM usuarios WHERE token AND token2 = '5'";
+    $queryusuarios_usuario2 = $mysql->query($sql_usuarios_usuario) or die($mysql->error);
+    $num_projetos = $queryusuarios_usuario2->num_rows;
 
 
 ?>
@@ -406,6 +428,35 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             <?php }else{}?>
             <th><b>Valor Geral</b></th>
             <th><input placeholder="00,00" type="text" name="valorTotal" value="<?php echo $ordens['total']; ?>" class="Value" id="valor-Total" readonly></th>
+            <?php if($usuario['token'] == 11 || $usuario['token2'] == 11){?>
+                <th>
+                    <b>Projetos</b>
+                    <b>
+                        <?php if($num_projetos <= 0){ ?>
+                            Nenhum Projeto Criado/Cadastrado...
+                        <?php
+                            }else{
+                                    echo "<select name='projeto'>";
+                                    echo "<option value=''>Selecione</option>";
+                                    while ($projetos = $query_projetos->fetch_assoc()){?>
+                                        <option value="<?php echo $projetos['ID']; ?>">
+                                            <b><?php echo $projetos['nome']; ?></b>
+                                            <b><?php echo $projetos['valor']; ?></b>
+                                        </option>
+                                        </select>
+                                      <?php
+                                    }
+                            }
+                        ?>
+                    </b>
+                </th>
+                <th><b></b></th>
+                <th>
+                    <b>
+                        <button type="submit">Selecionar</button>
+                    </b>
+                </th>
+            <?php } ?>
         </table>
 <!--        Vericacao de tokens para a mostra de Um campo de autorizacao de envio   -->
         <?php if ($usuario['token']==7 || $usuario['token2'] == 7){?>
@@ -425,7 +476,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                 <th><b>Requisitante:</b>
 
                     <?php
-//                        Busca da assinatura do requisitante
+//                        Busca da projetos do requisitante
                         $idRequisitante = $ordens['requisitante'];
                         $sql_ordemRe = "SELECT * FROM usuarios WHERE ID = '$idRequisitante'";
                         $query_ordemRe = $mysql->query($sql_ordemRe) or die($mysql->error);
@@ -440,12 +491,12 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             <tr>
                 <th><b>Coordenador:</b>
                         <?php
-//                        Busca da assinatura do coordenador
+//                        Busca da projetos do coordenador
                             $id_coor = $ordens['coordenador'];
-                            $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE ID = $id_coor ";
-                            $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
-                            $assinatura = $query_usuarios_assinatura->fetch_assoc();
-                                 echo $assinatura['nome'];
+                            $sql_usuarios_usuario = "SELECT * FROM usuarios WHERE ID = $id_coor ";
+                            $queryusuarios_usuario = $mysql->query($sql_usuarios_usuario) or die($mysql->error);
+                            $projetos = $queryusuarios_usuario->fetch_assoc();
+                                 echo $projetos['nome'];
                         ?>
                 </th>
                 <th></th>
@@ -459,21 +510,21 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                         <th><b>Direção:</b>
 
                             <select id="a" name="assiDi">
-                                <!--                        Busca da assinatura da Direcao-->
+                                <!--                        Busca da projetos da Direcao-->
                                 <?php
 
                                 if ($usuario['token'] == 7 || $usuario['token2'] == 7 || $usuario['token'] == 1 || $usuario['token2'] == 1) {
 
-                                    while ($assinatura2 = $query_usuarios_assinatura2->fetch_assoc()){?>
-                                        <option value="<?php echo $assinatura2['ID'];?>"><?php echo $assinatura2['nome'];?></option>
+                                    while ($projetos2 = $queryusuarios_usuario2->fetch_assoc()){?>
+                                        <option value="<?php echo $projetos2['ID'];?>"><?php echo $projetos2['nome'];?></option>
                                         <?php
                                     }
                                 } else{
                                     $id_dire = $ordens['direcao'];
-                                    $sql_usuarios_assinatura2 = "SELECT * FROM usuarios WHERE ID = '$id_dire' ";
-                                    $query_usuarios_assinatura2 = $mysql->query($sql_usuarios_assinatura2) or die($mysql->error);
-                                    $assinatura2 = $query_usuarios_assinatura2->fetch_assoc();?>
-                                    <option value="<?php echo $id_dire?>"><?php echo $assinatura2['nome']; ?></option>
+                                    $sql_usuarios_usuario2 = "SELECT * FROM usuarios WHERE ID = '$id_dire' ";
+                                    $queryusuarios_usuario2 = $mysql->query($sql_usuarios_usuario2) or die($mysql->error);
+                                    $projetos2 = $queryusuarios_usuario2->fetch_assoc();?>
+                                    <option value="<?php echo $id_dire?>"><?php echo $projetos2['nome']; ?></option>
                                     <?php
                                 }?>
                             </select>
@@ -491,7 +542,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                             <?php
                             }
                     }
-                }else{?>
+                 }else{?>
                     <button id="button" style="background-color: #0000ff; color: white;" name="status" value="1" type="submit">Emcaminhar</button>
                <?php }
             }

@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Update do editar ordem de compra(Incompleto)">
-      <change afterPath="$PROJECT_DIR$/php/my/cadastrar_projeto.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/php/my/lista_projetos.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/php/my/projetos.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/cadastrar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/editar_ordem.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/editar_ordem.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
     </list>
@@ -116,6 +110,8 @@
       <workItem from="1721416378944" duration="19000" />
       <workItem from="1722251651557" duration="67000" />
       <workItem from="1724258647180" duration="10627000" />
+      <workItem from="1724343175091" duration="3203000" />
+      <workItem from="1724348069860" duration="6422000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
