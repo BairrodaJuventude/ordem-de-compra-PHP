@@ -31,13 +31,7 @@
 </head>
 <body>
 <?php
-    if(isset($_SESSION['admin']))
-    {
-        echo $top_adm;
-    }else
-    {
         echo $top;
-}
 ?>
  <main>
     <div class="dev1"><span></span></div>

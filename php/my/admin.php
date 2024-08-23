@@ -24,7 +24,7 @@ require('../menu.php');
     <title>Painel-ADM</title>
 </head>
 <body>
-    <?php echo $top_adm;?>
+    <?php echo $top;?>
     <main style="height: 84vh;">
     <div  class="container-fluid p-5 text-center ">
   <h1>FUNÇÕES DO ADM</h1>

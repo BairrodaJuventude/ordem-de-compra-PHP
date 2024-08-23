@@ -50,7 +50,7 @@ if (isset($_SESSION['admin'])) {
     <title>Cadastrar Novo Usuário</title>
 </head>
 <body>
-<?php echo $top_adm; ?>
+<?php echo $top; ?>
 <main style="height:100vh;">
     <div class="container-fluid p-5 text-center">
         <h1>CADASTRAR NOVO USUÁRIO</h1>
@@ -92,6 +92,7 @@ if (isset($_SESSION['admin'])) {
                         <option value="7">Coordenador</option>
                         <option value="11">Projetos</option>
                         <option value="12">Compras</option>
+                        <option value="13">Almoxarifado</option>
                     </select>
                 </div>
 
@@ -101,10 +102,11 @@ if (isset($_SESSION['admin'])) {
                         <option value="" selected disabled>Selecione</option>
                         <option value="1">Admin</option>
                         <option value="3">Usuario</option>
-                        <option value="5">Direção</option>
+                        <option value="5">Aprovador</option>
                         <option value="7">Coordenador</option>
                         <option value="11">Projetos</option>
                         <option value="12">Compras</option>
+                        <option value="13">Almoxarifado</option>
                     </select>
                 </div>
                 <br>
