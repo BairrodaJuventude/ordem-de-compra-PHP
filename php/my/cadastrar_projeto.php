@@ -82,7 +82,7 @@ if ($usuario['token'] != 11 || $usuario['token2'] != 11){
                 </div>
                 <div class="mb-3">
                     <label for="nome" class="form-label">Valor:</label>
-                    <input name="valor" type="number" class="form-control" required>
+                    <input name="valor" type="number" step="0.1" class="form-control" required>
                 </div>
 
                 <br>

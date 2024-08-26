@@ -28,28 +28,28 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
     $usuario = $query_usuarios->fetch_assoc();
 
    if($usuario['token'] == 7 && $usuario['token2'] == 7){
-         $sql_ordens ="SELECT * FROM ordens WHERE coordenador = '$ID' AND resebido = '0' AND Status = '2' ORDER BY `ordens`.`Data` DESC";
+         $sql_ordens ="SELECT * FROM ordens WHERE requisitante = $ID OR coordenador = '$ID' AND resebido = '0' AND Status = '3' AND Status = '8' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
     }elseif( $usuario['token'] == 5 || $usuario['token2'] == 5 ){
-        $sql_ordens ="SELECT * FROM ordens WHERE direcao = '$ID' AND Status = '3' AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
+        $sql_ordens ="SELECT * FROM ordens WHERE requisitante = $ID OR direcao = '$ID' AND Status = '4' AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
 
     }elseif($usuario['token'] == 13 || $usuario['token2'] == 13){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE Status = '5' AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
+        $sql_ordens ="SELECT * FROM ordens WHERE requisitante = $ID OR Status = '5' AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
     }elseif ($usuario['token'] == 11 || $usuario['token2'] == 11){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE Status = '1' AND resebido = '0'  ORDER BY `ordens`.`Data` DESC";
+        $sql_ordens ="SELECT * FROM ordens WHERE requisitante = $ID OR Status = '1' AND resebido = '0'  ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
 
     }elseif($usuario['token'] == 12 || $usuario['token2'] == 12){
 
-        $sql_ordens ="SELECT * FROM ordens WHERE Status = '0' OR Status = '4' AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
+        $sql_ordens ="SELECT * FROM ordens WHERE requisitante = $ID OR Status = '0' OR Status = '2' OR Status = '7' AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
 
@@ -132,17 +132,19 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
           <td>
               <?php
                 if($ordem['Status'] == 0){
-                  echo"Aguardando Encaminhamento";
+                  echo"Em Espera Da Aprovação";
                 } else if($ordem['Status'] == 1){
-                  echo"Verificando Se Existe Algum Projeto Relacionado";
+                  echo"Em Espera Da Aprovação";
                 }else if ($ordem['Status'] == 2){
-                    echo"Projeto Selecionado, Em Espera do Coordenador";
+                    echo"Em Espera Da Aprovação";
                 } else if($ordem['Status'] == 3){
-                    echo"Autorizado Pelo Coordenador, Em Espera Do Aprovador";
+                    echo"Em Espera Da Aprovação";
                 }else if($ordem['Status'] == 4){
-                    echo "Autorizado Pelo Aprovador, Sera Enviado Para o Fornessedor";
+                    echo "Em Espera Da Aprovação";
                 }else if($ordem['Status'] == 5){
-                    echo "Rejeitado Pelo Aprovador";
+                    echo "Aprovada";
+                }else if($ordem['Status'] == 7){
+                    echo "Não ha Projeto";
                 }
               ?>
           </td>

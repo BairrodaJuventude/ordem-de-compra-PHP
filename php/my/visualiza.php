@@ -68,14 +68,27 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             $sql = "SELECT * FROM projetos WHERE ID = '$id_projeto'";
             $query = $mysql->query($sql) or die($mysql->error);
             $dados = $query->fetch_assoc();
+            if ($Status == 2){
 
-            $novo_valor = $dados['valor']-$ordens['total'];
+                if($dados['valor']<$ordens['total']){
+                    echo "Erro!, O Projeto Selecionado Não tem Verba";
+                }else{
 
-            $sql_code = "UPDATE `ordens` SET Status = '$Status' WHERE ID = '$id_ordem'";
-            $sql_code2 = "UPDATE projetos SET valor = '$novo_valor'";
-            $deu_certo = $mysql->query($sql_code) or die($mysql->error);
-            $deu_certo2 = $mysql->query($sql_code2) or die($mysql->error);
-            header("location: lista.php");
+                    $novo_valor = $dados['valor']-$ordens['total'];
+
+                    $sql_code = "UPDATE `ordens` SET Status = '$Status', id_projeto = '$id_projeto' WHERE ID = '$id_ordem'";
+                    $sql_code2 = "UPDATE projetos SET valor = '$novo_valor'  WHERE ID = '$id_projeto'";
+                    $deu_certo = $mysql->query($sql_code) or die($mysql->error);
+                    $deu_certo2 = $mysql->query($sql_code2) or die($mysql->error);
+                    header("location: lista.php");
+
+                }
+
+            }elseif ($Status == 7){
+                $sql_code = "UPDATE `ordens` SET Status = '$Status' WHERE ID = '$id_ordem'";
+                $deu_certo = $mysql->query($sql_code) or die($mysql->error);
+                header("location: lista.php");
+            }
         }
         if($usuario['token'] == 7 || $usuario['token2'] == 7){
             if(!empty($_POST['assiDi'])){
@@ -457,7 +470,9 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             <?php }else{}?>
             <th><b>Valor Geral</b></th>
             <th><input placeholder="00,00" type="text" name="valorTotal" value="<?php echo $ordens['total']; ?>" class="Value" id="valor-Total" readonly></th>
-            <?php if($usuario['token'] == 11 || $usuario['token2'] == 11){?>
+
+            <?php
+            if($usuario['token'] == 11 || $usuario['token2'] == 11){?>
                 <th>
                     <b>Projetos</b>
                     <b>
@@ -472,9 +487,9 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                                             <b><?php echo $projetos['nome']; ?></b>
                                             <b><?php echo $projetos['valor']; ?></b>
                                         </option>
-                                        </select>
+
                                       <?php
-                                    }
+                                    }?></select><?php
                             }
                         ?>
                     </b>
@@ -482,22 +497,30 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                 <th><b></b></th>
                 <th>
                     <b>
-                        <button type="submit" name="Status" value="2">Selecionar e Encaminhar</button>
-                        <button type="submit" name="Status">Não Possui Projeto</button>
+                        <button type="submit" name="Status" value="2">Encaminhar</button>
+                        <button type="submit" name="Status" value="7">Não Possui Projeto</button>
                     </b>
                 </th>
-            <?php } ?>
+            <?php } elseif($usuario['token'] == 12 || $usuario['token2'] == 12){
+                if($ordens['id_projeto'] != 0){
+                $id_projeto = $ordens['id_projeto'];
+            $sql_pro = "SELECT * FROM projetos WHERE ID = '$id_projeto'";
+            $query_pro = $mysql->query($sql_pro) or die($mysql->error);
+            $ordem_projeto = $query_pro->fetch_assoc();
+            ?>
+            <th>
+                <td><b>Projetos: <?php echo $ordem_projeto['nome']; ?></b></td>
+            </th>
+            <?php }else{}} ?>
         </table>
 <!--        Vericacao de tokens para a mostra de Um campo de autorizacao de envio   -->
         <?php if ($usuario['token']==7 || $usuario['token2'] == 7){?>
 <!--            <button id="button" style="background-color: #ff0000; color: white;" name="status" value="" type="submit">Rejeitar</button>-->
-            <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="3" type="submit">Autorizar</button>
+            <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="4" type="submit">Autorizar</button>
         <?php }elseif($usuario['token'] == 5 || $usuario['token2'] == 5){?>
 <!--            <button id="button" style="background-color: #ff0000; color: white;" name="status" value="" type="submit">Rejeitar</button>-->
-            <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="4" type="submit">Autorizar</button>
-       <?php }elseif($usuario['token'] == 9 || $usuario['token2'] == 9){?>
-        <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="4" type="submit">Comprado</button>
-        <?php }elseif($usuario['token'] == 3 || $usuario['token2'] == 3){?>
+            <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="5" type="submit">Autorizar</button>
+       <?php }elseif($usuario['token'] == 3 || $usuario['token2'] == 3){?>
 <!--           <button class="buttonmover"  name="reseb" value="1" type="submit">Mover Para Historico</button>-->
         <?php } ?>
         <table class="table">
@@ -537,7 +560,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                 if ( $usuario['token'] != 12 || $usuario['token2'] != 12){
                 if(($usuario['token'] != 3 || $usuario['token2'] != 3) && ($ordens['Status'] != 1)) {?>
                     <tr>
-                        <th><b>Direção:</b>
+                        <th><b>Aprovador:</b>
 
                             <select id="a" name="assiDi">
                                 <!--                        Busca da projetos da Direcao-->
@@ -575,9 +598,12 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                  }else{
                     if($ordens['Status'] == 0){?>
                         <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="1" type="submit">Encaminhar</button>
-               <?php }else{?>
-                        <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="5" type="submit">Encaminhar Para Rescebmento</button>
+               <?php }elseif($ordens['Status'] == 2){?>
+                        <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="3" type="submit">Redirecionar</button>
+                    <?php }else{?>
+                        <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="8" type="submit">Redirecionar</button>
                     <?php }
+
                 }
             }
             ?>

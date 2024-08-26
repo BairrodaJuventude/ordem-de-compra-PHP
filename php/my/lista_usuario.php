@@ -37,7 +37,7 @@
     <title>Lista De Usuarios</title>
 </head>
 <body>
-<?php echo $top_adm;?>
+<?php echo $top;?>
     <main>
     <div  class="container-fluid p-5 text-center ">
   <h1>LISTA DE USUARIOS</h1>
