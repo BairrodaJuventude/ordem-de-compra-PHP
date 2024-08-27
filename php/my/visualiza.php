@@ -509,7 +509,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             $ordem_projeto = $query_pro->fetch_assoc();
             ?>
             <th>
-                <td><b>Projetos: <?php echo $ordem_projeto['nome']; ?></b></td>
+                <td><b>Projeto: <?php echo $ordem_projeto['nome']; ?></b></td>
             </th>
             <?php }else{}} ?>
         </table>

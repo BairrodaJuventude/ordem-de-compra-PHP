@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Ajustes de novas rotas(Almoxarifado)">
+    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Ajustes de novas rotas(tudo Errado, Coordenador Aceita desconto do proprio setor)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/cadastrar_projeto.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar_projeto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/editar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/editar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/lista_usuario.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista_usuario.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +114,8 @@
       <workItem from="1724348069860" duration="6715000" />
       <workItem from="1724429185745" duration="5777000" />
       <workItem from="1724438029453" duration="5162000" />
-      <workItem from="1724689043901" duration="12269000" />
+      <workItem from="1724689043901" duration="12754000" />
+      <workItem from="1724756320463" duration="314000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
@@ -199,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724443009793</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Ajustes de novas rotas(tudo Errado, Coordenador Aceita desconto do proprio setor)">
+      <option name="closed" value="true" />
+      <created>1724702216843</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1724702216843</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,6 +234,7 @@
     <MESSAGE value="Ajustes de novas rotas, e valor de desconto de projetos." />
     <MESSAGE value="Ajustes de novas rotas(Almoxarifado)." />
     <MESSAGE value="Ajustes de novas rotas(Almoxarifado)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajustes de novas rotas(Almoxarifado)" />
+    <MESSAGE value="Ajustes de novas rotas(tudo Errado, Coordenador Aceita desconto do proprio setor)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajustes de novas rotas(tudo Errado, Coordenador Aceita desconto do proprio setor)" />
   </component>
 </project>
