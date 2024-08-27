@@ -40,6 +40,7 @@ if ($ID == 57) {
             <ul class='nav-list'>
                 <li><a id='e' style='color:#ffffff;text-decoration: none;' href='../index.php?ID=$ID'>Home</a></li>
                 <li><a id='e' style='color:#ffffff;text-decoration: none;' href='admin.php?ID=$ID'>Admin</a></li>
+                <li><a id='e' style='color:#ffffff;text-decoration: none;' href='enviar.php?ID=$ID'>Encaminhar Ordem</a></li>
                 <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php?ID=$ID'>Lista de Enviados</a></li>
                 <li><a id='e' style='color:#ffffff;text-decoration: none;' href='../logout.php'>Sair</a></li>
             </ul>

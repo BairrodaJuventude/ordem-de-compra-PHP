@@ -160,3 +160,50 @@ main {
   background-color: #1C1C1C;
 }
 
+
+
+.urgencia-baixa {
+    background-color: #28a745; /* Verde suave */
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.urgencia-media {
+    background-color: #007bff; /* Azul suave */
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.urgencia-alta {
+    background-color: #fd7e14; /* Laranja suave */
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.urgencia-urgente {
+    background-color: #dc3545; /* Vermelho suave */
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+.urgencia {
+    padding: 0.1em;
+    border: 1px solid #ced4da;
+    border-radius: 0.25em;
+    width: 20%;
+    box-sizing: border-box;
+}
+
+
+.quantity,
+        .unitPrice {
+            width: 65px;
+
+        }
+
+        .description {
+            width: 100%;
+            min-height: 50px;
+
+        }

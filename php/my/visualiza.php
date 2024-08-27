@@ -59,6 +59,24 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
             <form action="" method="post">
                 <table class="table">
                     <thead>
+
+                    <tr>
+                        <th for="data"><b>Data:</b>
+                        <input type="text" id="data" name="data" readonly></th>
+                    </tr>
+
+                    <tr>
+                            <th for="data"><b>Urgência:</b>
+                            <select class="urgencia" name="Urg" id="a">
+                                <option value="Selecionar">Selecionar</option>
+                                <option value="Baixa">Baixa (Até 2 semanas)</option>
+                                <option value="Media">Média (Até 1 semana)</option>
+                                <option value="Alta">Alta (Até 3 dias)</option>
+                                <option value="Urgente">Urgente (Hoje)</option>
+                            </select>
+                            </th>
+                        </tr>
+
                         <tr>
                             <th><b>Fornecedor:</b><input id="a" value="<?php echo $usuario['fornece'];?>" name="fornece" readonly type="text"></th>
                             <th></th>
@@ -95,11 +113,11 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
                                 <option value="Administração">Administração</option>
                                 <option value="Cep">Cep</option>
                             </select>
-                        </td>    
+                        </td>
                         <td><input type="text" class="unitPrice" value="<?php echo $usuario['preco1'];?>" readonly step="0.01" oninput="updateTotal(this)"></td>
-                        <td class="totalValue"><?php echo $usuario['vt1'];?></td>      
+                        <td class="totalValue"><?php echo $usuario['vt1'];?></td>
                     </tr>
-                  
+
                     <tr>
                         <th><b>Valor Geral</b></th>
                         <th><input placeholder="00,00" type="text" class="Value" id="valor-Total" readonly></th>
@@ -125,7 +143,7 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
                                 </select>
                             </th>
                         </tr>
-                        
+
                     </thead>
                 </table>
                 <button id="button" type="submit">Enviar</button>
@@ -136,29 +154,8 @@ if(isset($_SESSION['admin']) && isset($_SESSION['usuario'])){
     </div>
 </main>
 
-<script>
-    function updateTotal(element) {
-        const row = element.parentNode.parentNode;
-        const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
-        const unitPrice = parseFloat(row.querySelector('.unitPrice').value.replaceAll("R$ ", "").replaceAll(".", "").replaceAll(",", ".")) || 0;
-        const totalValue = row.querySelector('.totalValue');
-
-        const total = (quantity * unitPrice).toFixed(2);
-        totalValue.textContent = isNaN(total) ? '0.00' : total;
-
-        updateGrandTotal();
-    }
-
-    function updateGrandTotal() {
-        const totalCells = document.querySelectorAll('.totalValue');
-        let grandTotal = 0;
-        totalCells.forEach(cell => {
-            grandTotal += parseFloat(cell.textContent) || 0;
-        });
-
-        document.getElementById('valor-Total').value = grandTotal.toFixed(2);
-    }
-</script>
+<script src="../../javaScript/mobile-navbar.js"></script>
+<script src="../../javaScript/enviar.js"></script>
 
 </body>
 </html>

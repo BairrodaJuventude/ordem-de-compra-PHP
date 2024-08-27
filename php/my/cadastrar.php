@@ -88,13 +88,13 @@ if (isset($_SESSION['admin'])) {
                         <option value="" selected disabled>Selecione</option>
                         <option value="1">Admin</option>
                         <option value="3">Usuario</option>
-                        <option value="5">Direção</option>
+                        <option value="5">Aprovador</option>
                         <option value="7">Coordenador</option>
                         <option value="9">Comprador</option>
                     </select>
                <br>
                 <button id="button" type="submit" class="btn btn-primary">Cadastrar</button>
-                <a href="lista_usuarios.php" class="btn btn-secondary">Cancelar</a>
+                <a href="" class="btn btn-secondary">Cancelar</a>
             </form>
         </section>
     </div>

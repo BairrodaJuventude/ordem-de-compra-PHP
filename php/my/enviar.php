@@ -26,7 +26,7 @@ if(isset($_SESSION['admin'])&&(isset($_SESSION['usuario']))){
         }
 
         else if(isset($erro)){
-            $sql_code = "INSERT INTO `ordens`(`ID`, `fornece`, `setor`, `requisitante`, `coordenador`, `direcao`,'Não Informado',NOW())";
+            $sql_code = "INSERT INTO ordens(ID, fornece, setor, requisitante, coordenador, direcao,'Não Informado',NOW())";
             $deu_certo = $mysql->query($sql_code) or die($mysql->error);
         }
 
@@ -62,34 +62,16 @@ if(isset($deu_certo)){
     <script src="/compra/javaScript/jquery.maskMoney.js"></script>
     <title>Projeto</title>
 
-    <style>
-        @media (max-width: 768px) {
-            .table th, .table td {
-                display: block;
-                width: 100%;
-            }
-            .table thead {
-                display: none;
-            }
-            .table tbody tr {
-                margin-bottom: 1rem;
-                display: block;
-            }
-        }
 
-    </style>
 </head>
 
-<body  onload="preencherData()">
+<body onload="preencherData()">
 
 <?php if ($_SESSION['usuario']) {
     echo $top;
 } else if ($_SESSION['admin']) {
     echo $top_adm;
 } ?>
-
-
-
 
 <footer style="height: 84vh;">
     <div class="container-fluid p-5 text-center">
@@ -105,6 +87,18 @@ if(isset($deu_certo)){
                         <th for="data"><b>Data:</b>
                         <input type="text" id="data" name="data" readonly></th>
                     </tr>
+
+                        <tr>
+                            <th for="data"><b>Urgência:</b>
+                            <select class="urgencia" name="Urg" id="a">
+                                <option value="Selecionar">Selecionar</option>
+                                <option value="Baixa">Baixa (Até 2 semanas)</option>
+                                <option value="Media">Média (Até 1 semana)</option>
+                                <option value="Alta">Alta (Até 3 dias)</option>
+                                <option value="Urgente">Urgente (Hoje)</option>
+                            </select>
+                            </th>
+                        </tr>
 
                     <tr>
                         <th><b>Fornecedor:</b><input id="a" name="fornece" type="text" required></th>
@@ -153,9 +147,26 @@ if(isset($deu_certo)){
                     </thead>
                     <tbody id="tableBody">
                     <tr>
-                        <td><input type="text" class="unit"></td>
+                        <td>
+                            <select class="span12" name="unid" id="a" required>
+                                <option value="Selecionar">Selecionar</option>
+                                <option value="dz">Duzia</option>
+                                <option value="cart">Cartela</option>
+                                <option value="lt">Litro</option>
+                                <option value="sc">Saco</option>
+                                <option value="cx">Caixa</option>
+                                <option value="unid">Unidade</option>
+                                <option value="met">Metro</option>
+                                <option value="par">Par</option>
+                                <option value="pt">Pacote</option>
+                                <option value="rl">Rolo</option>
+                                <option value="kg">Kilograma</option>
+                                <option value="g">Grama</option>
+                                <option value="ml">Mililitro</option>
+                            </select>
+                        </td>
                         <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-                        <td><input type="text" class="description"></td>
+                        <td><textarea class="description"></textarea></td>
                         <td>
                             <select class="span12" name="dis1" id="a">
                                 <option value="Selecionar">Selecionar</option>
@@ -165,15 +176,32 @@ if(isset($deu_certo)){
                                 <option value="Cep">Cep</option>
                             </select>
                         </td>
-                        <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)"></td>
+                        <td><input type="number" class="unitPrice" step="0.01" oninput="updateTotal(this)"></td>
                         <td class="totalValue" id="valor">0.00</td>
                         <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">-</button></td>
                     </tr>
 
                     <tr>
-                        <td><input type="text" class="unit"></td>
+                       <td>
+                           <select class="span12" name="unid" id="a" required>
+                               <option value="Selecionar">Selecionar</option>
+                               <option value="dz">Duzia</option>
+                               <option value="cart">Cartela</option>
+                               <option value="lt">Litro</option>
+                               <option value="sc">Saco</option>
+                               <option value="cx">Caixa</option>
+                               <option value="unid">Unidade</option>
+                               <option value="met">Metro</option>
+                               <option value="par">Par</option>
+                               <option value="pt">Pacote</option>
+                               <option value="rl">Rolo</option>
+                               <option value="kg">Kilograma</option>
+                               <option value="g">Grama</option>
+                               <option value="ml">Mililitro</option>
+                           </select>
+                       </td>
                         <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-                        <td><input type="text" class="description"></td>
+                        <td><textarea class="description"></textarea></td>
                         <td>
                             <select class="span12" name="dis2" id="a">
                                 <option value="Selecionar">Selecionar</option>
@@ -183,15 +211,32 @@ if(isset($deu_certo)){
                                 <option value="Cep">Cep</option>
                             </select>
                         </td>
-                        <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)"></td>
+                        <td><input type="number" class="unitPrice" step="0.01" oninput="updateTotal(this)"></td>
                         <td class="totalValue" id="valor">0.00</td>
                         <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">-</button></td>
                     </tr>
 
                     <tr>
-                        <td><input type="text" class="unit"></td>
+                        <td>
+                            <select class="span12" name="unid" id="a" required>
+                                <option value="Selecionar">Selecionar</option>
+                                <option value="dz">Duzia</option>
+                                <option value="cart">Cartela</option>
+                                <option value="lt">Litro</option>
+                                <option value="sc">Saco</option>
+                                <option value="cx">Caixa</option>
+                                <option value="unid">Unidade</option>
+                                <option value="met">Metro</option>
+                                <option value="par">Par</option>
+                                <option value="pt">Pacote</option>
+                                <option value="rl">Rolo</option>
+                                <option value="kg">Kilograma</option>
+                                <option value="g">Grama</option>
+                                <option value="ml">Mililitro</option>
+                            </select>
+                        </td>
                         <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-                        <td><input type="text" class="description"></td>
+                        <td><textarea class="description"></textarea></td>
                         <td>
                             <select class="span12" name="dis3" id="a">
                                 <option value="Selecionar">Selecionar</option>
@@ -207,11 +252,28 @@ if(isset($deu_certo)){
                     </tr>
 
                     <tr>
-                        <td><input type="text" class="unit"></td>
-                        <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-                        <td><input type="text" class="description"></td>
                         <td>
-                            <select class="span12" name="dis" id="a">
+                            <select class="span12" name="unid" id="a" required>
+                                <option value="Selecionar">Selecionar</option>
+                                <option value="dz">Duzia</option>
+                                <option value="cart">Cartela</option>
+                                <option value="lt">Litro</option>
+                                <option value="sc">Saco</option>
+                                <option value="cx">Caixa</option>
+                                <option value="unid">Unidade</option>
+                                <option value="met">Metro</option>
+                                <option value="par">Par</option>
+                                <option value="pt">Pacote</option>
+                                <option value="rl">Rolo</option>
+                                <option value="kg">Kilograma</option>
+                                <option value="g">Grama</option>
+                                <option value="ml">Mililitro</option>
+                            </select>
+                        </td>
+                        <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
+                        <td><textarea class="description"></textarea></td>
+                        <td>
+                            <select class="span12" name="dis4" id="a">
                                 <option value="Selecionar">Selecionar</option>
                                 <option value="Cef">Cef</option>
                                 <option value="Cozinha">Cozinha</option>
@@ -227,7 +289,9 @@ if(isset($deu_certo)){
                 </table>
 
                 <div class="add-button-container">
-                    <button  type="button" id="addInput" class="btn btn-primary me-5 ">+</button>
+                    <button type="button" id="addInput" class="btn btn-primary me-5 ">+</button>
+                                    <button id="button" type="submit" class="btn btn-secondary">Enviar</button>
+                <span></span>
                 </div>
 
                 <table class="table">
@@ -235,6 +299,7 @@ if(isset($deu_certo)){
                     <tr>
                         <th><b>Valor Geral</b>
                         <input placeholder="00,00" type="text" class="Value" id="valor-Total" readonly></th>
+                        
                     </tr>
                     <tr>
                         <th><b>Requisitante:</b> <input id="a" name="assi1" value="<?php echo $usuario['nome']; ?>" readonly type="text"></th>
@@ -256,7 +321,7 @@ if(isset($deu_certo)){
                         <th></th>
                     </tr>
                     <tr>
-                        <th><b>Direção:</b>
+                        <th><b>Aprovador:</b>
                             <select id="a">
                                 <option value="Selecionar">Marcelo</option>
                             </select>
@@ -268,17 +333,14 @@ if(isset($deu_certo)){
                     </thead>
                 </table>
 
-                <button id="button" type="submit">Enviar</button>
-                <span></span>
+
             </form>
         </section>
     </div>
 </footer>
 
-
 <script src="../../javaScript/mobile-navbar.js"></script>
 <script src="../../javaScript/enviar.js"></script>
-<script src="../../javaScript/add.js"></script>
 
 </body>
 </html>
