@@ -88,17 +88,17 @@ if(isset($deu_certo)){
                         <input type="text" id="data" name="data" readonly></th>
                     </tr>
 
-                        <tr>
-                            <th for="data"><b>Urgência:</b>
-                            <select class="urgencia" name="Urg" id="a">
-                                <option value="Selecionar">Selecionar</option>
-                                <option value="Baixa">Baixa (Até 2 semanas)</option>
-                                <option value="Media">Média (Até 1 semana)</option>
-                                <option value="Alta">Alta (Até 3 dias)</option>
-                                <option value="Urgente">Urgente (Hoje)</option>
-                            </select>
-                            </th>
-                        </tr>
+                            <tr>
+                                <th for="data"><b>Urgência:</b>
+                                <select class="urgencia" name="Urg" id="a">
+                                    <option value="Selecionar">Selecionar</option>
+                                    <option value="Baixa">Baixa (Até 2 semanas)</option>
+                                    <option value="Media">Média (Até 1 semana)</option>
+                                    <option value="Alta">Alta (Até 3 dias)</option>
+                                    <option value="Urgente">Urgente (Hoje)</option>
+                                </select>
+                                </th>
+                            </tr>
 
                     <tr>
                         <th><b>Fornecedor:</b><input id="a" name="fornece" type="text" required></th>
@@ -147,26 +147,26 @@ if(isset($deu_certo)){
                     </thead>
                     <tbody id="tableBody">
                     <tr>
-                        <td>
-                            <select class="span12" name="unid" id="a" required>
-                                <option value="Selecionar">Selecionar</option>
-                                <option value="dz">Duzia</option>
-                                <option value="cart">Cartela</option>
-                                <option value="lt">Litro</option>
-                                <option value="sc">Saco</option>
-                                <option value="cx">Caixa</option>
-                                <option value="unid">Unidade</option>
-                                <option value="met">Metro</option>
-                                <option value="par">Par</option>
-                                <option value="pt">Pacote</option>
-                                <option value="rl">Rolo</option>
-                                <option value="kg">Kilograma</option>
-                                <option value="g">Grama</option>
-                                <option value="ml">Mililitro</option>
-                            </select>
-                        </td>
-                        <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-                        <td><textarea class="description"></textarea></td>
+                            <td>
+                                <select class="span12" name="unid" id="a" required>
+                                    <option value="Selecionar">Selecionar</option>
+                                    <option value="dz">Duzia</option>
+                                    <option value="cart">Cartela</option>
+                                    <option value="lt">Litro</option>
+                                    <option value="sc">Saco</option>
+                                    <option value="cx">Caixa</option>
+                                    <option value="unid">Unidade</option>
+                                    <option value="met">Metro</option>
+                                    <option value="par">Par</option>
+                                    <option value="pt">Pacote</option>
+                                    <option value="rl">Rolo</option>
+                                    <option value="kg">Kilograma</option>
+                                    <option value="g">Grama</option>
+                                    <option value="ml">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
+                            <td><textarea class="description"></textarea></td>
                         <td>
                             <select class="span12" name="dis1" id="a">
                                 <option value="Selecionar">Selecionar</option>
@@ -183,25 +183,25 @@ if(isset($deu_certo)){
 
                     <tr>
                        <td>
-                           <select class="span12" name="unid" id="a" required>
-                               <option value="Selecionar">Selecionar</option>
-                               <option value="dz">Duzia</option>
-                               <option value="cart">Cartela</option>
-                               <option value="lt">Litro</option>
-                               <option value="sc">Saco</option>
-                               <option value="cx">Caixa</option>
-                               <option value="unid">Unidade</option>
-                               <option value="met">Metro</option>
-                               <option value="par">Par</option>
-                               <option value="pt">Pacote</option>
-                               <option value="rl">Rolo</option>
-                               <option value="kg">Kilograma</option>
-                               <option value="g">Grama</option>
-                               <option value="ml">Mililitro</option>
-                           </select>
-                       </td>
-                        <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-                        <td><textarea class="description"></textarea></td>
+                               <select class="span12" name="unid" id="a" required>
+                                   <option value="Selecionar">Selecionar</option>
+                                   <option value="dz">Duzia</option>
+                                   <option value="cart">Cartela</option>
+                                   <option value="lt">Litro</option>
+                                   <option value="sc">Saco</option>
+                                   <option value="cx">Caixa</option>
+                                   <option value="unid">Unidade</option>
+                                   <option value="met">Metro</option>
+                                   <option value="par">Par</option>
+                                   <option value="pt">Pacote</option>
+                                   <option value="rl">Rolo</option>
+                                   <option value="kg">Kilograma</option>
+                                   <option value="g">Grama</option>
+                                   <option value="ml">Mililitro</option>
+                               </select>
+                           </td>
+                            <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
+                            <td><textarea class="description"></textarea></td>
                         <td>
                             <select class="span12" name="dis2" id="a">
                                 <option value="Selecionar">Selecionar</option>
@@ -217,26 +217,26 @@ if(isset($deu_certo)){
                     </tr>
 
                     <tr>
-                        <td>
-                            <select class="span12" name="unid" id="a" required>
-                                <option value="Selecionar">Selecionar</option>
-                                <option value="dz">Duzia</option>
-                                <option value="cart">Cartela</option>
-                                <option value="lt">Litro</option>
-                                <option value="sc">Saco</option>
-                                <option value="cx">Caixa</option>
-                                <option value="unid">Unidade</option>
-                                <option value="met">Metro</option>
-                                <option value="par">Par</option>
-                                <option value="pt">Pacote</option>
-                                <option value="rl">Rolo</option>
-                                <option value="kg">Kilograma</option>
-                                <option value="g">Grama</option>
-                                <option value="ml">Mililitro</option>
-                            </select>
-                        </td>
-                        <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-                        <td><textarea class="description"></textarea></td>
+                            <td>
+                                <select class="span12" name="unid" id="a" required>
+                                    <option value="Selecionar">Selecionar</option>
+                                    <option value="dz">Duzia</option>
+                                    <option value="cart">Cartela</option>
+                                    <option value="lt">Litro</option>
+                                    <option value="sc">Saco</option>
+                                    <option value="cx">Caixa</option>
+                                    <option value="unid">Unidade</option>
+                                    <option value="met">Metro</option>
+                                    <option value="par">Par</option>
+                                    <option value="pt">Pacote</option>
+                                    <option value="rl">Rolo</option>
+                                    <option value="kg">Kilograma</option>
+                                    <option value="g">Grama</option>
+                                    <option value="ml">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
+                            <td><textarea class="description"></textarea></td>
                         <td>
                             <select class="span12" name="dis3" id="a">
                                 <option value="Selecionar">Selecionar</option>
@@ -252,26 +252,26 @@ if(isset($deu_certo)){
                     </tr>
 
                     <tr>
-                        <td>
-                            <select class="span12" name="unid" id="a" required>
-                                <option value="Selecionar">Selecionar</option>
-                                <option value="dz">Duzia</option>
-                                <option value="cart">Cartela</option>
-                                <option value="lt">Litro</option>
-                                <option value="sc">Saco</option>
-                                <option value="cx">Caixa</option>
-                                <option value="unid">Unidade</option>
-                                <option value="met">Metro</option>
-                                <option value="par">Par</option>
-                                <option value="pt">Pacote</option>
-                                <option value="rl">Rolo</option>
-                                <option value="kg">Kilograma</option>
-                                <option value="g">Grama</option>
-                                <option value="ml">Mililitro</option>
-                            </select>
-                        </td>
-                        <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
-                        <td><textarea class="description"></textarea></td>
+                            <td>
+                                <select class="span12" name="unid" id="a" required>
+                                    <option value="Selecionar">Selecionar</option>
+                                    <option value="dz">Duzia</option>
+                                    <option value="cart">Cartela</option>
+                                    <option value="lt">Litro</option>
+                                    <option value="sc">Saco</option>
+                                    <option value="cx">Caixa</option>
+                                    <option value="unid">Unidade</option>
+                                    <option value="met">Metro</option>
+                                    <option value="par">Par</option>
+                                    <option value="pt">Pacote</option>
+                                    <option value="rl">Rolo</option>
+                                    <option value="kg">Kilograma</option>
+                                    <option value="g">Grama</option>
+                                    <option value="ml">Mililitro</option>
+                                </select>
+                            </td>
+                             <td><input type="number" class="quantity" oninput="updateTotal(this)"></td>
+                             <td><textarea class="description"></textarea></td>
                         <td>
                             <select class="span12" name="dis4" id="a">
                                 <option value="Selecionar">Selecionar</option>
@@ -288,11 +288,11 @@ if(isset($deu_certo)){
                     </tbody>
                 </table>
 
-                <div class="add-button-container">
-                    <button type="button" id="addInput" class="btn btn-primary me-5 ">+</button>
-                                    <button id="button" type="submit" class="btn btn-secondary">Enviar</button>
-                <span></span>
-                </div>
+                    <div class="add-button-container">
+                        <button type="button" id="addInput" class="btn btn-primary me-5 ">+</button>
+                                        <button id="button" type="submit" class="btn btn-secondary">Enviar</button>
+                    <span></span>
+                    </div>
 
                 <table class="table">
                     <thead>
@@ -307,6 +307,7 @@ if(isset($deu_certo)){
                         <th></th>
                         <th></th>
                     </tr>
+
                     <tr>
                         <th><b>Coordenador:</b>
                             <select id="a">
@@ -321,11 +322,11 @@ if(isset($deu_certo)){
                         <th></th>
                     </tr>
                     <tr>
-                        <th><b>Aprovador:</b>
-                            <select id="a">
-                                <option value="Selecionar">Marcelo</option>
-                            </select>
-                        </th>
+                            <th><b>Aprovador:</b>
+                                <select id="a">
+                                    <option value="Selecionar">Marcelo</option>
+                                </select>
+                            </th>
                         <th></th>
                         <th></th>
                         <th></th>
