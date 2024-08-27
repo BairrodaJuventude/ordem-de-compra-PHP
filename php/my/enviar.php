@@ -129,6 +129,9 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
             $uni2 = $mysql->escape_string($_POST['uni2']);
         } else {
         }
+        if (isset($_POST['Urg'])){
+            $urg = $mysql->escape_string($_POST['Urg']);
+        }
         if (isset($_POST['uni3'])) {
             $uni3 = $mysql->escape_string($_POST['uni3']);
         } else {
@@ -535,7 +538,7 @@ INSERT INTO `ordens`
      `desp6`, `desp7`, `desp8`, `desp9`, `desp10`, `desp11`, `desp12`, `desp13`, `desp14`, `desp15`, `desp16`,
      `desp17`, `desp18`, `desp19`, `desp20`, `preco1`, `preco2`, `preco3`, `preco4`, `preco5`, `preco6`, `preco7`,
      `preco8`, `preco9`, `preco10`, `preco11`, `preco12`, `preco13`, `preco14`, `preco15`, `preco16`, `preco17`,
-     `preco18`, `preco19`, `preco20`, `total`, `Status`, `Data`) 
+     `preco18`, `preco19`, `preco20`, Urgencia, `total`, `Status`, `Data`) 
               VALUES 
     ('','$fornece', '$setor', '$assi1', '$assiCoord', '0', '0', '0', '0', '$uni1', '$uni2', '$uni3','$uni4', '$uni5',
      '$uni6', '$uni7','$uni8', '$uni9', '$uni10', '$uni11', '$uni12', '$uni13', '$uni14', '$uni15', '$uni16',
@@ -548,7 +551,7 @@ INSERT INTO `ordens`
      '$setor15', '$setor16', '$setor17', '$setor18', '$setor19','$setor20', '$precUni1', '$precUni2', '$precUni3',
      '$precUni4', '$precUni5', '$precUni6', '$precUni7', '$precUni8', '$precUni9', '$precUni10', '$precUni11',
      '$precUni12', '$precUni13', '$precUni14', '$precUni15', '$precUni16', '$precUni17','$precUni18', '$precUni19',
-     '$precUni20', '$total', '0', NOW())
+     '$precUni20', '$urg', '$total', '0', NOW())
 ";
         $deu_certo = $mysql->query($sql_code) or die($mysql->error);
 
@@ -568,17 +571,16 @@ INSERT INTO `ordens`
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="../../css/style.css">
             <link rel="icon" href="../../img/a.jpg">
+            <script src="../../javaScript/enviar.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
             <title>Projeto</title>
         </head>
 
         <body>
-        <?php if (isset($_SESSION['usuario'])) {
+        <?php
             echo $top;
-        } else if (isset($_SESSION['admin'])) {
-            echo $top_adm;
-        } ?>
+         ?>
 
         <main style="height: 84vh;">
             <div class="container-fluid p-5 text-center">
@@ -600,6 +602,17 @@ INSERT INTO `ordens`
                         <thead>
                         <tr>
                             <form action="" method="post">
+                                <tr>
+                                    <th for="Urg"><b>Urgência:</b>
+                                        <select class="urgencia" name="Urg" id="a">
+                                            <option value="">Selecionar</option>
+                                            <option value="Baixa">Baixa (Até 2 semanas)</option>
+                                            <option value="Media">Média (Até 1 semana)</option>
+                                            <option value="Alta">Alta (Até 3 dias)</option>
+                                            <option value="Urgente">Urgente (Hoje)</option>
+                                        </select>
+                                    </th>
+                                </tr>
                                 <tr>
                                     <th><b>Fornecedor:</b><input id="a" name="fornece" type="text" required></th>
                                     <th></th>
@@ -649,9 +662,26 @@ INSERT INTO `ordens`
                         </thead>
                         <tbody id="tableBody">
                         <tr>
-                            <td><input type="text" class="unit" name="uni1" required></td>
-                            <td><input type="number" class="quantity" id="v1" oninput="updateTotal(this)" name="quant1"required></td>
-                            <td><input type="text"  class="description"name="desc1" required></td>
+                            <td>
+                                <select class="span12" name="uni1" id="a" required>
+                                    <option value="">Selecionar</option>
+                                    <option value="Duzia">Duzia</option>
+                                    <option value="Cartela">Cartela</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Saco">Saco</option>
+                                    <option value="Caixa">Caixa</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro">Metro</option>
+                                    <option value="Par">Par</option>
+                                    <option value="Par">Pacote</option>
+                                    <option value="Rolo">Rolo</option>
+                                    <option value="Kilograma">Kilograma</option>
+                                    <option value="Grama">Grama</option>
+                                    <option value="Mililitro">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" step="0.01" class="quantity" id="v1" oninput="updateTotal(this)" name="quant1"required></td>
+                            <td><textarea class="description" name="desc1" required></textarea></td>
                             <td>
                                 <select class="span12" name="setor1" id="a" required>
                                     <option value="">Selecionar</option>
@@ -690,8 +720,25 @@ INSERT INTO `ordens`
                             <td class="totalValue" id="valor">0.00</td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="unit" name="uni2"></td>
-                            <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant2" ></td>
+                            <td>
+                                <select class="span12" name="uni2" id="a" >
+                                    <option value="">Selecionar</option>
+                                    <option value="Duzia">Duzia</option>
+                                    <option value="Cartela">Cartela</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Saco">Saco</option>
+                                    <option value="Caixa">Caixa</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro">Metro</option>
+                                    <option value="Par">Par</option>
+                                    <option value="Par">Pacote</option>
+                                    <option value="Rolo">Rolo</option>
+                                    <option value="Kilograma">Kilograma</option>
+                                    <option value="Grama">Grama</option>
+                                    <option value="Mililitro">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" step="0.01" class="quantity"  oninput="updateTotal(this)" name="quant2" ></td>
                             <td><input type="text" class="description" name="desc2" ></td>
                             <td>
                                 <select class="span12"  id="a"name="setor2">
@@ -732,8 +779,25 @@ INSERT INTO `ordens`
                         </tr>
 
                         <tr>
-                            <td><input type="text" class="unit"name="uni3" ></td>
-                            <td><input type="number" class="quantity" oninput="updateTotal(this)"name="quant3" ></td>
+                            <td>
+                                <select class="span12" name="uni3" id="a" >
+                                    <option value="">Selecionar</option>
+                                    <option value="Duzia">Duzia</option>
+                                    <option value="Cartela">Cartela</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Saco">Saco</option>
+                                    <option value="Caixa">Caixa</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro">Metro</option>
+                                    <option value="Par">Par</option>
+                                    <option value="Par">Pacote</option>
+                                    <option value="Rolo">Rolo</option>
+                                    <option value="Kilograma">Kilograma</option>
+                                    <option value="Grama">Grama</option>
+                                    <option value="Mililitro">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" step="0.01" class="quantity" oninput="updateTotal(this)"name="quant3" ></td>
                             <td><input type="text" class="description" name="desc3"></td>
                             <td>
                                 <select class="span12"  id="a"name="setor3">
@@ -774,8 +838,25 @@ INSERT INTO `ordens`
                         </tr>
 
                         <tr>
-                            <td><input type="text" class="unit" name="uni4" ></td>
-                            <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant4" ></td>
+                            <td>
+                                <select class="span12" name="uni4" id="a" >
+                                    <option value="">Selecionar</option>
+                                    <option value="Duzia">Duzia</option>
+                                    <option value="Cartela">Cartela</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Saco">Saco</option>
+                                    <option value="Caixa">Caixa</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro">Metro</option>
+                                    <option value="Par">Par</option>
+                                    <option value="Par">Pacote</option>
+                                    <option value="Rolo">Rolo</option>
+                                    <option value="Kilograma">Kilograma</option>
+                                    <option value="Grama">Grama</option>
+                                    <option value="Mililitro">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" step="0.01" class="quantity" oninput="updateTotal(this)" name="quant4" ></td>
                             <td><input type="text" class="description" name="desc4" ></td>
                             <td>
                                 <select class="span12" id="a" name="setor4">
@@ -858,7 +939,7 @@ INSERT INTO `ordens`
                         </tr>
 
                         <tr>
-                            <th><b>Direção:</b>
+                            <th><b>Aprovador:</b>
 
                             </th>
                         </tr>
@@ -872,81 +953,12 @@ INSERT INTO `ordens`
                 </section>
             </div>
         </main>
-        <script>
-            function updateTotal(element) {
-                const row = element.parentNode.parentNode;
-                const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
-                const unitPrice = parseFloat(row.querySelector('.unitPrice').value.replaceAll("R$ ", "").replaceAll(".", ",").replaceAll(",", ".")) || 0;
-                const totalValue = row.querySelector('.totalValue');
-                const total = (quantity * unitPrice).toFixed(2);
-                totalValue.textContent = isNaN(total) ? '0.00' : total;
-                updateGrandTotal();
-            }
-
-            function updateGrandTotal() {
-                const totalCells = document.querySelectorAll('.totalValue');
-                let grandTotal = 0;
-                totalCells.forEach(cell => {
-                    grandTotal += parseFloat(cell.textContent) || 0;
-                });
-                document.getElementById('valor-Total').value = grandTotal.toFixed(2);
-            }
 
 
-
-            // Para o acrecimo de um botao de adicionar colunas
-
-
-            // document.getElementById('addInput').addEventListener('click', function() {
-            // const newRow = document.createElement('tr');
-            // newRow.innerHTML = `
-            // <td><input type="text" class="unit" name=""></td>
-            // <td><input type="number" class="quantity" oninput="updateTotal(this)"name=""></td>
-            // <td><input type="text" class="description"name=""></td>
-            // <td>
-            //     <select class="span12" name="dis">
-            //         <option value="Selecionar">Selecionar</option>
-            //         <option value="INFANTIL">INFANTIL</option>
-            //                 <option value="ESCOLA">ESCOLA</option>
-            //                 <option value="ESP_CULTURAL">ESP_CULTURAL</option>
-            //                 <option value=" OFICINAS_ESPORTIVAS"> OFICINAS_ESPORTIVAS</option>
-            //                 <option value="OFICINAS_CULTURAIS">OFICINAS_CULTURAIS</option>
-            //                 <option value="LABORATORIOS">LABORATORIOS</option>
-            //                 <option value="PSICOSSOCIAL">PSICOSSOCIAL</option>
-            //                 <option value="RECURSOS">RECURSOS</option>
-            //                 <option value="RELACIONAMENTO">RELACIONAMENTO</option>
-            //                 <option value="COZINHA">COZINHA</option>
-            //                 <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
-            //                 <option value="TRANSPORTE">TRANSPORTE</option>
-            //                 <option value="ALMOXARIFADO">ALMOXARIFADO</option>
-            //                 <option value="RH">RH</option>
-            //     </select>
-            // </td>
-            // <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)"name=""></td>
-            // <td class="totalValue">0.00</td>
-            // <td><button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">Remover</button></td>
-            // `;
-            // document.getElementById('tableBody').appendChild(newRow);
-            // });
-
-            function removeRow(button) {
-                button.parentNode.parentNode.remove();
-                updateGrandTotal();
-            }
-
-            $(document).ready(function() {
-                $(".unitPrice, #valor-Total").maskMoney({
-                    prefix: 'R$ ',
-                    allowNegative: false,
-                    thousands: '.',
-                    decimal: ','
-                });
-            });
-        </script>
 
         </body>
-<!--        <script src="../../javaScript/enviar.js"></script>-->
         <script src="../../javaScript/mobile-navbar.js"></script>
+
 
 
         </html>

@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Ajustes de novas rotas(tudo Errado, Coordenador Aceita desconto do proprio setor)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaScript/enviar.js" beforeDir="false" afterPath="$PROJECT_DIR$/javaScript/enviar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaScript/jquery-3.7.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaScript/jquery.maskMoney.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
     </list>
@@ -116,6 +121,8 @@
       <workItem from="1724438029453" duration="5162000" />
       <workItem from="1724689043901" duration="12754000" />
       <workItem from="1724756320463" duration="314000" />
+      <workItem from="1724758771757" duration="293000" />
+      <workItem from="1724759714660" duration="6614000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />

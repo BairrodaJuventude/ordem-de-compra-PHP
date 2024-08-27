@@ -164,6 +164,14 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             <tr>
                 <form action="" method="post">
                     <tr>
+                        <th for="data"><b>Urgência:</b>
+                            <select class="urgencia" name="Urg" id="a">
+                                <option value="<?php echo $ordens['Urgencia'];?>"><?php echo $ordens['Urgencia'];?></option>
+
+                            </select>
+                        </th>
+                    </tr>
+                    <tr>
                         <th><b>Fornecedor:</b><input id="a" value="<?php echo $ordens['fornece'];?>" name="fornece" type="text" readonly required></th>
                         <th></th>
                         <th></th>
@@ -665,7 +673,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
 
 </body>
 
-<script src="../../javaScript/mobile-navbar.js"></script>
+<script src="../../javaScript/enviar.js"></script>
 
     </html>
 

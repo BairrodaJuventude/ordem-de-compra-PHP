@@ -28,7 +28,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
     $usuario = $query_usuarios->fetch_assoc();
 
    if($usuario['token'] == 7 && $usuario['token2'] == 7){
-         $sql_ordens ="SELECT * FROM ordens WHERE requisitante = $ID OR coordenador = '$ID' AND resebido = '0' AND Status = '3' OR Status = '8' ORDER BY `ordens`.`Data` DESC";
+         $sql_ordens ="SELECT * FROM ordens WHERE requisitante = $ID OR coordenador = '$ID'  AND Status = '3' OR Status = '8' AND resebido = '0' ORDER BY `ordens`.`Data` DESC";
         $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
         $num_ordens = $query_ordens->num_rows;
     }elseif( $usuario['token'] == 5 || $usuario['token2'] == 5 ){

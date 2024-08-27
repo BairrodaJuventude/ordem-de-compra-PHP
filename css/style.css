@@ -9,26 +9,24 @@
 
   width: 106%;
   border-radius: 6px;
-
+  
 }
 
-#buttonmover{
-    background-color: green;
+#button{
   float: right;
   border: 0px;
   width: 20%;
   border-radius: 6px;
-
 }
 #button:hover{
- background-color: red;
+ background-color:#0080009c;
 
 }
-
 #d{
   color: black;
   text-decoration: none;
   transition: 0.3s;
+
 }
 .dev1{
   float: left;
@@ -77,9 +75,9 @@ nav {
 }
 
 main {
-  background-color: rgb(239 239 239);
+  background-color: rgb(253, 253, 253);
   background-size: cover;
-  height: auto;
+  height: 500px;
 }
 
 .nav-list {
@@ -162,3 +160,51 @@ main {
 .btn {
   background-color: #1C1C1C;
 }
+
+
+
+    .urgencia-baixa {
+        background-color: #28a745; /* Verde suave */
+        color: white;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .urgencia-media {
+        background-color: #007bff; /* Azul suave */
+        color: white;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .urgencia-alta {
+        background-color: #fd7e14; /* Laranja suave */
+        color: white;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .urgencia-urgente {
+        background-color: #dc3545; /* Vermelho suave */
+        color: white;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+
+    .urgencia {
+        padding: 0.1em;
+        border: 1px solid #ced4da;
+        border-radius: 0.25em;
+        width: 20%;
+        box-sizing: border-box;
+    }
+
+
+    .quantity,
+            .unitPrice {
+                width: 65px;
+
+            }
+
+            .description {
+                width: 100%;
+                min-height: 50px;
+
+            }
