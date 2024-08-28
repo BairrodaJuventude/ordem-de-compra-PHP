@@ -82,11 +82,15 @@
         <?php }else if($usuarios['token'] == 3 && $usuarios['token2'] == 3){?>
          <td>Usuario</td>
          <?php }else if($usuarios['token'] == 5 && $usuarios['token2'] == 5){?>
-         <td>Direção</td>
+         <td>Aprovador</td>
          <?php }else if($usuarios['token']  == 7 && $usuarios['token2'] == 7){?>
          <td>Coordenador</td>
-         <?php }else if($usuarios['token'] && $usuarios['token2'] == 9){?>
-         <td>Comprador</td>
+         <?php }else if($usuarios['token'] && $usuarios['token2'] == 12){?>
+         <td>Compras</td>
+         <?php }else if($usuarios['token'] && $usuarios['token2'] == 11){?>
+         <td>Projetos</td>
+         <?php }else if($usuarios['token'] && $usuarios['token2'] == 13){?>
+         <td>Almoxarifado</td>
          <?php }else if((($usuarios['token'] == 5) && ($usuarios['token2'] == 7)
                     || ($usuarios['token'] == 7) && ($usuarios['token2'] == 5))){?>
            <td>Coordenador E Direção</td>
@@ -96,8 +100,8 @@
          <?php }else if((($usuarios['token'] == 1) && ($usuarios['token2'] == 5)
                     || ($usuarios['token'] == 5) && ($usuarios['token2'] == 1))){?>
            <td>Direção E ADM</td>
-         <?php }else if((($usuarios['token'] == 9) && ($usuarios['token2'] == 7)
-                  || ($usuarios['token'] == 7) && ($usuarios['token2'] == 9))){?>
+         <?php }else if((($usuarios['token'] == 12) && ($usuarios['token2'] == 7)
+                  || ($usuarios['token'] == 7) && ($usuarios['token2'] == 12))){?>
                   <td>Coordenador E Comprador</td>
               <?php }?>
          <td>
