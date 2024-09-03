@@ -60,7 +60,7 @@ if ($usuario['token'] != 11 || $usuario['token2'] != 11){
 <?php echo $top; ?>
 <main style="height:100vh;">
     <div class="container-fluid p-5 text-center">
-        <h1>CADASTRAR NOVO USUÁRIO</h1>
+        <h1>CADASTRAR NOVO PROJETO</h1>
     </div>
     </div>
     <?php if ($erro): ?>
