@@ -22,6 +22,10 @@ if ($usuario['token'] != 11 || $usuario['token2'] != 11){
         $nome = $mysql->escape_string($_POST['nome']);
         $valor = $_POST['valor'];
 
+        if($valor < 0){
+            echo "Erro, Valor nao aceito";
+        }
+
         if (empty($nome) || empty($valor) ) {
             $erro = "Preencha todos os dados!";
         } else {

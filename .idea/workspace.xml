@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Confirmando que o git esta atualizado">
-      <change afterPath="$PROJECT_DIR$/php/my/Historico.php" afterDir="false" />
+    <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Inicio historico Ordens">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/cadastrar_projeto.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/cadastrar_projeto.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +121,8 @@
       <workItem from="1724931080199" duration="103000" />
       <workItem from="1724936742075" duration="55000" />
       <workItem from="1725381357068" duration="7552000" />
-      <workItem from="1725392081219" duration="341000" />
+      <workItem from="1725392081219" duration="1445000" />
+      <workItem from="1725448057351" duration="624000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
@@ -230,7 +228,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724811985288</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Inicio historico Ordens">
+      <option name="closed" value="true" />
+      <created>1725393090392</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1725393090392</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,6 +280,7 @@
     <MESSAGE value="Ajustes de novas rotas(tudo Errado, Coordenador Aceita desconto do proprio setor)" />
     <MESSAGE value="Juncao dos front com beck." />
     <MESSAGE value="Confirmando que o git esta atualizado" />
-    <option name="LAST_COMMIT_MESSAGE" value="Confirmando que o git esta atualizado" />
+    <MESSAGE value="Inicio historico Ordens" />
+    <option name="LAST_COMMIT_MESSAGE" value="Inicio historico Ordens" />
   </component>
 </project>

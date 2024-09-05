@@ -6,9 +6,9 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
 include('../conexao.php');
 require('../menu.php');
 
-if ($_SESSION['admin']){
+if (isset($_SESSION['admin'])){
     $ID = $_SESSION['admin'];
-}elseif($_SESSION['usuario']){
+}else{
     $ID = $_SESSION['usuario'];
 }
 
@@ -16,29 +16,33 @@ if ($_SESSION['admin']){
  $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
  $usuario = $query_usuarios->fetch_assoc();
 
- if ($usuario['token'] || $usuario['token2'] == 13){
-      $sql_ordens ="SELECT * FROM ordens WHERE histAlm = 1";
+
+ if ($usuario['token'] == 13 || $usuario['token2'] == 13){
+      $sql_ordens ="SELECT * FROM ordens WHERE histAlm = 1 AND requisitante != $ID";
  }
- if($usuario['token'] || $usuario['token2'] == 12){
-    $sql_ordens ="SELECT * FROM ordens WHERE histCom = 1";
+ if($usuario['token']  == 12 || $usuario['token2'] == 12){
+    $sql_ordens ="SELECT * FROM ordens WHERE histCom = 1 AND requisitante != $ID";
  }
- if ($usuario['token'] || $usuario['token2'] == 11){
-      $sql_ordens ="SELECT * FROM ordens WHERE histPro = 1";
+ if ($usuario['token'] == 11 || $usuario['token2'] == 11){
+      $sql_ordens ="SELECT * FROM ordens WHERE histPro = 1 AND requisitante != $ID";
  }
- if ($usuario['token'] || $usuario['token2'] == 7){
-      $sql_ordens ="SELECT * FROM ordens WHERE histCoo = 1";
+ if ($usuario['token'] == 7 || $usuario['token2'] == 7){
+      $sql_ordens ="SELECT * FROM ordens WHERE histCoo = 1 AND requisitante != $ID";
  }
- if ($usuario['token'] || $usuario['token2'] == 5){
-      $sql_ordens ="SELECT * FROM ordens WHERE histDir = 1";
+ if ($usuario['token'] == 5 || $usuario['token2'] == 5){
+      $sql_ordens ="SELECT * FROM ordens WHERE histDir = 1 AND requisitante != $ID";
  }
- if ($usuario['token'] || $usuario['token2'] == 3){
-      $sql_ordens ="SELECT * FROM ordens WHERE histUsu = 1";
+ if ($usuario['token'] == 3 || $usuario['token2'] == 3){
+     header("Location: index.php");
+     die();
  }
  if ($usuario['token'] == 1 || $usuario['token2'] == 1){
-     $sql_ordens ="SELECT * FROM ordens WHERE histAdm = 1";
+     $sql_ordens ="SELECT * FROM ordens WHERE histAdm = 1 AND requisitante != $ID";
  }
    $query_ordens = $mysql->query($sql_ordens) or die($mysql->error);
     $num_ordens = $query_ordens->num_rows;
+
+
 ?>
                                               <!Fim do PHP!>
 

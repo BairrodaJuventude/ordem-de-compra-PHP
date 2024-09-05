@@ -13,7 +13,12 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
         $ID = $_SESSION['usuario'];
     }
 //    Capta o identificador da ordem de compra via URI
-    $id_ordem = intval($_GET['idme']);
+    if(isset($_GET['idme'])){
+        $id_ordem = intval($_GET['idme']);
+    }else{
+        echo "Erro ao Encontrar a ordem de compra";
+        die();
+    }
 //    Faz uma requisisao das informasoes do usuario logado
     $sql_usuario ="SELECT * FROM usuarios WHERE ID = '$ID'";
     $query_usuarios = $mysql->query($sql_usuario) or die($mysql->error);
@@ -23,10 +28,17 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
     $sql_usuarios_usuario = "SELECT * FROM usuarios WHERE token = '7' ";
     $queryusuarios_usuario = $mysql->query($sql_usuarios_usuario) or die($mysql->error);
     $num_projetos = $queryusuarios_usuario->num_rows;
+
 //    Faz uma requisisao das informasoes da ordem de compra de acordo com o identificador
     $sql_ordem = "SELECT * FROM ordens WHERE ID = '$id_ordem'";
     $query_ordem = $mysql->query($sql_ordem) or die($mysql->error);
+    $num_projetos = $query_ordem->num_rows;
     $ordens = $query_ordem->fetch_assoc();
+
+    if ($num_projetos == 0){
+        echo "Esta Ordem de Compra nao Existe";
+        die();
+    }
 
     if($usuario['token'] == 11 || $usuario['token2'] == 11 ){
         $sql_projetos = "SELECT * FROM projetos";
