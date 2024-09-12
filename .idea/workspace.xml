@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Inicio historico Ordens">
+      <change afterPath="$PROJECT_DIR$/php/my/Teste.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/php/my/imagem.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/conexao.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/conexao.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/historico_geral.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/historico_recebidos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/historico_usuario.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/arquivamentoOrdem.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +69,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\ordem-de-compra-PHP\php\my" />
+      <recent name="C:\xampp\htdocs\ordem-de-compra-PHP" />
       <recent name="C:\Users\programador\PhpstormProjects\ordem-de-compra-PHP" />
     </key>
   </component>
@@ -123,6 +133,12 @@
       <workItem from="1725381357068" duration="7552000" />
       <workItem from="1725392081219" duration="1445000" />
       <workItem from="1725448057351" duration="624000" />
+      <workItem from="1725552694643" duration="7578000" />
+      <workItem from="1725818369917" duration="1361000" />
+      <workItem from="1725908506085" duration="2230000" />
+      <workItem from="1725984855657" duration="610000" />
+      <workItem from="1725995822116" duration="2598000" />
+      <workItem from="1726158151318" duration="7507000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />
@@ -236,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725393090392</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Inicio historico Ordens">
+      <option name="closed" value="true" />
+      <created>1725552859077</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1725552859077</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

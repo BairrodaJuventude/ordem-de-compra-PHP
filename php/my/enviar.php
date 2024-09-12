@@ -2,13 +2,14 @@
 if(!isset($_SESSION)){
   session_start();
 }
-if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
+if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))) {
     include('../conexao.php');
     require('../menu.php');
-    if(isset($_SESSION['admin'])){
-            $ID = $_SESSION['admin'];
-    }else{
-            $ID = $_SESSION['usuario'];
+    require('imagem.php');
+    if (isset($_SESSION['admin'])) {
+        $ID = $_SESSION['admin'];
+    } else {
+        $ID = $_SESSION['usuario'];
     }
 //    Buscando todos os usuarios com o token de coordenador
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
@@ -19,7 +20,11 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
     $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
     $usuario = $query_usuarios->fetch_assoc();
     $assi1 = $usuario['ID'];
-    if(count($_POST) > 0) {
+
+
+
+
+    if (count($_POST) > 0) {
         $assiCoord = $_POST['assiCoord'];
         $fornece = $mysql->escape_string($_POST['fornece']);
         $setor = $mysql->escape_string($_POST['setor']);
@@ -129,7 +134,7 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
             $uni2 = $mysql->escape_string($_POST['uni2']);
         } else {
         }
-        if (isset($_POST['Urg'])){
+        if (isset($_POST['Urg'])) {
             $urg = $mysql->escape_string($_POST['Urg']);
         }
         if (isset($_POST['uni3'])) {
@@ -523,6 +528,25 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
             $precUni20 = $mysql->escape_string($_POST['precUni20']);
         } else {
         }
+//        if(count($_FILES) > 0){
+//
+//            $arquivos = $_FILES['arquivos1'];
+//
+//            print_r($arquivos);
+//            if($arquivos['size'] > 0){
+//                $tudo_certo = true;
+//                foreach($arquivos['name'] as $index => $arq){
+//                    $path = enviarCapa($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index]);
+//                }
+//            }else{
+//                $path = null;
+//            }
+//        }
+//       else {
+//            $path = null;
+//        }
+
+
         $total = $_POST['valorTotal'];
 
 //  Cadastro de ordom de compra
@@ -538,7 +562,8 @@ INSERT INTO `ordens`
      `desp6`, `desp7`, `desp8`, `desp9`, `desp10`, `desp11`, `desp12`, `desp13`, `desp14`, `desp15`, `desp16`,
      `desp17`, `desp18`, `desp19`, `desp20`, `preco1`, `preco2`, `preco3`, `preco4`, `preco5`, `preco6`, `preco7`,
      `preco8`, `preco9`, `preco10`, `preco11`, `preco12`, `preco13`, `preco14`, `preco15`, `preco16`, `preco17`,
-     `preco18`, `preco19`, `preco20`, Urgencia, `total`, `Status`, `Data`) 
+     `preco18`, `preco19`, `preco20`, Imagem, histAdm, histUsu, histDir, histCoo, histPro, histCom, histAlm, Urgencia,
+     `total`, `Status`, `Data`) 
               VALUES 
     ('','$fornece', '$setor', '$assi1', '$assiCoord', '0', '0', '0', '0', '$uni1', '$uni2', '$uni3','$uni4', '$uni5',
      '$uni6', '$uni7','$uni8', '$uni9', '$uni10', '$uni11', '$uni12', '$uni13', '$uni14', '$uni15', '$uni16',
@@ -551,18 +576,19 @@ INSERT INTO `ordens`
      '$setor15', '$setor16', '$setor17', '$setor18', '$setor19','$setor20', '$precUni1', '$precUni2', '$precUni3',
      '$precUni4', '$precUni5', '$precUni6', '$precUni7', '$precUni8', '$precUni9', '$precUni10', '$precUni11',
      '$precUni12', '$precUni13', '$precUni14', '$precUni15', '$precUni16', '$precUni17','$precUni18', '$precUni19',
-     '$precUni20', '$urg', '$total', '0', NOW())
+     '$precUni20', '$path', 0, 0, 0, 0, 0, 0, 0, '$urg', '$total', '0', NOW())
 ";
         $deu_certo = $mysql->query($sql_code) or die($mysql->error);
 
         if ($deu_certo) {
             $erro = false;
             $mensagem_sucesso = "Enviado Com sucesso!";
+
         }
 
 
-
     }
+
         ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -601,7 +627,7 @@ INSERT INTO `ordens`
                     <table class="table">
                         <thead>
                         <tr>
-                            <form action="" method="post">
+                            <form action="" method="post" enctype="multipart/form-data">
                                 <tr>
                                     <th for="Urg"><b>Urgência:</b>
                                         <select class="urgencia" name="Urg" id="a">
@@ -673,7 +699,7 @@ INSERT INTO `ordens`
                                     <option value="Unidade">Unidade</option>
                                     <option value="Metro">Metro</option>
                                     <option value="Par">Par</option>
-                                    <option value="Par">Pacote</option>
+                                    <option value="Pacote">Pacote</option>
                                     <option value="Rolo">Rolo</option>
                                     <option value="Kilograma">Kilograma</option>
                                     <option value="Grama">Grama</option>
@@ -731,7 +757,7 @@ INSERT INTO `ordens`
                                     <option value="Unidade">Unidade</option>
                                     <option value="Metro">Metro</option>
                                     <option value="Par">Par</option>
-                                    <option value="Par">Pacote</option>
+                                    <option value="Parcote">Pacote</option>
                                     <option value="Rolo">Rolo</option>
                                     <option value="Kilograma">Kilograma</option>
                                     <option value="Grama">Grama</option>
@@ -790,7 +816,7 @@ INSERT INTO `ordens`
                                     <option value="Unidade">Unidade</option>
                                     <option value="Metro">Metro</option>
                                     <option value="Par">Par</option>
-                                    <option value="Par">Pacote</option>
+                                    <option value="Pacote">Pacote</option>
                                     <option value="Rolo">Rolo</option>
                                     <option value="Kilograma">Kilograma</option>
                                     <option value="Grama">Grama</option>
@@ -849,7 +875,7 @@ INSERT INTO `ordens`
                                     <option value="Unidade">Unidade</option>
                                     <option value="Metro">Metro</option>
                                     <option value="Par">Par</option>
-                                    <option value="Par">Pacote</option>
+                                    <option value="Pacote">Pacote</option>
                                     <option value="Rolo">Rolo</option>
                                     <option value="Kilograma">Kilograma</option>
                                     <option value="Grama">Grama</option>
@@ -898,12 +924,18 @@ INSERT INTO `ordens`
                             </td>
                             <td class="totalValue" >0.00</td>
 
+
                         </tr>
                         </tbody>
                     </table>
 
                     <th><b>Valor Geral</b></th>
-                    <th><input placeholder="00,00" type="number" name="valorTotal" value="" class="Value" id="valor-Total" readonly></th>
+                    <th>
+                        <input placeholder="00,00" type="number" name="valorTotal" value="" class="Value" id="valor-Total" readonly>
+                        <td>
+                            <input name="arquivos1[]" multiple  type="file">
+                        </td>
+                    </th>
                     <table class="table" >
 
                         <thead>

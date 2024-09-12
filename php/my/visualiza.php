@@ -59,7 +59,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             if(!empty($_POST['Status'])){
                 $Status = $_POST['Status'];
             }
-            $sql_code = "UPDATE `ordens` SET Status = '$Status' WHERE ID = '$id_ordem'";
+            $sql_code = "UPDATE `ordens` SET Status = '$Status', histCom = 1 WHERE ID = '$id_ordem'";
             $deu_certo = $mysql->query($sql_code) or die($mysql->error);
             header("location: lista.php");
             }
@@ -88,7 +88,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
 
                     $novo_valor = $dados['valor']-$ordens['total'];
 
-                    $sql_code = "UPDATE `ordens` SET Status = '$Status', id_projeto = '$id_projeto' WHERE ID = '$id_ordem'";
+                    $sql_code = "UPDATE `ordens` SET Status = '$Status', id_projeto = '$id_projeto', histCom = 0, histPro = 1 WHERE ID = '$id_ordem'";
                     $sql_code2 = "UPDATE projetos SET valor = '$novo_valor'  WHERE ID = '$id_projeto'";
                     $deu_certo = $mysql->query($sql_code) or die($mysql->error);
                     $deu_certo2 = $mysql->query($sql_code2) or die($mysql->error);
@@ -97,7 +97,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                 }
 
             }elseif ($Status == 7){
-                $sql_code = "UPDATE `ordens` SET Status = '$Status' WHERE ID = '$id_ordem'";
+                $sql_code = "UPDATE `ordens` SET Status = '$Status', histCom = 0, histPro = 1 WHERE ID = '$id_ordem'";
                 $deu_certo = $mysql->query($sql_code) or die($mysql->error);
                 header("location: lista.php");
             }
@@ -113,7 +113,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             }else{
                 echo "Erro não esperado!";
             }
-            $sql_code = "UPDATE `ordens` SET Status = '$status', direcao = '$direcao' WHERE ID = '$id_ordem'";
+            $sql_code = "UPDATE `ordens` SET Status = '$status', direcao = '$direcao', histCoo = 1 WHERE ID = '$id_ordem'";
             $deu_certo = $mysql->query($sql_code) or die($mysql->error);
             header("location: lista.php");
         }
@@ -123,7 +123,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             }else{
                 echo "Erro não esperado!";
             }
-            $sql_code = "UPDATE `ordens` SET Status = '$status' WHERE ID = '$id_ordem'";
+            $sql_code = "UPDATE `ordens` SET Status = '$status', histDir = 1 WHERE ID = '$id_ordem'";
             $deu_certo = $mysql->query($sql_code) or die($mysql->error);
             header("location: lista.php");
         }
@@ -490,9 +490,10 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
             <?php }else{}?>
             <th><b>Valor Geral</b></th>
             <th><input placeholder="00,00" type="text" name="valorTotal" value="<?php echo $ordens['total']; ?>" class="Value" id="valor-Total" readonly></th>
+            <th><img src="<?php echo $ordens['Imagem']; ?>" alt=""></th>
 
             <?php
-            if($usuario['token'] == 11 || $usuario['token2'] == 11){?>
+            if(($usuario['token'] == 11 || $usuario['token2'] == 11) && ($ordens['histPro'] == 0)){?>
                 <th>
                     <b>Projetos</b>
                     <b>
@@ -502,6 +503,7 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                             }else{
                                     echo "<select name='projeto'>";
                                     echo "<option value=''>Selecione</option>";
+
                                     while ($projetos = $query_projetos->fetch_assoc()){?>
                                         <option value="<?php echo $projetos['ID']; ?>">
                                             <b><?php echo $projetos['nome']; ?></b>
@@ -521,26 +523,30 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                         <button type="submit" name="Status" value="7">Não Possui Projeto</button>
                     </b>
                 </th>
-            <?php } elseif($usuario['token'] == 12 || $usuario['token2'] == 12){
+            <?php }else{
                 if($ordens['id_projeto'] != 0){
-                $id_projeto = $ordens['id_projeto'];
-            $sql_pro = "SELECT * FROM projetos WHERE ID = '$id_projeto'";
-            $query_pro = $mysql->query($sql_pro) or die($mysql->error);
-            $ordem_projeto = $query_pro->fetch_assoc();
-            ?>
-            <th>
-                <td><b>Projeto: <?php echo $ordem_projeto['nome']; ?></b></td>
-            </th>
-            <?php }else{}} ?>
+                    $id_projeto = $ordens['id_projeto'];
+                    $sql_pro = "SELECT * FROM projetos WHERE ID = '$id_projeto'";
+                    $query_pro = $mysql->query($sql_pro) or die($mysql->error);
+                    $ordem_projeto = $query_pro->fetch_assoc();
+                    ?>
+                    <th>
+                    <td><b>Projeto: <?php echo $ordem_projeto['nome']; ?></b></td>
+                    </th>
+                <?php }
+            }
+          ?>
         </table>
 <!--        Vericacao de tokens para a mostra de Um campo de autorizacao de envio   -->
-        <?php if ($usuario['token']==7 || $usuario['token2'] == 7){?>
+        <?php if (($usuario['token']==7 || $usuario['token2'] == 7) && ($ordens['Status'] == 3) && ($ordens['histCoo'] != 0)){?>
 <!--            <button id="button" style="background-color: #ff0000; color: white;" name="status" value="" type="submit">Rejeitar</button>-->
             <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="4" type="submit">Autorizar</button>
-        <?php }elseif($usuario['token'] == 5 || $usuario['token2'] == 5){?>
+        <?php }
+            if(($usuario['token'] == 5 || $usuario['token2'] == 5) && ($ordens['histDir'] == 0)){?>
 <!--            <button id="button" style="background-color: #ff0000; color: white;" name="status" value="" type="submit">Rejeitar</button>-->
             <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="5" type="submit">Autorizar</button>
-       <?php }elseif($usuario['token'] == 3 || $usuario['token2'] == 3){?>
+       <?php }
+            if($usuario['token'] == 3 || $usuario['token2'] == 3){?>
 <!--           <button class="buttonmover"  name="reseb" value="1" type="submit">Mover Para Historico</button>-->
         <?php } ?>
         <table class="table">
@@ -618,9 +624,11 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
                  }else{
                     if($ordens['Status'] == 0){?>
                         <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="1" type="submit">Encaminhar</button>
-               <?php }elseif($ordens['Status'] == 2){?>
+               <?php }
+                    if($ordens['Status'] == 2){?>
                         <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="3" type="submit">Redirecionar</button>
-                    <?php }else{?>
+                    <?php }
+                    if($ordens['Status'] == 7){?>
                         <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="8" type="submit">Redirecionar</button>
                     <?php }
 

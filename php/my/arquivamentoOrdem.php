@@ -66,7 +66,7 @@ if (isset($_SESSION['admin'])){
   ?>
     <main>
       <div  class="container-fluid p-5 text-center ">
-              <h1>HISTORICO DAS SUAS ORDENS</h1>
+              <h1>SUAS ORDENS ARQUIVADAS</h1>
       </div>
 
 <div class="container mt-3">
