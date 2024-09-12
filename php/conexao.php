@@ -13,8 +13,4 @@ $mysqla = new  mysqli($host, $user, $pass, $db);
 if($mysqla->connect_error){
     echo "falha ao conectar:(" . $mysqla->connect_error . ")" . $mysqla->connect_error ;
 }
-
-//function formatar_data($data){
-  //  return implode('/', array_reverse(explode('-',$data)));
-//}
 ?>
