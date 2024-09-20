@@ -38,11 +38,9 @@
     display: none;
 }
 
-.sidebar ul li {
-    border-bottom: 1px solid #002a66;
-}
-
 .sidebar ul li a {
+    text-align: center;
+    background-color: aliceblue;
     display: block;
     padding: 15px;
     color: #000000;
@@ -51,7 +49,7 @@
 }
 
 .sidebar ul li a:hover {
-    background: #002a66;
+    background: #dfdfe0;
 }
 
 .sidebar .dropdown {

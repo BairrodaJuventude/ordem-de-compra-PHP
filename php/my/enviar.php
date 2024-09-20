@@ -601,6 +601,9 @@ INSERT INTO `ordens`
         <?php echo $mensagem_sucesso; ?>
                 </div>
         <?php endif; ?>
+
+        <table id="tabela-ordens" class="table">
+
             <div class="container mt-3">
                 <section id="c">
                     <table class="table">
@@ -965,6 +968,7 @@ INSERT INTO `ordens`
                     </table>
                 </section>
             </div>
+            </table>
         </main>
 
         </body>
