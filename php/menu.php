@@ -19,7 +19,7 @@ $token2 = $usuario['token2'];
 $base_header = "
 <header>
     <nav>
-         <img src='../../img/bannerlogo.png' id='b' class='logo'>
+         <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
         <div class='mobile-menu'>
             <div class='line1'></div>
             <div class='line2'></div>
@@ -38,7 +38,7 @@ $base_header = "
 $pro_header = "
 <header>
     <nav>
-         <img src='../../img/bannerlogo.png' id='b' class='logo'>
+         <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
         <div class='mobile-menu'>
             <div class='line1'></div>
             <div class='line2'></div>
@@ -59,7 +59,7 @@ $adm_header = "
 <header>
     <nav>
         
-            <img src='../../img/bannerlogo.png' id='b' class='logo'>
+            <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
         
         <div class='mobile-menu'>
             <div class='line1'></div>
