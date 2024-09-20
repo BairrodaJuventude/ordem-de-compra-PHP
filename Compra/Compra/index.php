@@ -13,14 +13,16 @@
         <form method="post" class="login-form">
             <h2>Login</h2>
             <?php
-//            faz uma pesquisa no banco de dados para verificar se o usuario esta cadastrado
-            if(isset($_POST['nome']) && (isset($_POST['senha']))){
+                if(isset($_POST['nome']) && (isset($_POST['senha']))){
                     include('php/conexao.php');
                     $nome = $mysql->escape_string($_POST['nome']);
                     $senha = $_POST['senha'];
+                    $sql_usuarios = "SELECT * FROM usuarios"; 
+                    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+                    $num_usuarios = $query_usuarios->num_rows;
+
                     $sql_code = "SELECT * FROM usuarios WHERE nome = '$nome'";
                     $sql_query = $mysql->query($sql_code) or die($mysql->error);
-//                    Verifica se existe algum usuario com esse nome
                     if($sql_query->num_rows == 0){
                         echo "<p class='error-msg'>Os Dados Informados Estão Incorretos.</p>";
                     }else{
@@ -29,18 +31,13 @@
                             if(!isset($_SESSION)){
                                 session_start();
                                 $ID = $usuario['ID'];
-                                if($usuario['token']==1)
-                                {
-                                    $_SESSION['admin'] = $usuario['ID'];
-                                } else
-                                {
-                                    $_SESSION['usuario'] = $usuario['ID'];
-                                }
+                                $_SESSION['usuario'] = $usuario['ID'];
+                                $_SESSION['admin'] = $usuario['admin'];
 
-                                if(isset($_SESSION['admin'])){
-                                    header("location: php/my/index.php");
-                                }else if(isset($_SESSION['usuario'])){
-                                    header("location: php/my/index.php");
+                                if($_SESSION['admin']){
+                                    header("location: php/my/index.php?ID=$ID");
+                                }else if($_SESSION['usuario']){
+                                    header("location: php/my/index.php?ID=$ID");
                                 }
                             }
                         }else{

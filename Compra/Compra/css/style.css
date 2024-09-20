@@ -1,0 +1,161 @@
+#a{
+  border-width: 0px;
+}
+#b{
+  width: 30%;
+  border-radius: 6px;
+}
+#c{
+
+  width: 106%;
+  border-radius: 6px;
+  
+}
+
+#button{
+  float: right;
+  border: 0px;
+  width: 20%;
+  border-radius: 6px;
+}
+#button:hover{
+ background-color:#0080009c;
+
+}
+#d{
+  color: black;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.dev1{
+  float: left;
+  width: 30%;
+}
+.dev2{
+  float: right;
+  width: 70%;
+  display: flex;
+}
+#f{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-top: 15%;
+  margin-left: 14vh;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#e {
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+ a :hover {
+  opacity: 0.7;
+  color:green;
+}
+
+.logo {
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  background: #1C1C1C;
+  height: 16vh;
+}
+
+main {
+  background-color: rgb(239 239 239);
+  background-size: cover;
+  height: auto;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+}
+
+.nav-list li{
+  height: 3vh;
+  letter-spacing: 3px;
+  margin-left: 32px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.mobile-menu{
+  display: none;
+  cursor: pointer;
+}
+
+.mobile-menu div{
+  width: 30px;
+  height: 2px;
+  background: #fff;
+  margin: 8px;
+}
+
+@media (max-width: 999px) {
+  body {
+    overflow-x: hidden;
+  }
+  .nav-list {
+    position: absolute;
+    top: 8vh;
+    right: 0;
+    width: 50vw;
+    height: 92vh;
+    background: grey11;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in;
+  }
+  .nav-list li {
+    margin-left: 0;
+    opacity: 0;
+  }
+  .mobile-menu {
+    display: block;
+  }
+}
+
+.nav-list.active {
+  transform: translateX(0);
+}
+
+@keyframes navLinkFade {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mobile-menu.active .line1 {
+  transform: rotate(-45deg) translate(-8px, 8px);
+}
+
+.mobile-menu.active .line2 {
+  opacity: 0;
+}
+
+.mobile-menu.active .line3 {
+  transform: rotate(45deg) translate(-5px, -7px);
+}
+
+.btn {
+  background-color: #1C1C1C;
+}

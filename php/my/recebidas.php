@@ -90,7 +90,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
     ?>
     <main>
       <div class="container-fluid p-5 text-center ">
-              <h1>ORDENS ENVIADAS</h1>
+              <h1>ORDENS RECEBIDAS</h1>
       </div>
 
       <div class="container mt-3">
@@ -170,7 +170,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
                               </td>
                           </tr>
                         <?php 
-                          }
+                        }
                       }?>
                   </tbody>
               </table>

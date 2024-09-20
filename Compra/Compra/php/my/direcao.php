@@ -2,15 +2,17 @@
 if(!isset($_SESSION)){
     session_start();
 }
-//      Filtro de usuario na pagina
 if(isset($_SESSION['admin'])){
 include('../conexao.php');
 require('../menu.php');
+
+    
+$ID = intval($_GET['ID']);
+$sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+$query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+$usuario = $query_usuarios->fetch_assoc();
+
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +23,10 @@ require('../menu.php');
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" href="../../img/a.jpg">
-    <title>Painel-ADM</title>
+    <title>Painel-Direção</title>
 </head>
 <body>
-    <?php echo $top;?>
+    <?php echo $top_adm;?>
     <main style="height: 84vh;">
     <div  class="container-fluid p-5 text-center ">
   <h1>FUNÇÕES DO ADM</h1>
@@ -34,10 +36,9 @@ require('../menu.php');
   <table class="table">
     <thead>
       <tr>
-        <th><a id="d" href="cadastrar.php">Cadastrar Novo Usuario</a></th>
-        <th><a id="d" href="lista_usuario.php">Lista De Usuarios</a></th>
-          <th><a id="d" href="cadastrar_setor.php">Cadastrar Novo Setor</a></th>
-        <th><a id="d" href="lista.php">Lista De Ordens</a></th>
+        <th><a id="d" href="cadastrar.php?ID=<?php echo $ID;?>">Cadastrar Novo Usuario</a></th>
+        <th><a id="d" href="lista_usuario.php?ID=<?php echo $ID;?>">Lista De Usuarios</a></th>
+        <th><a id="d" href="lista_ordens.php?ID=<?php echo $ID;?>">Lista De Ordens</a></th>
         
       </tr>
      
@@ -46,9 +47,6 @@ require('../menu.php');
     </main>
 </body>
 </html>
-
-
-
 <?php }else{
     header("Location:../logout.php");
     die();
