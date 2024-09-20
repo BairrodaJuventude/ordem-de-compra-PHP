@@ -179,10 +179,9 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
   </div>
 </main>
 
-
 </body>
 </html>
-
+ 
                                               <!Fim do HTML!>
 <?php }else{
     header("Location:../logout.php");
