@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78d1b5fe-1ef7-4a60-bc5f-0b872321c945" name="Changes" comment="Inicio historico Ordens">
-      <change afterPath="$PROJECT_DIR$/php/my/Teste.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/php/my/imagem.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/conexao.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/conexao.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/ImagensOrdens/66e331b205e3d.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/ImagensOrdens/66e334e88da73.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/ImagensOrdens/66e33f225a599.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/Teste.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/Teste.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/php/my/enviar.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/enviar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/historico_geral.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/historico_recebidos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/historico_usuario.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/arquivamentoOrdem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/lista.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/lista.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/my/visualiza.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/visualiza.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/my/imagem.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/my/imagem.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +35,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/php/my/enviar.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe" />
   <component name="ProjectColorInfo">{
@@ -139,6 +140,13 @@
       <workItem from="1725984855657" duration="610000" />
       <workItem from="1725995822116" duration="2598000" />
       <workItem from="1726158151318" duration="7507000" />
+      <workItem from="1726243753086" duration="9571000" />
+      <workItem from="1726768799626" duration="403000" />
+      <workItem from="1726770588086" duration="4932000" />
+      <workItem from="1726858976872" duration="437000" />
+      <workItem from="1726859472804" duration="784000" />
+      <workItem from="1727177940364" duration="12000" />
+      <workItem from="1727178084774" duration="21000" />
     </task>
     <task id="LOCAL-00001" summary="Primeiro Commit">
       <option name="closed" value="true" />

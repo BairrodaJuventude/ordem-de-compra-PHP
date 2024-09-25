@@ -16,7 +16,8 @@ function enviarCapa($error, $size, $name, $tmp_name){
 
     if($extensao != 'jpg' && $extensao != 'jpeg' && $extensao != 'png' && $extensao != 'svg' &&
         $extensao != 'spd' && $extensao != 'webp' && $extensao != 'raw' && $extensao != 'tiff' &&
-        $extensao != 'bmp') {
+        $extensao != 'bmp' &&
+        $extensao != 'pdf') {
         die("Tipo de arquivo nao aceito");
     }
     $path = $pasta . $novoNomeDoArquivo . "." . $extensao;
@@ -29,6 +30,7 @@ function enviarCapa($error, $size, $name, $tmp_name){
         if($deu_certo){
             return $path;
         }else
+
             return $path;
     }
 

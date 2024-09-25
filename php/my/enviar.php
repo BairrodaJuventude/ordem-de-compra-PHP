@@ -528,60 +528,63 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))) {
             $precUni20 = $mysql->escape_string($_POST['precUni20']);
         } else {
         }
-//        if(count($_FILES) > 0){
-//
-//            $arquivos = $_FILES['arquivos1'];
-//
-//            print_r($arquivos);
-//            if($arquivos['size'] > 0){
-//                $tudo_certo = true;
-//                foreach($arquivos['name'] as $index => $arq){
-//                    $path = enviarCapa($arquivos['error'][$index], $arquivos['size'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index]);
-//                }
-//            }else{
-//                $path = null;
-//            }
-//        }
-//       else {
-//            $path = null;
-//        }
+        $erro = false;
+        $path = null;
 
+        $arquivos = $_FILES['arquivos1'];
+        print_r($arquivos['name']);
 
-        $total = $_POST['valorTotal'];
+        if (!empty($_FILES['arquivos1']["size"][0])){
 
-//  Cadastro de ordom de compra
-        $sql_code = "
-INSERT INTO `ordens` 
-    (ID,`fornece`, `setor`, `requisitante`, `coordenador`, `direcao`, `comprador`, `resebido`, `estado`,
-    `uni1`, `uni2`, `uni3`, `uni4`, `uni5`, `uni6`, `uni7`, `uni8`, `uni9`, `uni10`, `uni11`, `uni12`,
-    `uni13`, `uni14`, `uni15`, `uni16`, `uni17`, `uni18`, `uni19`, `uni20`, `quant1`, `quant2`, `quant3`,
-     `quant4`, `quant5`, `quant6`, `quant7`, `quant8`, `quant9`, `quant10`, `quant11`, `quant12`, `quant13`,
-     `quant14`, `quant15`, `quant16`, `quant17`, `quant18`, `quant19`, `quant20`, `prod1`, `prod2`, `prod3`,
-     `prod4`, `prod5`, `prod6`, `prod7`, `prod8`, `prod9`, `prod10`, `prod11`, `prod12`, `prod13`, `prod14`,
-     `prod15`, `prod16`, `prod17`, `prod18`, `prod19`, `prod20`, `desp1`, `desp2`, `desp3`, `desp4`, `desp5`,
-     `desp6`, `desp7`, `desp8`, `desp9`, `desp10`, `desp11`, `desp12`, `desp13`, `desp14`, `desp15`, `desp16`,
-     `desp17`, `desp18`, `desp19`, `desp20`, `preco1`, `preco2`, `preco3`, `preco4`, `preco5`, `preco6`, `preco7`,
-     `preco8`, `preco9`, `preco10`, `preco11`, `preco12`, `preco13`, `preco14`, `preco15`, `preco16`, `preco17`,
-     `preco18`, `preco19`, `preco20`, Imagem, histAdm, histUsu, histDir, histCoo, histPro, histCom, histAlm, Urgencia,
-     `total`, `Status`, `Data`) 
-              VALUES 
-    ('','$fornece', '$setor', '$assi1', '$assiCoord', '0', '0', '0', '0', '$uni1', '$uni2', '$uni3','$uni4', '$uni5',
-     '$uni6', '$uni7','$uni8', '$uni9', '$uni10', '$uni11', '$uni12', '$uni13', '$uni14', '$uni15', '$uni16',
-     '$uni17', '$uni18', '$uni19', '$uni20','$quant1', '$quant2', '$quant3', '$quant4', '$quant5','$quant6',
-     '$quant7', '$quant8', '$quant9', '$quant10', '$quant11', '$quant12', '$quant13', '$quant14', '$quant15',
-     '$quant16', '$quant17', '$quant18', '$quant19', '$quant20', '$desc1', '$desc2', '$desc3','$desc4', '$desc5',
-     '$desc6', '$desc7', '$desc8', '$desc9', '$desc10', '$desc11', '$desc12', '$desc13', '$desc14', '$desc15',
-     '$desc16', '$desc17', '$desc18', '$desc19', '$desc20', '$setor1','$setor2', '$setor3', '$setor4', '$setor5',
-     '$setor6', '$setor7', '$setor8', '$setor9', '$setor10', '$setor11', '$setor12', '$setor13', '$setor14',
-     '$setor15', '$setor16', '$setor17', '$setor18', '$setor19','$setor20', '$precUni1', '$precUni2', '$precUni3',
-     '$precUni4', '$precUni5', '$precUni6', '$precUni7', '$precUni8', '$precUni9', '$precUni10', '$precUni11',
-     '$precUni12', '$precUni13', '$precUni14', '$precUni15', '$precUni16', '$precUni17','$precUni18', '$precUni19',
-     '$precUni20', '$path', 0, 0, 0, 0, 0, 0, 0, '$urg', '$total', '0', NOW())
-";
-        $deu_certo = $mysql->query($sql_code) or die($mysql->error);
+            foreach($arquivos['name'] as $index => $arq){
+                $path = enviarCapa($arquivos['error'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index]);
+            }
 
-        if ($deu_certo) {
-            $erro = false;
+            if ($path == "Falha ao enviar o arquivo"){
+                $erro = $path;
+            }
+
+            if ($path == "Tipo de arquivo nao aceito"){
+                $erro = $path;
+            }
+        }
+
+        if (!$erro){
+
+                $total = $_POST['valorTotal'];
+
+        //  Cadastro de ordom de compra
+            $sql_code = "
+                INSERT INTO `ordens` 
+                (ID,`fornece`, `setor`, `requisitante`, `coordenador`, `direcao`, `comprador`, `resebido`, `estado`,
+                `uni1`, `uni2`, `uni3`, `uni4`, `uni5`, `uni6`, `uni7`, `uni8`, `uni9`, `uni10`, `uni11`, `uni12`,
+                `uni13`, `uni14`, `uni15`, `uni16`, `uni17`, `uni18`, `uni19`, `uni20`, `quant1`, `quant2`, `quant3`,
+                 `quant4`, `quant5`, `quant6`, `quant7`, `quant8`, `quant9`, `quant10`, `quant11`, `quant12`, `quant13`,
+                 `quant14`, `quant15`, `quant16`, `quant17`, `quant18`, `quant19`, `quant20`, `prod1`, `prod2`, `prod3`,
+                 `prod4`, `prod5`, `prod6`, `prod7`, `prod8`, `prod9`, `prod10`, `prod11`, `prod12`, `prod13`, `prod14`,
+                 `prod15`, `prod16`, `prod17`, `prod18`, `prod19`, `prod20`, `desp1`, `desp2`, `desp3`, `desp4`, `desp5`,
+                 `desp6`, `desp7`, `desp8`, `desp9`, `desp10`, `desp11`, `desp12`, `desp13`, `desp14`, `desp15`, `desp16`,
+                 `desp17`, `desp18`, `desp19`, `desp20`, `preco1`, `preco2`, `preco3`, `preco4`, `preco5`, `preco6`, `preco7`,
+                 `preco8`, `preco9`, `preco10`, `preco11`, `preco12`, `preco13`, `preco14`, `preco15`, `preco16`, `preco17`,
+                 `preco18`, `preco19`, `preco20`, Imagem, histAdm, histUsu, histDir, histCoo, histPro, histCom, histAlm, Urgencia,
+                 `total`, `Status`, `Data`) 
+                          VALUES 
+                ('','$fornece', '$setor', '$assi1', '$assiCoord', '0', '0', '0', '0', '$uni1', '$uni2', '$uni3','$uni4', '$uni5',
+                 '$uni6', '$uni7','$uni8', '$uni9', '$uni10', '$uni11', '$uni12', '$uni13', '$uni14', '$uni15', '$uni16',
+                 '$uni17', '$uni18', '$uni19', '$uni20','$quant1', '$quant2', '$quant3', '$quant4', '$quant5','$quant6',
+                 '$quant7', '$quant8', '$quant9', '$quant10', '$quant11', '$quant12', '$quant13', '$quant14', '$quant15',
+                 '$quant16', '$quant17', '$quant18', '$quant19', '$quant20', '$desc1', '$desc2', '$desc3','$desc4', '$desc5',
+                 '$desc6', '$desc7', '$desc8', '$desc9', '$desc10', '$desc11', '$desc12', '$desc13', '$desc14', '$desc15',
+                 '$desc16', '$desc17', '$desc18', '$desc19', '$desc20', '$setor1','$setor2', '$setor3', '$setor4', '$setor5',
+                 '$setor6', '$setor7', '$setor8', '$setor9', '$setor10', '$setor11', '$setor12', '$setor13', '$setor14',
+                 '$setor15', '$setor16', '$setor17', '$setor18', '$setor19','$setor20', '$precUni1', '$precUni2', '$precUni3',
+                 '$precUni4', '$precUni5', '$precUni6', '$precUni7', '$precUni8', '$precUni9', '$precUni10', '$precUni11',
+                 '$precUni12', '$precUni13', '$precUni14', '$precUni15', '$precUni16', '$precUni17','$precUni18', '$precUni19',
+                 '$precUni20', '$path', 0, 0, 0, 0, 0, 0, 0, '$urg', '$total', '0', NOW())
+            ";
+                $deu_certo = $mysql->query($sql_code) or die($mysql->error);
+        }
+        if (isset($deu_certo)) {
             $mensagem_sucesso = "Enviado Com sucesso!";
 
         }
@@ -612,7 +615,7 @@ INSERT INTO `ordens`
             <div class="container-fluid p-5 text-center">
                 <h1>ORDEM DE COMPRA</h1>
             </div>
-            <?php if (isset($erro)&& $erro!=false): ?>
+            <?php if (isset($erro) && $erro!=false): ?>
                 <div class="alert alert-danger" role="alert">
                     <?php echo $erro; ?>
                 </div>
@@ -933,7 +936,7 @@ INSERT INTO `ordens`
                     <th>
                         <input placeholder="00,00" type="number" name="valorTotal" value="" class="Value" id="valor-Total" readonly>
                         <td>
-                            <input name="arquivos1[]" multiple  type="file">
+                            <input  name="arquivos1[]" multiple  type="file">
                         </td>
                     </th>
                     <table class="table" >

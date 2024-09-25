@@ -1,12 +1,13 @@
 <?php
-function enviarCapa($error, $size, $name, $tmp_name){
+function enviarCapa($error, $name, $tmp_name){
 
+$erro = false;
 
-if($error)
-die("Falha ao enviar o arquivo");
+if(!empty($error)) {
+    $erro = "Falha ao enviar o arquivo";
+    return $erro;
+}
 
-if($size > 20971556566200)
-die('Arquivo muito grande!! Max: 2ASDFGHJKMB');
 
 $pasta= "ImagensOrdens/";
 $nomeDoArquivo = $name;
@@ -15,14 +16,16 @@ $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
 
 if($extensao != 'jpg' && $extensao != 'jpeg' && $extensao != 'png' && $extensao != 'svg' &&
 $extensao != 'spd' && $extensao != 'webp' && $extensao != 'raw' && $extensao != 'tiff' &&
-$extensao != 'bmp') {
-die("Tipo de arquivo nao aceito");
+$extensao != 'bmp' &&
+    $extensao != 'pdf') {
+    $erro = "Tipo de arquivo nao aceito";
+    return $erro;
 }
+
+
 $path = $pasta . $novoNomeDoArquivo . "." . $extensao;
 //$deu_certo = move_uploaded_file($tmp_name, $pasta );
 $deu_certo = move_uploaded_file($tmp_name, $pasta . $novoNomeDoArquivo . "." . $extensao );
-
-
 
 if(isset($_FILES['arquivos1'])){
 if($deu_certo){
