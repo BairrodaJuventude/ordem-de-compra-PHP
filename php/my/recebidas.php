@@ -1,10 +1,25 @@
 <?php
-  if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
-if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
-include('../conexao.php');
-require('../menu.php');
+
+if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
+    include('../conexao.php');
+    require('../menu.php'); // Certifique-se de que o menu.php inclui o menu atualizado
+
+    if (isset($_SESSION['admin'])) {
+        $ID = $_SESSION['admin'];
+    } else {
+        $ID = $_SESSION['usuario'];
+    }
+
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+
+    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
+    $isAdmin = ($token == 1);
+
 //  Buscando todas as ordens de compra ja enviadas
 $sql_ordensG ="SELECT * FROM ordens ";
 $query_ordensG = $mysql->query($sql_ordensG) or die($mysql->error);
@@ -80,14 +95,32 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
     <link rel="icon" href="../../img/a.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script> <!-- Adiciona o html2pdf.js -->
+    <link rel="stylesheet" href="../../css/lateral.css">
+    <script src="../../javaScript/lateral.js" defer></script>
     <script src="../../javaScript/pdf.js" defer></script>
     <title>Lista De Ordens</title>
 </head>
 <body>
-    <?php
-        echo $top;
-    ?>
+<nav>
+    <div class="main-menu">
+    <?php echo $top; ?>
+</div>
+
+<div class="sidebar">
+    <p onclick="toggleDropdown()"><?php echo $nome; ?> ↓  </p>
+    
+    <ul id="user-menu" class="dropdown">
+        <?php if ($token == 11 || $token2 == 11) { ?>
+            <li><a href="projetos.php">Projetos</a></li>
+        <?php } ?>
+        <?php if ($isAdmin) { ?>
+            <li><a href="admin.php">Configurações</a>
+        <?php } ?>
+        <a href="../logout.php">Logout</a></li>
+    </ul>
+</div>
+
+</nav>
     <main>
       <div class="container-fluid p-5 text-center ">
               <h1>ORDENS RECEBIDAS</h1>

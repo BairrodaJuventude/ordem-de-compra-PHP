@@ -1,15 +1,26 @@
 <?php
-if(!isset($_SESSION)){
-  session_start();
+if (!isset($_SESSION)) {
+    session_start();
 }
-if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
+
+if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     include('../conexao.php');
-    require('../menu.php');
-    if(isset($_SESSION['admin'])){
-            $ID = $_SESSION['admin'];
-    }else{
-            $ID = $_SESSION['usuario'];
+    require('../menu.php'); // Certifique-se de que o menu.php inclui o menu atualizado
+
+    if (isset($_SESSION['admin'])) {
+        $ID = $_SESSION['admin'];
+    } else {
+        $ID = $_SESSION['usuario'];
     }
+
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+
+    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
+    $isAdmin = ($token == 1);
+
+
 //    Buscando todos os usuarios com o token de coordenador
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
     $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
@@ -576,16 +587,34 @@ INSERT INTO `ordens`
             <link rel="stylesheet" href="../../css/style.css">
             <link rel="icon" href="../../img/a.jpg">
             <script src="../../javaScript/enviar.js"></script>
+            <link rel="stylesheet" href="../../css/lateral.css">
             <script src="../../javaScript/mobile-navbar.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="../../javaScript/lateral.js" defer></script>
             <title>Projeto</title>
         </head>
 
         <body>
-        <?php
-            echo $top;
-         ?>
+        <nav>
+    <div class="main-menu">
+    <?php echo $top; ?>
+</div>
+
+<div class="sidebar">
+    <p onclick="toggleDropdown()"><?php echo $nome; ?> ↓  </p>
+    
+    <ul id="user-menu" class="dropdown">
+        <?php if ($token == 11 || $token2 == 11) { ?>
+            <li><a href="projetos.php">Projetos</a></li>
+        <?php } ?>
+        <?php if ($isAdmin) { ?>
+            <li><a href="admin.php">Configurações</a>
+        <?php } ?>
+        <a href="../logout.php">Logout</a></li>
+    </ul>
+</div>
+
+</nav>
 
             <main style="height: 84vh;">
                 <div class="container-fluid p-5 text-center">
