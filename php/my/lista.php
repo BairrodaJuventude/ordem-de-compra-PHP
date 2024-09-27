@@ -95,7 +95,6 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
     <link rel="stylesheet" href="../../css/lateral.css">
     <link rel="icon" href="../../img/a.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script> <!-- Adiciona o html2pdf.js -->
     <script src="../../javaScript/lateral.js" defer></script>
     <title>Lista De Ordens</title>
@@ -104,30 +103,21 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
 
 
 
-   <nav>
-    <div class="main-menu">
+<nav>       
+    <class class="main-menu">
     <?php echo $top; ?>
-</div>
+    </class>
 
-<div class="sidebar">
-    <p onclick="toggleDropdown()"><?php echo $nome; ?> ↓  </p>
-    
-    <ul id="user-menu" class="dropdown">
-        <?php if ($token == 11 || $token2 == 11) { ?>
-            <li><a href="projetos.php">Projetos</a></li>
-        <?php } ?>
-        <?php if ($isAdmin) { ?>
-            <li><a href="admin.php">Configurações</a>
-        <?php } ?>
-        <a href="../logout.php">Logout</a></li>
-    </ul>
-</div>
+    <?php echo $nome; ?>
+    </div>
 
-</nav>
-      <div class="container-fluid p-5 text-center ">
+</nav>  
+     
+    <main>
+
+    <div class="container-fluid p-5 text-center ">
               <h1>ORDENS ENVIADAS</h1>
       </div>
-
       <div class="container mt-3">
           <div class="row">
               <section id="c"> 

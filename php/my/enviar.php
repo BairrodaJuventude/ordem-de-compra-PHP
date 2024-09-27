@@ -596,27 +596,16 @@ INSERT INTO `ordens`
 
         <body>
         <nav>
-    <div class="main-menu">
+    <class class="main-menu">
     <?php echo $top; ?>
-</div>
+    </class>
 
-<div class="sidebar">
-    <p onclick="toggleDropdown()"><?php echo $nome; ?> ↓  </p>
-    
-    <ul id="user-menu" class="dropdown">
-        <?php if ($token == 11 || $token2 == 11) { ?>
-            <li><a href="projetos.php">Projetos</a></li>
-        <?php } ?>
-        <?php if ($isAdmin) { ?>
-            <li><a href="admin.php">Configurações</a>
-        <?php } ?>
-        <a href="../logout.php">Logout</a></li>
-    </ul>
-</div>
+    <?php echo $nome; ?>
+    </div>
 
 </nav>
 
-            <main style="height: 84vh;">
+            <main >
                 <div class="container-fluid p-5 text-center">
                     <h1>ORDEM DE COMPRA</h1>
                 </div>

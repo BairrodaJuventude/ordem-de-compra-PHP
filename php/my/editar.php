@@ -46,7 +46,15 @@ if(isset($_SESSION['admin'])){
     <title>Editar Usuário</title>
 </head>
 <body>
-<?php echo $top;?>
+<nav>
+    <class class="main-menu">
+    <?php echo $top; ?>
+    </class>
+
+    <?php echo $nome; ?>
+    </div>
+
+</nav> 
 <main>
     <div class="container-fluid p-5 text-center">
         <h1>Editar Usuário</h1>

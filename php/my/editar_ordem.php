@@ -576,10 +576,12 @@ UPDATE `ordens` SET `fornece`='$fornece',`setor`='$setor',
     </head>
 
     <body>
+        
     <?php if (isset($_SESSION['usuario'])) {
         echo $top;
     } else if (isset($_SESSION['admin'])) {
         echo $top_adm;
+        
     } ?>
 
     <main style="height: 84vh;">

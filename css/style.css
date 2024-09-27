@@ -3,7 +3,7 @@
 }
 
 #b {
-    width: 5%;
+    width: 6%;
     border-radius: 0px;
     padding: 26px;
     margin-top: 0vh;
@@ -76,7 +76,8 @@ a :hover {
 }
 
 nav {
-    width: 100%;
+    color: white;
+    width: 86%;
     display: flex;
     align-items: center;
     font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;

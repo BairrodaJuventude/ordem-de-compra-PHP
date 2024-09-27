@@ -57,8 +57,15 @@ if ($usuario['token'] != 11 || $usuario['token2'] != 11){
     <title>Cadastrar Novo Usuário</title>
 </head>
 <body>
-<?php echo $top; ?>
-<main style="height:100vh;">
+<nav>
+    <class class="main-menu">
+    <?php echo $top; ?>
+    </class>
+
+    <?php echo $nome; ?>
+    </div>
+
+</nav><main style="height:100vh;">
     <div class="container-fluid p-5 text-center">
         <h1>CADASTRAR NOVO USUÁRIO</h1>
     </div>

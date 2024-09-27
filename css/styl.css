@@ -1,5 +1,5 @@
-/* Reset some default browser styles */
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -62,8 +62,8 @@ body {
     transition: top 0.3s, font-size 0.3s, color 0.3s;
 }
 
-.box-user input:focus + label,
-.box-user input:valid + label {
+.box-user input:focus+label,
+.box-user input:valid+label {
     top: -20px;
     left: 10px;
     color: #268523;

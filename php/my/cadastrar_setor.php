@@ -55,26 +55,18 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     <title>Cadastrar Novo Setor</title>
 </head>
 <body>
+
 <nav>
-    <div class="main-menu">
+    <class class="main-menu">
     <?php echo $top; ?>
-</div>
+    </class>
 
-<div class="sidebar">
-    <p onclick="toggleDropdown()"><?php echo $nome; ?> ↓  </p>
-    
-    <ul id="user-menu" class="dropdown">
-        <?php if ($token == 11 || $token2 == 11) { ?>
-            <li><a href="projetos.php">Projetos</a></li>
-        <?php } ?>
-        <?php if ($isAdmin) { ?>
-            <li><a href="admin.php">Configurações</a>
-        <?php } ?>
-        <a href="../logout.php">Logout</a></li>
-    </ul>
-</div>
+    <?php echo $nome; ?>
+    </div>
 
-</nav><main style="height:100vh;">
+</nav>
+
+<main style="height:100vh;">
     <div class="container-fluid p-5 text-center">
         <h1>CADASTRAR NOVO SETOR</h1>
     </div>
