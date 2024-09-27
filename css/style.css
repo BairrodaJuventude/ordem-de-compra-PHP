@@ -3,7 +3,7 @@
 }
 
 #b {
-    width: 6%;
+    width: 11%;
     border-radius: 0px;
     padding: 26px;
     margin-top: 0vh;
@@ -90,6 +90,8 @@ main {
     background-color: white;
     background-size: cover;
     height: 92vh;
+    width: 90%;
+    margin-left: 5%;
 }
 
 .nav-list {
