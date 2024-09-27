@@ -179,7 +179,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
                                     
                                   <a id="d" href="arquivar.php?idme=<?php echo $ordem['ID'];?>">  
 
-                                  <button title="Arquivar Ordem" data-id="<?php echo $ordem['ID'];?>">
+                                  <button title="Arquivar Ordem" idme="<?php echo $ordem['ID'];?>">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
                                     <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
                                   </svg>
@@ -209,7 +209,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
                                   
                                   <a id="d" href="visualiza.php?idme=<?php echo $ordem['ID'];?>">
 
-                                  <button title="Ver Ordem"> 
+                                  <button title="Visualizar Ordem"> 
                                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-credit-card-2-front-fill" viewBox="0 0 16 16">
                                     <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>
                                   </svg>
