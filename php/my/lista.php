@@ -75,7 +75,7 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
         $num_ordens = $query_ordens->num_rows;
 
     }
-}?>
+}?> 
 
 <?php }else{
     header("Location:../logout.php");
