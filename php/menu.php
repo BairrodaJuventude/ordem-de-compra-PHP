@@ -14,13 +14,14 @@ $usuario = $query_usuarios->fetch_assoc();
 
 $token = $usuario['token'];
 $token2 = $usuario['token2'];
+$nome = $usuario['nome'];
+
+
 
 $base_header = "
 <header>
     <nav>
-        <a class='logo' style='color:#ffffff;text-decoration: none;transition: 0.3s;' href='/' >
-            <img src='../../img/a.jpg' id='b' alt=''>
-        </a>
+         <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
         <div class='mobile-menu'>
             <div class='line1'></div>
             <div class='line2'></div>
@@ -29,18 +30,27 @@ $base_header = "
         <ul class='nav-list'>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='index.php'>Home</a></li>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='enviar.php'>Encaminhar Ordem</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Lista de Enviados</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='../logout.php'>Sair</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Ordens Enviadas</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='recebidas.php'>Ordens Recebidas</a></li>
+           
         </ul>
+
+                <div class='sidebar'>
+    <p onclick='toggleDropdown()'> ▼</p>
+    
+    <ul id='user-menu' class='dropdown'>
+        <?php if ($nome) { ?>
+        <a href='../logout.php'>Logout</a></li>
+    </ul>
+</div>
+
     </nav>
 </header>";
 
 $pro_header = "
 <header>
-    <nav>
-        <a class='logo' style='color:#ffffff;text-decoration: none;transition: 0.3s;' href='/' >
-            <img src='../../img/a.jpg' id='b' alt=''>
-        </a>
+    <>
+         <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
         <div class='mobile-menu'>
             <div class='line1'></div>
             <div class='line2'></div>
@@ -49,21 +59,31 @@ $pro_header = "
         <ul class='nav-list'>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='index.php'>Home</a></li>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='enviar.php'>Encaminhar Ordem</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Lista de Enviados</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Ordens Enviadas</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='recebidas.php'>Ordens Recebidas</a></li>
             <?php if($token == 11 || $token2 == 11){?>
-                <li><a id='e' style='color:#ffffff;text-decoration: none;' href='projetos.php'>Projetos</a></li>
-                <?php }?>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='../logout.php'>Sair</a></li>
+           
         </ul>
+
+                <div class='sidebar'>
+    <p onclick='toggleDropdown()'> ▼</p>
+    
+    <ul id='user-menu' class='dropdown'>
+            <li><a href='projetos.php'>Projetos</a></li>
+        <?php if ($nome) { ?>
+        <a href='../logout.php'>Logout</a></li>
+    </ul>
+</div>
+ 
     </nav>
 </header>";
 
 $adm_header = "
 <header>
     <nav>
-        <a class='logo' style='color:#ffffff;text-decoration: none;transition: 0.3s;' href='/' >
-            <img src='../../img/a.jpg' id='b' alt=''>
-        </a>
+        
+            <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
+        
         <div class='mobile-menu'>
             <div class='line1'></div>
             <div class='line2'></div>
@@ -71,11 +91,21 @@ $adm_header = "
         </div>
         <ul class='nav-list'>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='index.php'>Home</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='admin.php'>Admin</a></li>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='enviar.php'>Encaminhar Ordem</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Lista de Enviados</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='../logout.php'>Sair</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Ordens Enviadas</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='recebidas.php'>Ordens Recebidas</a></li>
         </ul>
+
+        <div class='sidebar'>
+            <p onclick='toggleDropdown()'> ▼</p>
+            <ul id='user-menu' class='dropdown'>
+                    <li><a href='projetos.php'>Projetos</a></li>
+                <?php if ($nome) { ?>
+                    <li><a href='admin.php'>Configurações</a>
+                <a href='../logout.php'>Logout</a></li>
+            </ul>
+        </div>
+
     </nav>
 </header>";
 
