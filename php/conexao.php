@@ -13,5 +13,6 @@ $mysqla = new  mysqli($host, $user, $pass, $db);
 if($mysqla->connect_error){
     echo "falha ao conectar:(" . $mysqla->connect_error . ")" . $mysqla->connect_error ;
 }
+global $mysql;
 ?>
 

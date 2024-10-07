@@ -563,22 +563,21 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
                 <th class="thListarImagens">
                     <?php
 
-                            $imagem[] = listarImagem($ordens['Imagem']);
+                           if(!empty($ordens['imagem'])){
+                               $imagem[] = listarImagem($ordens['Imagem']);
 
-                            if ($imagem){
 
-                            }
 
-                            $quantImagem = count($imagem[0]);
+                               $quantImagem = count($imagem[0]);
 
-                            if($quantImagem > 9){
-                                $quantImagem = 9;
-                            }
+                               if($quantImagem > 9){
+                                   $quantImagem = 9;
+                               }
 
-                            for ($i = 0; $quantImagem > $i; $i++)
-                            {?>
+                               for ($i = 0; $quantImagem > $i; $i++)
+                               {?>
 
-                                    <button style="
+                                   <button style="
  border: solid 1px #aaaaaa!important;
     border-radius: 5px!important;
     padding: 5px!important;
@@ -588,14 +587,17 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     text-overflow: ellipsis!important;
     white-space: nowrap!important;
 " class="buttonListarImagem">
-                                        <a style=" text-decoration: none!important; color: #aaaaaa" download href="<?php echo $imagem[0][$i]['path'];?>">
-                                        <?php
-                                            echo $imagem[0][$i]['NomeOrigem'];
-                                        ?>
-                                        </a>
-                                    </button>
+                                       <a style=" text-decoration: none!important; color: #aaaaaa" download href="<?php echo $imagem[0][$i]['path'];?>">
+                                           <?php
+                                           echo $imagem[0][$i]['NomeOrigem'];
+                                           ?>
+                                       </a>
+                                   </button>
 
-                            <?php }
+                               <?php }
+                           }else{
+                               echo "<p> Nenhum Arquivo Anexado!</p>";
+                           }
 
                    ?>
                 </th>

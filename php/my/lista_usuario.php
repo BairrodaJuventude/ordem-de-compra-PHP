@@ -5,6 +5,7 @@ if (!isset($_SESSION)) {
 
 if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     include('../conexao.php');
+    include('../Usuario/Usuarios.php');
     require('../menu.php'); // Certifique-se de que o menu.php inclui o menu atualizado
 
     if (isset($_SESSION['admin'])) {
@@ -13,27 +14,6 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
         $ID = $_SESSION['usuario'];
     }
 
-    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
-    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-    $usuario = $query_usuarios->fetch_assoc();
-
-    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
-    $isAdmin = ($token == 1);
-
-    $ID = $_SESSION['admin'];
-//    consulta ao banco de dados, Para a listagem de todos usuarios
-    $sql_usuarios = "SELECT * FROM usuarios"; 
-    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
-    $num_usuarios = $query_usuarios->num_rows;
-
-//    verificacao de edicao/desativacao de usuario
-    $editar = false; 
-    if($editar == 1){
-        $editar = "<h1>Tem certeza que deseja excluir este usuario</h1>";
-    }
-    if($editar){
-        echo "<h1>Tem certeza que deseja excluir este usuario</h1>";
-    }
     ?>
     <!DOCTYPE html>
 <html lang="en">
@@ -80,14 +60,9 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
       </tr>
       </tbody>
       <?php
-//      Verificacao se ha algum usuario no banco
-      if($num_usuarios == 0){?>
-        <tr>
-          <td>Nenhum Usuario Cadastrado...</td>
-        </tr>
-        <?php }else if($num_usuarios != 0 ){
+            $usuarios = listarUsuarios();
 //          Listagem de todos usuarios cadastrados
-          while($usuarios =  $query_usuarios->fetch_assoc()){
+          for($i = 0;$i < $quantUsuario; $i++){
             $dataCadastro = date_create($usuarios['cadastro']);
             ?>
             
@@ -110,17 +85,13 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
          <td>Projetos</td>
          <?php }else if($usuarios['token'] && $usuarios['token2'] == 13){?>
          <td>Almoxarifado</td>
-         <?php }else if((($usuarios['token'] == 5) && ($usuarios['token2'] == 7)
-                    || ($usuarios['token'] == 7) && ($usuarios['token2'] == 5))){?>
+         <?php }else if((($usuarios['token'] == 5) && ($usuarios['token2'] == 7) || ($usuarios['token'] == 7) && ($usuarios['token2'] == 5))){?>
            <td>Coordenador E Direção</td>
-         <?php }else if((($usuarios['token'] == 1) && ($usuarios['token2'] == 7)
-                    || ($usuarios['token'] == 7) && ($usuarios['token2'] == 1))){?>
+         <?php }else if((($usuarios['token'] == 1) && ($usuarios['token2'] == 7) || ($usuarios['token'] == 7) && ($usuarios['token2'] == 1))){?>
            <td>Coordenador E ADM</td>
-         <?php }else if((($usuarios['token'] == 1) && ($usuarios['token2'] == 5)
-                    || ($usuarios['token'] == 5) && ($usuarios['token2'] == 1))){?>
+         <?php }else if((($usuarios['token'] == 1) && ($usuarios['token2'] == 5) || ($usuarios['token'] == 5) && ($usuarios['token2'] == 1))){?>
            <td>Direção E ADM</td>
-         <?php }else if((($usuarios['token'] == 12) && ($usuarios['token2'] == 7)
-                  || ($usuarios['token'] == 7) && ($usuarios['token2'] == 12))){?>
+         <?php }else if((($usuarios['token'] == 12) && ($usuarios['token2'] == 7) || ($usuarios['token'] == 7) && ($usuarios['token2'] == 12))){?>
                   <td>Coordenador E Comprador</td>
               <?php }?>
          <td>
@@ -151,7 +122,7 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
       </tr>
       
       <?php }
-      }?>
+      ?>
     
       </tbody>
     </table>
