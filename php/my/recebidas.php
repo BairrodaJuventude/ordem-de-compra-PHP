@@ -1,10 +1,25 @@
 <?php
-  if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
-if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
-include('../conexao.php');
-require('../menu.php');
+
+if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
+    include('../conexao.php');
+    require('../menu.php'); // Certifique-se de que o menu.php inclui o menu atualizado
+
+    if (isset($_SESSION['admin'])) {
+        $ID = $_SESSION['admin'];
+    } else {
+        $ID = $_SESSION['usuario'];
+    }
+
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+
+    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
+    $isAdmin = ($token == 1);
+
 //  Buscando todas as ordens de compra ja enviadas
 $sql_ordensG ="SELECT * FROM ordens ";
 $query_ordensG = $mysql->query($sql_ordensG) or die($mysql->error);
@@ -80,14 +95,21 @@ if (isset($_SESSION['admin']) && !isset($_SESSION['usuario'])) {
     <link rel="icon" href="../../img/a.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script> <!-- Adiciona o html2pdf.js -->
+    <link rel="stylesheet" href="../../css/lateral.css">
+    <script src="../../javaScript/lateral.js" defer></script>
     <script src="../../javaScript/pdf.js" defer></script>
     <title>Lista De Ordens</title>
 </head>
 <body>
-    <?php
-        echo $top;
-    ?>
+<nav>
+    <class class="main-menu">
+    <?php echo $top; ?>
+    </class>
+
+    <?php echo $nome; ?>
+    </div>
+
+</nav>
     <main>
       <div class="container-fluid p-5 text-center ">
               <h1>ORDENS RECEBIDAS</h1>

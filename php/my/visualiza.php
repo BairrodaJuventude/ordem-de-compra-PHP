@@ -1,11 +1,24 @@
 <?php
-if(!isset($_SESSION)){
+if (!isset($_SESSION)) {
     session_start();
 }
 
-if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
+if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     include('../conexao.php');
-    require('../menu.php');
+    require('../menu.php'); // Certifique-se de que o menu.php inclui o menu atualizado
+
+    if (isset($_SESSION['admin'])) {
+        $ID = $_SESSION['admin'];
+    } else {
+        $ID = $_SESSION['usuario'];
+    }
+
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+
+    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
+    $isAdmin = ($token == 1);
 //        faz uma verificacao de sessao para fazer uma requisisao das informacoes do usuario
     if(isset($_SESSION['admin'])&&!isset($_SESSION['usuario'])) {
         $ID =$_SESSION['admin'];
@@ -138,14 +151,22 @@ if(isset($_SESSION['admin']) || isset($_SESSION['usuario'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.6.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" integrity="sha512-MpDFIChbcXl2QgipQrt1VcPHMldRILetapBl5MPCA9Y8r7qvlwx1/Mc9hNTzY+kS5kX6PdoDq41ws1HiVNLdZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="../../css/lateral.css">
+    <script src="../../javaScript/lateral.js" defer></script>
     <script src="../../javaScript/pdf.js" defer></script>
     <title>Projeto</title>
 </head>
 <body>
 
-<?php echo $top;?>
+<nav>
+    <class class="main-menu">
+    <?php echo $top; ?>
+    </class>
 
+    <?php echo $nome; ?>
+    </div>
+
+</nav>
 
 <main id="content">
     <div class="container-fluid p-5 text-center ">

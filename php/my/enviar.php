@@ -1,15 +1,26 @@
 <?php
-if(!isset($_SESSION)){
-  session_start();
+if (!isset($_SESSION)) {
+    session_start();
 }
-if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))){
+
+if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     include('../conexao.php');
-    require('../menu.php');
-    if(isset($_SESSION['admin'])){
-            $ID = $_SESSION['admin'];
-    }else{
-            $ID = $_SESSION['usuario'];
+    require('../menu.php'); // Certifique-se de que o menu.php inclui o menu atualizado
+
+    if (isset($_SESSION['admin'])) {
+        $ID = $_SESSION['admin'];
+    } else {
+        $ID = $_SESSION['usuario'];
     }
+
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+
+    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
+    $isAdmin = ($token == 1);
+
+
 //    Buscando todos os usuarios com o token de coordenador
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
     $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
@@ -576,18 +587,25 @@ INSERT INTO `ordens`
             <link rel="stylesheet" href="../../css/style.css">
             <link rel="icon" href="../../img/a.jpg">
             <script src="../../javaScript/enviar.js"></script>
+            <link rel="stylesheet" href="../../css/lateral.css">
             <script src="../../javaScript/mobile-navbar.js"></script>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="../../javaScript/lateral.js" defer></script>
             <title>Projeto</title>
         </head>
 
         <body>
-        <?php
-            echo $top;
-         ?>
+        <nav>
+    <class class="main-menu">
+    <?php echo $top; ?>
+    </class>
 
-            <main style="height: 84vh;">
+    <?php echo $nome; ?>
+    </div>
+
+</nav>
+
+            <main >
                 <div class="container-fluid p-5 text-center">
                     <h1>ORDEM DE COMPRA</h1>
                 </div>
@@ -601,6 +619,9 @@ INSERT INTO `ordens`
         <?php echo $mensagem_sucesso; ?>
                 </div>
         <?php endif; ?>
+
+        <table id="tabela-ordens" class="table">
+
             <div class="container mt-3">
                 <section id="c">
                     <table class="table">
@@ -965,6 +986,7 @@ INSERT INTO `ordens`
                     </table>
                 </section>
             </div>
+            </table>
         </main>
 
         </body>

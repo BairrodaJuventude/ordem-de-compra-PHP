@@ -16,9 +16,6 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
     $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
     $usuario = $query_usuarios->fetch_assoc();
-
-    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
-    $isAdmin = ($token == 1);
 ?>
 
 
@@ -29,7 +26,7 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../../img/a.jpg">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/lateral.css">
     <script src="../../javaScript/lateral.js" defer></script>
@@ -38,24 +35,13 @@ if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
  
 </head>
 <body>
-    <nav>
-    <div class="main-menu">
+<nav>
+    <class class="main-menu">
     <?php echo $top; ?>
-</div>
+    </class>
 
-<div class="sidebar">
-    <p onclick="toggleDropdown()"><?php echo $nome; ?> ↓  </p>
-    
-    <ul id="user-menu" class="dropdown">
-        <?php if ($token == 11 || $token2 == 11) { ?>
-            <li><a href="projetos.php">Projetos</a></li>
-        <?php } ?>
-        <?php if ($isAdmin) { ?>
-            <li><a href="admin.php">Configurações</a>
-        <?php } ?>
-        <a href="../logout.php">Logout</a></li>
-    </ul>
-</div>
+    <?php echo $nome; ?>
+    </div>
 
 </nav>
 

@@ -1,13 +1,24 @@
 <?php
+if (!isset($_SESSION)) {
+    session_start();
+}
 
-
-    if(!isset($_SESSION)){
-        session_start();
-    }
-//    verificacao de sessao admin
-    if(isset($_SESSION['admin'])){
+if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     include('../conexao.php');
-    require('../menu.php');
+    require('../menu.php'); // Certifique-se de que o menu.php inclui o menu atualizado
+
+    if (isset($_SESSION['admin'])) {
+        $ID = $_SESSION['admin'];
+    } else {
+        $ID = $_SESSION['usuario'];
+    }
+
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+
+    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
+    $isAdmin = ($token == 1);
 
     $ID = $_SESSION['admin'];
 //    consulta ao banco de dados, Para a listagem de todos usuarios
@@ -32,13 +43,21 @@
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" href="../../img/a.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
+    <link rel="stylesheet" href="../../css/lateral.css">
+    <script src="../../javaScript/lateral.js" defer></script>
     <title>Lista De Usuarios</title>
 </head>
 <body>
-<?php echo $top;?>
-    <main>
+<nav>
+    <class class="main-menu">
+    <?php echo $top; ?>
+    </class>
+
+    <?php echo $nome; ?>
+    </div>
+
+</nav>
+<main>
     <div  class="container-fluid p-5 text-center ">
   <h1>LISTA DE USUARIOS</h1>
 </div>

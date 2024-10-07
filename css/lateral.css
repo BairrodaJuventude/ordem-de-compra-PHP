@@ -5,8 +5,8 @@
 }
 
 .sidebar {
-    width: 180px;
-    position: fixed;
+    width: 189px;
+    position: absolute;
     top: 0px;
     left: 86%;
     background-color: transparent;
@@ -14,11 +14,10 @@
     padding-top: 20px;
     display: flex;
     flex-direction: column;
-    overflow: auto;
 }
 
 .sidebar p {
-    height: 22px;
+    height: 51px;
     text-align: center;
     padding: 14.7px;
     background: #002a66;
@@ -38,11 +37,9 @@
     display: none;
 }
 
-.sidebar ul li {
-    border-bottom: 1px solid #002a66;
-}
-
 .sidebar ul li a {
+    text-align: center;
+    background-color: #2c608d;
     display: block;
     padding: 15px;
     color: #000000;
@@ -51,7 +48,7 @@
 }
 
 .sidebar ul li a:hover {
-    background: #002a66;
+    background: #114069;
 }
 
 .sidebar .dropdown {
@@ -59,13 +56,14 @@
 }
 
 .sidebar .dropdown.show {
-    height: 96px;
+    height: 0px;
     width: 143px;
     margin-top: 6px;
     display: block;
 }
 
 .main-menu header ul {
+    background-color: #002a66;
     list-style: none;
     padding: 0;
     margin: 0;

@@ -26,8 +26,15 @@ $usuario = $query_usuarios->fetch_assoc();
     <title>Painel-ADM</title>
 </head>
 <body>
-    <?php echo $top_adm;?>
-    <main style="height: 84vh;">
+<nav>
+    <class class="main-menu">
+    <?php echo $top; ?>
+    </class>
+
+    <?php echo $nome; ?>
+    </div>
+
+</nav>    <main style="height: 84vh;">
     <div  class="container-fluid p-5 text-center ">
   <h1>FUNÇÕES DO ADM</h1>
 </div>
