@@ -14,7 +14,6 @@
     border-radius: 6px;
 }
 
-
 #button {
     float: right;
     border: 0px;
@@ -91,6 +90,8 @@ main {
     background-color: white;
     background-size: cover;
     height: 92vh;
+    width: 90%;
+    margin-left: 5%;
 }
 
 .nav-list {
@@ -117,28 +118,10 @@ main {
     background: #fff;
     margin: 8px;
 }
-.imagensSalvas{
-    display: flex;
+#buttonListarImagem a{
+    text-decoration: none!important;
 }
-.imagensSalvas th{
-    border: 1px!important ;
-}
-.imagensSalvas button {
-    border-radius: 5px;
-    border: solid 1px !important;
-    border-color: #aaaaaa !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 9em;
-    padding: 10px;
-    white-space: nowrap;
-}
-.imagensSalvas a{
 
-    padding: 10%;
-    text-decoration: none;
-    color: #aaaaaa;
-}
 
 @media (max-width: 999px) {
     body {
@@ -387,5 +370,4 @@ button {
         align-items: center;
         gap: 20px;
     }
-
 }
