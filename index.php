@@ -16,7 +16,7 @@
             <?php
 //            faz uma pesquisa no banco de dados para verificar se o usuario esta cadastrado
             if(isset($_POST['nome']) && (isset($_POST['senha']))){
-                    include('php/conexao.php');
+                    include('php/Configuracao/conexao.php');
                     $nome = $mysql->escape_string($_POST['nome']);
                     $senha = $_POST['senha'];
                     $sql_code = "SELECT * FROM usuarios WHERE nome = '$nome'";

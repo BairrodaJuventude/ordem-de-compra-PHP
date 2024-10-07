@@ -42,7 +42,7 @@ $base_header = "
             </svg> </p>
     
     <ul id='user-menu' class='dropdown'>
-        <a href='../logout.php'>Logout</a></li>
+        <a onclick=''>Logout</a></li>
     </ul>
 </div>
 
