@@ -1,18 +1,41 @@
 <?php
+
 require_once 'Usuarios.php';
 
+function cadastrarUsuario()
+{
+
+    include ('../php/Configuracao/conexao.php');
+
+    $nome = $mysql->escape_string($_POST['nome']);
+    $email = $mysql->escape_string($_POST['email']);
+    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+    $token = $_POST['token'];
+    $token2 = $_POST['token2'];
+
+    if((!empty($nome))&&(!empty($email))&&(!empty($senha))&&(!empty($token))&&(!empty($token2))){
+
+        $deuCerto = $mysql->query("INSERT INTO `usuarios`(ID, `nome`, `email`, `senha`, `cadastro`, atualiza, `token`, `token2`, `Status`)
+        VALUES ('','$nome', '$email', '$senha', now(), null, '$token', $token2, 1)");
+
+        if ($deuCerto){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+
+}
 
 function listarsuarios()
 {
 
-    $usuario = new usuarios(null);
+    $usuario = new usuarios(null, null);
     $usuarios[] = $usuario->getAll();
-
-
-
-
-return $usuarios;
-
+    
+    return $usuarios;
 
 }
 function logout()
@@ -21,11 +44,11 @@ function logout()
     if(!isset($_SESSION))
     {
         session_start();
-
     }
 
     session_destroy();
     header("location: ../");
+
 }
 function verificaAdmin()
 {
@@ -35,17 +58,11 @@ function verificaAdmin()
         session_start();
     }
 
-    if (isset($_SESSION['admin']))
+    if (!isset($_SESSION['admin']))
     {
 
-        return true;
-
-    }else if(isset($_SESSION['usuario']))
-    {
-        return false;
-    }else
-    {
         logout();
+
     }
 
 }
@@ -54,7 +71,7 @@ function editarUsuario($Id, $novoNome, $novoEmail, $novaSenha, $novoToken)
 
     include ('../php/Configuracao/conexao.php');
 
-    $buscaUsuario = new usuarios(null);
+    $buscaUsuario = new usuarios(null, null);
     $quantidade = count($buscaUsuario->getAll());
 
     for ($i = 0; $i<$quantidade; $i++)
@@ -88,38 +105,42 @@ function editarUsuario($Id, $novoNome, $novoEmail, $novaSenha, $novoToken)
     $novoNomeCrip = $mysql->escape_string($novoNome);
     $novoEmailCrip = $mysql->escape_string($novoEmail);
     $novoTokenCrip = $mysql->escape_string($novoToken);
-    echo  $SelecionaId;
-   $mysql->query("UPDATE `usuarios` SET `nome`= '$novoNomeCrip',`email`='$novoEmailCrip',`senha`='$novaSenhaCrip',`token`='$novoTokenCrip', atualiza =  WHERE ID = '$SelecionaId'");
+    date_default_timezone_set('America/Sao_Paulo');
+
+   $mysql->query("UPDATE `usuarios` SET `nome`= '$novoNomeCrip',`email`='$novoEmailCrip',`senha`='$novaSenhaCrip',`token`='$novoTokenCrip', atualiza = now()  WHERE ID = '$SelecionaId'");
 
         return true;
 
 }
-function selecionaUsuario($Id)
-{
-    $usuario = new usuarios($Id);
 
-    return $usuario->SelecionaUsuario();
-}
 function pegaId()
 {
+
+    if (!isset($_SESSION)){
+        session_start();
+    }
+
     if(isset($_SESSION['usuario']))
     {
         $Id =$_SESSION['usuario'];
     }
-    else
-        if(isset($_SESSION['admin']))
+
+    if(isset($_SESSION['admin']))
     {
         $Id =$_SESSION['admin'];
-    }else{
-            return logout();
-        }
+    }
+
+    if(!isset($_SESSION['usuario']) && !isset($_SESSION['admin']))
+    {
+        logout();
+    }
 
     return $Id;
 }
 
-function pegaIdCript($Id)
+function pegaIdCriptUsuario($Id)
 {
-    $pegaUsuarios = new usuarios(null);
+    $pegaUsuarios = new usuarios(null, null);
     $quantidadeUsuarios = count($pegaUsuarios->getAll());
     for ($i =0; $i<$quantidadeUsuarios;$i++)
     {
@@ -132,4 +153,59 @@ function pegaIdCript($Id)
     }
     return $IdEncontrado;
 }
+function pegaToken($IdUsuario)
+{
+    $usuario = new usuarios($IdUsuario, null);
+    return $usuario->SelecionaUsuario()[0]['token'];
+}
 
+function Status($Id)
+{
+    $usuario = new usuarios($Id, null);
+
+    include ('../php/Configuracao/conexao.php');
+
+    if ($usuario->SelecionaUsuario()[0]['Status'] === 'Desativado')
+    {
+        $novoStatus = 1;
+    }else if($usuario->SelecionaUsuario()[0]['Status'] === 'Ativado')
+    {
+        $novoStatus = 0;
+    }
+
+
+    $mysql->query("UPDATE `usuarios` SET `Status`= '$novoStatus' WHERE ID = $Id");
+    return header("Location: listarUser.php");
+
+}
+
+function listaCoordenadores()
+{
+    include ('../php/Configuracao/conexao.php');
+
+    $pegaUsuarios = $mysql->query("SELECT * FROM `usuarios` WHERE token = 7 OR token2 = 7");
+    $quantidadeUsuarios = $pegaUsuarios->num_rows;
+
+    for ($i=0; $quantidadeUsuarios>$i; $i++)
+    {
+        $usuarios[$i] = $pegaUsuarios->fetch_assoc();
+    }
+
+    return $usuarios;
+
+}
+function listaAprovadores()
+{
+    include ('../php/Configuracao/conexao.php');
+
+    $pegaUsuarios = $mysql->query("SELECT * FROM `usuarios` WHERE token = 5 OR token2 = 5");
+    $quantidadeUsuarios = $pegaUsuarios->num_rows;
+
+    for ($i=0; $quantidadeUsuarios>$i; $i++)
+    {
+        $usuarios[$i] = $pegaUsuarios->fetch_assoc();
+    }
+
+    return $usuarios;
+
+}

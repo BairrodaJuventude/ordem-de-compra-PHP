@@ -8,16 +8,19 @@ class usuarios
     private Int $quantUsuarios;
 
 
-    public function __construct($caracteristica)
+    public function __construct($IdUsuario, $Aprovador)
     {
         include '../php/Configuracao/conexao.php';
 
-        if (isset($caracteristica)){
+        if (isset($IdUsuario)){
             include '../php/Configuracao/conexao.php';
-           $this->selecionaUsuarios = $mysql->query("SELECT * FROM usuarios WHERE ID = '{$caracteristica}'");
+           $this->selecionaUsuarios = $mysql->query("SELECT * FROM usuarios WHERE ID = '{$IdUsuario}'");
+        }elseif (isset($Aprovador)){
+            include '../php/Configuracao/conexao.php';
+           $this->selecionaUsuarios = $mysql->query("SELECT * FROM usuarios WHERE token = '5' OR token2 = '5'");
         }else
         {
-            $this->selecionaUsuarios = $mysql->query("SELECT * FROM `usuarios` ORDER BY `usuarios`.`ID` ASC ");
+            $this->selecionaUsuarios = $mysql->query("SELECT * FROM `usuarios` ORDER BY `usuarios`.`ID` DESC ");
 
         }
         $this->quantUsuarios = $this->selecionaUsuarios->num_rows;
@@ -36,7 +39,7 @@ class usuarios
 
             if ($this->usuarios[$i]['token'] == 1){
 
-                $this->usuarios[$i]['token'] = "Admim";
+                $this->usuarios[$i]['token'] = "Admin";
             }else
                 if ($this->usuarios[$i]['token'] == 3){
 
@@ -68,9 +71,8 @@ class usuarios
                 $this->usuarios[$i]['Status'] = "Desativado";
             }
 
-
-
         }
+
 
 
         return $this->usuarios;

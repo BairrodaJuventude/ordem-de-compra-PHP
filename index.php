@@ -19,7 +19,7 @@
                     include('php/Configuracao/conexao.php');
                     $nome = $mysql->escape_string($_POST['nome']);
                     $senha = $_POST['senha'];
-                    $sql_code = "SELECT * FROM usuarios WHERE nome = '$nome'";
+                    $sql_code = "SELECT * FROM usuarios WHERE nome = '$nome' && Status != '0'";
                     $sql_query = $mysql->query($sql_code) or die($mysql->error);
 //                    Verifica se existe algum usuario com esse nome
                     if($sql_query->num_rows == 0){
@@ -39,9 +39,9 @@
                                 }
 
                                 if(isset($_SESSION['admin'])){
-                                    header("location: php/my/index.php");
+                                    header("location: pages/index.php");
                                 }else if(isset($_SESSION['usuario'])){
-                                    header("location: php/my/index.php");
+                                    header("location: pages/index.php");
                                 }
                             }
                         }else{

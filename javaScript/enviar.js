@@ -18,6 +18,9 @@ function updateTotal(element) {
     updateRowCount();
 }
 
+function somaValores(){
+    const total = documents.querySelectorAll('.totalValue')
+}
 
 function updateGrandTotal() {
     const totalCells = document.querySelectorAll('.totalValue');

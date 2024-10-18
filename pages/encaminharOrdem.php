@@ -1,17 +1,27 @@
+<?php
+
+    session_start();
+    require_once '../php/OrdemDeCompra/ServiceOrdemDeCompra.php';
+    require_once '../php/Usuario/ServiceUsuarios.php';
+    pegaId();
+    include '../php/Configuracao/conexao.php';
+    include '../php/menu.php';
+
+
+?>
 <!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
             <link rel="stylesheet" href="../css/style.css">
             <link rel="icon" href="../img/logobranca.jpg">
-
-
-            <script src="../javaScript/enviar.js"></script>
+            <link rel="stylesheet" href="../css/lateral.css">
             <script src="../javaScript/lateral.js" defer></script>
-            
+
+
             <title>Encaminhar Ordem</title>
             
         </head>
@@ -21,9 +31,9 @@
 
         <?php 
 
-            include '../php/menu.php';
             echo $top;
-        
+            echo $nome;
+
         ?>
 
         </nav>
@@ -346,7 +356,7 @@
 
                         <thead>
                         <tr>
-                            <th><b>Requisitante:</b></th>
+                            <th><b>Requisitante:</b> <input name="requisitante" value> </th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -361,7 +371,7 @@
 
                         <tr>
                             <th><b>Aprovador:</b>
-
+                                <input name="aprovador">
                             </th>
                         </tr>
                         </thead>

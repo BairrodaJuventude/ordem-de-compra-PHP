@@ -17,9 +17,9 @@
 #button {
     float: right;
     border: 0px;
-    width: 13%;
+    width: 26%;
     border-radius: 6px;
-    height: 6vh;
+    height: 5vh;
 }
 
 #button:hover {

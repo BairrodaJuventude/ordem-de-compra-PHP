@@ -1,3 +1,7 @@
 <?php
 // Destroi todas as Sessoes ja criadas no navegado e redireciona para a pagina de login
 include('../conexao.php');
+
+session_start();
+session_destroy();
+header("Location: ../");

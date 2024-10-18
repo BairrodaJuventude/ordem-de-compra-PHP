@@ -1,5 +1,7 @@
-<?php 
-include('conexao.php');
+<?php
+include('Configuracao/conexao.php');
+
+
 
 if(isset($_SESSION['admin']))
 {
@@ -8,7 +10,7 @@ if(isset($_SESSION['admin']))
 {
     $ID = $_SESSION['usuario'];
 }
-$sql_usuarios ="SELECT * FROM usuarios WHERE ID = $ID";
+$sql_usuarios ="SELECT * FROM usuarios WHERE ID = '$ID'";
 $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
 $usuario = $query_usuarios->fetch_assoc();
 
@@ -21,18 +23,17 @@ $nome = $usuario['nome'];
 $base_header = "
 <header>
     <nav>
-         <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
+         <img src='../img/logobranca-transparente.png' id='b' class='logo'>
         <div class='mobile-menu'>
             <div class='line1'></div>
             <div class='line2'></div>
             <div class='line3'></div>
         </div>
-        <ul class='nav-list'>
+         <ul class='nav-list'>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='index.php'>Home</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='enviar.php'>Encaminhar Ordem</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Ordens Enviadas</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='recebidas.php'>Ordens Recebidas</a></li>
-           
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='encaminharOrdem.php'>Encaminhar Ordem</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='ordensEnviadas.php'>Ordens Enviadas</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='ordensRecebidas.php'>Ordens Recebidas</a></li>
         </ul>
 
                 <div class='sidebar'>
@@ -42,7 +43,7 @@ $base_header = "
             </svg> </p>
     
     <ul id='user-menu' class='dropdown'>
-        <a onclick=''>Logout</a></li>
+        <a href='../php/logout.php'>Logout</a></li>
     </ul>
 </div>
 
@@ -51,8 +52,8 @@ $base_header = "
 
 $pro_header = "
 <header>
-    <>
-         <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
+    
+         <img src='../img/logobranca-transparente.png' id='b' class='logo'>
         <div class='mobile-menu'>
             <div class='line1'></div>
             <div class='line2'></div>
@@ -60,9 +61,9 @@ $pro_header = "
         </div>
         <ul class='nav-list'>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='index.php'>Home</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='enviar.php'>Encaminhar Ordem</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Ordens Enviadas</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='recebidas.php'>Ordens Recebidas</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='encaminharOrdem.php'>Encaminhar Ordem</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='ordensEnviadas.php'>Ordens Enviadas</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='ordensRecebidas.php'>Ordens Recebidas</a></li>
             <?php if($token == 11 || $token2 == 11){?>
            
         </ul>
@@ -75,7 +76,7 @@ $pro_header = "
     
     <ul id='user-menu' class='dropdown'>
             <li><a href='projetos.php'>Projetos</a></li>
-        <a href='../logout.php'>Logout</a></li>
+        <a href='../php/logout.php'>Logout</a></li>
     </ul>
 </div>
  
@@ -86,7 +87,7 @@ $adm_header = "
 <header>
     <nav>
         
-            <img src='../../img/logobranca-transparente.png' id='b' class='logo'>
+            <img src='../img/logobranca-transparente.png' id='b' class='logo'>
         
         <div class='mobile-menu'>
             <div class='line1'></div>
@@ -95,9 +96,9 @@ $adm_header = "
         </div>
         <ul class='nav-list'>
             <li><a id='e' style='color:#ffffff;text-decoration: none;' href='index.php'>Home</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='enviar.php'>Encaminhar Ordem</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='lista.php'>Ordens Enviadas</a></li>
-            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='recebidas.php'>Ordens Recebidas</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='encaminharOrdem.php'>Encaminhar Ordem</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='ordensEnviadas.php'>Ordens Enviadas</a></li>
+            <li><a id='e' style='color:#ffffff;text-decoration: none;' href='ordensRecebidas.php'>Ordens Recebidas</a></li>
         </ul>
 
         <div class='sidebar'>
@@ -107,8 +108,8 @@ $adm_header = "
             </svg></p>
             <ul id='user-menu' class='dropdown'>
                     <li><a href='projetos.php'>Projetos</a></li>
-                    <li><a href='admin.php'>Configurações</a>
-                <a href='../logout.php'>Logout</a></li>
+                    <li><a href='config.php'>Configurações</a>
+                <a href='../php/logout.php'>Logout</a></li>
             </ul>
         </div>
 
