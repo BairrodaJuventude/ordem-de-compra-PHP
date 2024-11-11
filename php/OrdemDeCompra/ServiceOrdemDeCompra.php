@@ -1,5 +1,5 @@
 <?php
-require_once '../php/Projetos/ServiceProjetos.php';
+require_once '../php/Projeto/ServiceProjetos.php';
 require_once 'OrdemDeCompra.php';
 
 
@@ -138,7 +138,7 @@ function verificaTokenMostraBotao ($Idusuario, $IdOrdem)
     if ((($usuario->SelecionaUsuario()[0]['token'] == "Coordenador")||($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 3)){
         return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Encaminhar</button>";
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Projetos")|| ($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 1)){
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Projeto")|| ($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 1)){
         if (is_string($projetos->getAll())){
              $teste[] ="Nenhum Projeto Com Este Valor";
             return $teste;
@@ -263,7 +263,7 @@ function editarOrdem($IdOrdem)
 {
 
     include '../php/Configuracao/conexao.php';
-print_r($_POST);
+
 
     $Urgencia = $_POST['Urg'];
     $Fornecedor = $mysql->escape_string($_POST['fornece']);

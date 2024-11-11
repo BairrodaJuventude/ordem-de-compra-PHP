@@ -71,7 +71,7 @@ function editarUsuario($Id, $novoNome, $novoEmail, $novaSenha, $novoToken)
 
     include ('../php/Configuracao/conexao.php');
 
-    $buscaUsuario = new usuarios(null, null);
+    $buscaUsuario = new usuarios($Id, null);
     $quantidade = count($buscaUsuario->getAll());
 
     for ($i = 0; $i<$quantidade; $i++)

@@ -12,7 +12,7 @@
     if (!isset($_GET['id'])){
         die("Identificador Não Encontrado");
     }
-        $usuario = new usuarios(pegaIdCriptUsuario($_GET['id']));
+        $usuario = new usuarios(pegaIdCriptUsuario($_GET['id']), false);
 
 
 

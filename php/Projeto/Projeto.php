@@ -14,15 +14,15 @@ class Projeto
         if (isset($caracteristica)) {
 
             include '../php/Configuracao/conexao.php';
-            $this->selecionaProjetos = $mysql->query("SELECT * FROM Projetos WHERE ID = '{$caracteristica}'");
+            $this->selecionaProjetos = $mysql->query("SELECT * FROM Projeto WHERE ID = '{$caracteristica}'");
 
         }else if (isset($valor)) {
 
             include '../php/Configuracao/conexao.php';
-            $this->selecionaProjetos = $mysql->query("SELECT * FROM Projetos WHERE valor >= '{$valor}'");
+            $this->selecionaProjetos = $mysql->query("SELECT * FROM Projeto WHERE valor >= '{$valor}'");
 
         } else {
-            $this->selecionaProjetos = $mysql->query("SELECT * FROM `Projetos` ORDER BY `Projetos`.`ID` DESC ");
+            $this->selecionaProjetos = $mysql->query("SELECT * FROM `Projeto` ORDER BY `Projeto`.`ID` DESC ");
 
         }
         $this->quantProjetos = $this->selecionaProjetos->num_rows;

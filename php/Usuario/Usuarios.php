@@ -55,7 +55,7 @@ class usuarios
             }else
                 if ($this->usuarios[$i]['token'] == 11){
 
-                $this->usuarios[$i]['token'] = "Projetos";
+                $this->usuarios[$i]['token'] = "Projeto";
             }else
                 if ($this->usuarios[$i]['token'] == 12){
 
@@ -101,7 +101,7 @@ class usuarios
             }else
             if ($this->usuarios[$i]['token'] == 11){
 
-                $this->usuarios[$i]['token'] = "Projetos";
+                $this->usuarios[$i]['token'] = "Projeto";
             }else
             if ($this->usuarios[$i]['token'] == 12){
 

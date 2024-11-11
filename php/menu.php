@@ -75,7 +75,7 @@ $pro_header = "
             </svg></p>
     
     <ul id='user-menu' class='dropdown'>
-            <li><a href='projetos.php'>Projetos</a></li>
+            <li><a href='projetos.php'>Projeto</a></li>
         <a href='../php/logout.php'>Logout</a></li>
     </ul>
 </div>
@@ -107,7 +107,7 @@ $adm_header = "
             <path fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1'/>
             </svg></p>
             <ul id='user-menu' class='dropdown'>
-                    <li><a href='projetos.php'>Projetos</a></li>
+                    <li><a href='projetos.php'>Projeto</a></li>
                     <li><a href='config.php'>Configurações</a>
                 <a href='../php/logout.php'>Logout</a></li>
             </ul>
