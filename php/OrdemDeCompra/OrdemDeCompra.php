@@ -7,106 +7,119 @@ class OrdemDeCompra
     private int $quantOrdens;
 
 
-    public function __construct($caracteristica, $IdUsuario,  $StatusOrdem, $Requisitante, $Coordenador, $Aprovador, $historico)
+    public function __construct($IdOrdem, $IdUsuario, $Recebe, $Historico )
     {
         include '../php/Configuracao/conexao.php';
 
-        if(empty($historico))
-        {
-            if (!empty($caracteristica)) {
+       if($IdOrdem)
+       {
+           $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE ID = '{$IdOrdem}'");
+       }
 
-                include '../php/Configuracao/conexao.php';
-                $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE ID = '{$caracteristica}'");
-            }else
-                if (!empty($IdUsuario)) {
+       if($IdUsuario)
+       {
 
-                    include '../php/Configuracao/conexao.php';
+           if($Recebe)
+           {
 
-                    if($StatusOrdem)
-                    {
-                        $VerificaUsuario = new usuarios($IdUsuario,null);
+               $VerificaUsuario = new usuarios($IdUsuario, null);
 
-                        if($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras")
-                        {
-                            $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE Status = '0' OR Status = '2' AND histCom = 0");
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (Status = '0' OR Status = '2') AND histCom = 0");
 
-                        }else
-                            if($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projetos")
-                            {
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projetos") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE Status = '1' AND histPro = 0");
 
-                                $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE Status = '1' AND histPro = 0");
-                            }
-                    }else{
-                        if(isset($Requisitante)){
-                            $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE requisitante = '{$IdUsuario}' AND histUsu = 0");
-                        }else
-                            if(isset($Coordenador)){
-//                                $this->selecionaOrdens =  $mysql->query("SELECT * FROM ordens WHERE coordenador = '{$IdUsuario}' AND histCoo = '0' AND Status = '3'");
-                            }else
-                                if(isset($Aprovador)){
-                                    $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE direcao = '{$IdUsuario}' AND Status = '4' AND histDir = 0");
-                                }
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Usuario") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histUsu = 0");
 
-                    }
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Admin") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histAdm = 0");
 
-                }else
-                    if (!empty($StatusOrdem)) {
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histCoo = 0 AND Status = 3");
 
-                        include '../php/Configuracao/conexao.php';
-                        $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE Status = '{$StatusOrdem}'");
-                    }else {
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Aprovador") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND Status = 4 AND histDir = 0");
 
-                        $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` ORDER BY `ordens`.`ID` DESC ");
+               }
+           }
 
-                    }
-        }else{
-            if (!empty($caracteristica)) {
+           if((!$Recebe)&&(!$Historico))
+           {
+               $VerificaUsuario = new usuarios($IdUsuario, null);
 
-                include '../php/Configuracao/conexao.php';
-                $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE ID = '{$caracteristica}'");
-            }else
-                if (!empty($IdUsuario)) {
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE requisitante = '{$IdUsuario}' AND histCom = 0");
 
-                    include '../php/Configuracao/conexao.php';
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projetos") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE requisitante = '{$IdUsuario}' AND histPro = 0");
 
-                    if($StatusOrdem)
-                    {
-                        $VerificaUsuario = new usuarios($IdUsuario,null);
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Usuario") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE requisitante = '{$IdUsuario}' AND histUsu = 0");
 
-                        if($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras")
-                        {
-                            $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE Status = '0' OR Status = '2' AND histCom = 1");
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Admin") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE requisitante = '{$IdUsuario}' AND histAdm = 0");
 
-                        }else
-                            if($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projetos")
-                            {
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE requisitante = '{$IdUsuario}' AND histCoo = 0");
 
-                                $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE Status = '1' AND histPro = 1");
-                            }
-                    }else{
-                        if($Requisitante){
-                            $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE requisitante = '{$IdUsuario}' AND histUsu = 1");
-                        }else
-                            if($Coordenador){
-                                $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE coordenador = '{$IdUsuario}' AND Status = '3' AND  histCoo = 1");
-                            }else
-                                if($Aprovador){
-                                    $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE direcao = '{$IdUsuario}' AND Status = '4' AND histDir = 1");
-                                }
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Aprovador") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE requisitante = '{$IdUsuario}' AND histDir = 0");
 
-                    }
+               }
+           }
 
-                }else
-                    if (!empty($StatusOrdem)) {
+           if ($Historico)
+           {
 
-                        include '../php/Configuracao/conexao.php';
-                        $this->selecionaOrdens = $mysql->query("SELECT * FROM ordens WHERE Status = '{$StatusOrdem}'");
-                    }else {
+               $VerificaUsuario = new usuarios($IdUsuario, null);
 
-                        $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` ORDER BY `ordens`.`ID` DESC ");
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE histCom = 1");
 
-                    }
-        }
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projetos") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE histPro = 1");
+
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Usuario") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (requisitante = '{$IdUsuario}' OR coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histUsu = 1");
+
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Admin") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (requisitante = '{$IdUsuario}' OR coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histAdm = 1");
+
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (requisitante = '{$IdUsuario}' OR coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND Status = 3 AND histCoo = '1'");
+
+               }
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Aprovador") {
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (requisitante = '{$IdUsuario}' OR coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histDir = 1");
+
+               }
+           }
+
+           if (( !isset($IdOrdem) )&&( !isset($IdUsuario) ) && (!isset($Recebe)) && (!isset($Historico)))
+           {
+               $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE 0 ");
+           }
+
+       }else{
+           $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens`");
+
+       }
 
         $this->quantOrdens = $this->selecionaOrdens->num_rows;
 

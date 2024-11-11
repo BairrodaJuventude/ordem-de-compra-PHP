@@ -85,7 +85,7 @@ class usuarios
 
             if ($this->usuarios[$i]['token'] == 1){
 
-                $this->usuarios[$i]['token'] = "Admim";
+                $this->usuarios[$i]['token'] = "Admin";
             }else
             if ($this->usuarios[$i]['token'] == 3){
 

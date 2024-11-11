@@ -1,8 +1,9 @@
 <?php
-    require_once '../php/Projetos/ServiceProjetos.php';
+    require_once '../php/OrdemDeCompra/ServiceOrdemDeCompra.php';
+    require_once '../php/Usuario/ServiceUsuarios.php';
     include '../php/Configuracao/conexao.php';
 
-
+print_r(ListarOrdemDeCompra(pegaId(), false, true));
 
 ?>
 <!doctype html>

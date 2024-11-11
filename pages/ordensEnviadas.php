@@ -58,27 +58,27 @@ include '../php/menu.php';
                     </tbody>
 
 
-                    <?php if(ListarOrdemDeCompra(pegaId(), false)[0] !== null){ for ($i = 0; $i < count(ListarOrdemDeCompra(pegaId(), false)[0]); $i++) {?>
+                    <?php if(ListarOrdemDeCompra(pegaId(), false,false)[0] !== null){ for ($i = 0; $i < count(ListarOrdemDeCompra(pegaId(), false, false)[0]); $i++) {?>
 
                         <tr>
                             <td>
-                                <?php echo ListarOrdemDeCompra(pegaId(), false)[0][$i]['ID']; ?>
+                                <?php echo ListarOrdemDeCompra(pegaId(), false, false)[0][$i]['ID']; ?>
                             </td>
                             <td>
-                                <?php echo ListarOrdemDeCompra(pegaId(), false)[0][$i]['fornece']; ?>
+                                <?php echo ListarOrdemDeCompra(pegaId(), false, false)[0][$i]['fornece']; ?>
                             </td>
                             <td>
-                                <?php echo ListarOrdemDeCompra(pegaId(), false)[0][$i]['setor']; ?>
+                                <?php echo ListarOrdemDeCompra(pegaId(), false, false)[0][$i]['setor']; ?>
                             </td>
                             <td>
-                                <?php echo ListarOrdemDeCompra(pegaId(), false)[0][$i]['Data']; ?>
+                                <?php echo ListarOrdemDeCompra(pegaId(), false, false)[0][$i]['Data']; ?>
                             </td>
                             <td>
-                                <?php echo ListarOrdemDeCompra(pegaId(), false)[0][$i]['Status']; ?>
+                                <?php echo ListarOrdemDeCompra(pegaId(), false, false)[0][$i]['Status']; ?>
                             </td>
                             <td id="icones">
 
-                                <a href="arquivarOrdem.php?id=<?php echo password_hash(ListarOrdemDeCompra(pegaId(), false)[0][$i]['ID'], PASSWORD_DEFAULT); ?>">
+                                <a href="arquivarOrdem.php?id=<?php echo password_hash(ListarOrdemDeCompra(pegaId(), false, false)[0][$i]['ID'], PASSWORD_DEFAULT); ?>">
                                     <button title="Arquivar Ordem" data-id="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
                                             <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
@@ -95,7 +95,7 @@ include '../php/menu.php';
                                     </button>
                                 </a>
 
-                                <a href="editarOrdem.php?id=<?php echo password_hash(ListarOrdemDeCompra(pegaId(), false)[0][$i]['ID'], PASSWORD_DEFAULT); ?>">
+                                <a href="editarOrdem.php?id=<?php echo password_hash(ListarOrdemDeCompra(pegaId(), false, false)[0][$i]['ID'], PASSWORD_DEFAULT); ?>">
                                     <button title="Editar Ordem"  data-id="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                                             <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
@@ -103,7 +103,7 @@ include '../php/menu.php';
                                     </button>
                                 </a>
 
-                                <a href="visualizarOrdem.php?id=<?php echo password_hash(ListarOrdemDeCompra(pegaId(), false)[0][$i]['ID'], PASSWORD_DEFAULT); ?>" >
+                                <a href="visualizarOrdem.php?id=<?php echo password_hash(ListarOrdemDeCompra(pegaId(), false, false)[0][$i]['ID'], PASSWORD_DEFAULT); ?>" >
                                     <button title="Ver Ordem" id="d" href="pages/visualizarOrdem.php">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-credit-card-2-front-fill" viewBox="0 0 16 16">
                                             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"/>

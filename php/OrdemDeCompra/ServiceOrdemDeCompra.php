@@ -63,7 +63,7 @@ function EnviarOrdemDeCompra()
     }
     if(isset($erro)){
         die($erro);
-        return false;
+
     }
 
     $mysql->query("INSERT INTO ordens
@@ -80,46 +80,25 @@ function EnviarOrdemDeCompra()
 
     return true;
 }
- function ListarOrdemDeCompra($IdUsuario, $OrdensRecebidas)
+ function ListarOrdemDeCompra($IdUsuario, $OrdensRecebidas, $Historico): array
  {
 
-    if (isset($IdUsuario))
-    {
-        if(isset($OrdensRecebidas))
-        {
+   if($IdUsuario)
+   {
+       if($OrdensRecebidas)
+       {
+           $ordem = new OrdemDeCompra(false, $IdUsuario,  true, false);
+       }
+       if(!$OrdensRecebidas)
+       {
+           $ordem = new OrdemDeCompra(false, $IdUsuario,  false, false);
+       }
+       if($Historico)
+       {
+           $ordem = new OrdemDeCompra(false, $IdUsuario,  false, true);
+       }
 
-            $VerificaUsuario = new usuarios($IdUsuario,null);
-
-
-            if (($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras")||($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projetos")){
-
-                $ordem = new OrdemDeCompra(null, $IdUsuario, true, false, false,false, false);
-
-            }else
-                if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador")
-                {
-                    $ordem = new OrdemDeCompra( null, $IdUsuario, false, false, true, false, null);
-
-                }else
-                    if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Aprovador")
-                    {
-
-                        $ordem = new OrdemDeCompra( null, $IdUsuario, false, false, false, true, false);
-
-                    }else
-                    {
-                        $ordem = new OrdemDeCompra( null, $IdUsuario, false, true, false, false, false );
-                    }
-        }else
-        {
-            $ordem = new OrdemDeCompra( null, $IdUsuario, false, true, false, false, false );
-        }
-
-    }else{
-
-        $ordem = new OrdemDeCompra(null, null, null, null, false, false, false);
-
-    }
+   }
 
     $ordens[] = $ordem->getAll();
 
@@ -127,13 +106,13 @@ function EnviarOrdemDeCompra()
  }
 function selecionaOrdem($Id)
 {
-    $Ordem = new OrdemDeCompra($Id, null, null, false, false, false, false);
+    $Ordem = new OrdemDeCompra($Id, null,  false,  false);
 
     return $Ordem->SelecionaOrdem();
 }
 function pegaIdCriptOrdem($Id)
 {
-    $pegaOrdem = new OrdemDeCompra(null, null, null, false, false,false, false);
+    $pegaOrdem = new OrdemDeCompra(null, null,  false,  false);
     $quantidadeOrdens = count($pegaOrdem->getAll());
     for ($i =0; $i<$quantidadeOrdens;$i++)
     {
@@ -150,7 +129,7 @@ function verificaTokenMostraBotao ($Idusuario, $IdOrdem)
 {
 
     $usuario = new usuarios($Idusuario, null);
-    $ordem = new OrdemDeCompra($IdOrdem, null, null,false,false,false, false);
+    $ordem = new OrdemDeCompra($IdOrdem, null,false, false);
     $projetos = new Projeto(null, $ordem->SelecionaOrdem()[0]['total']);
 
     if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 0)){
