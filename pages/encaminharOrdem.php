@@ -1,3 +1,15 @@
+<?php
+
+    session_start();
+    require_once '../php/OrdemDeCompra/ServiceOrdemDeCompra.php';
+    require_once '../php/Usuario/ServiceUsuarios.php';
+    pegaId();
+    include '../php/Configuracao/conexao.php';
+    include '../php/menu.php';
+
+
+?>
+
 <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -11,8 +23,14 @@
 
             <script src="../javaScript/enviar.js"></script>
             <script src="../javaScript/lateral.js" defer></script>
+            <script src="../javaScript/mobile-navbar.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  
+    <script src="../javaScript/alertas.js"></script>
+    <script src="../javaScript/pdf.js" defer></script>
+
             
             <title>Encaminhar Ordem</title>
+            
         </head>
 
         <body>
@@ -37,10 +55,10 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form id="orderForm" action="" method="post" enctype="multipart/form-data">
                                 <tr>
                                     <th for="Urg"><b>Urgência:</b>
-                                        <select class="urgencia" name="Urg" id="a">
+                                        <select class="urgencia" name="Urg" id="linhas">
                                             <option value="">Selecionar</option>
                                             <option value="Baixa">Baixa (Até 2 semanas)</option>
                                             <option value="Media">Média (Até 1 semana)</option>
@@ -50,13 +68,13 @@
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th><b>Fornecedor:</b><input id="a" name="fornece" type="text" required></th>
+                                    <th><b>Fornecedor:</b><input id="linhas" name="fornece" type="text" required></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                                 <tr>
-                                    <th><b>Setor:</b> <select class="span12" name="setor" id="a" required>
+                                    <th><b>Setor:</b> <select class="span12" name="setor" id="linhas" required>
                                             <option value="">Selecionar</option>
                                             <option value="INFANTIL">INFANTIL</option>
                                             <option value="ESCOLA">ESCOLA</option>
@@ -94,7 +112,7 @@
                         <tbody id="tableBody">
                         <tr>
                             <td>
-                                <select class="span12" name="uni1" id="a" required>
+                                <select class="span12" name="uni1" id="linhas" required>
                                     <option value="">Selecionar</option>
                                     <option value="Duzia">Duzia</option>
                                     <option value="Cartela">Cartela</option>
@@ -114,9 +132,8 @@
                             <td><input type="number" step="0.01" class="quantity" id="v1" oninput="updateTotal(this)" name="quant1"required></td>
                             <td><textarea class="description" name="desc1" required></textarea></td>
                             <td>
-                                <select class="span12" name="setor1" id="a" required>
-                                    <option value="">Selecionar</option>
-                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
+                                <select class="span12" name="setor1" id="linhas" required>
+                                <option value="" selected disabled>Selecione</option>                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
                                     <option value="VESTUARIO">VESTUARIO</option>
                                     <option value="ASSISTENCIA_SOCIAL">ESP_CULTURAL</option>
                                     <option value=" BRINDES"> BRINDES</option>
@@ -152,7 +169,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <select class="span12" name="uni2" id="a" >
+                                <select class="span12" name="uni2" id="linhas" >
                                     <option value="">Selecionar</option>
                                     <option value="Duzia">Duzia</option>
                                     <option value="Cartela">Cartela</option>
@@ -170,11 +187,10 @@
                                 </select>
                             </td>
                             <td><input type="number" step="0.01" class="quantity"  oninput="updateTotal(this)" name="quant2" ></td>
-                            <td><input type="text" class="description" name="desc2" ></td>
+                            <td><textarea class="description" name="desc2" ></textarea></td>
                             <td>
-                                <select class="span12"  id="a"name="setor2">
-                                    <option value="">Selecionar</option>
-                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
+                                <select class="span12"  id="linhas"name="setor2" >
+                                <option value="" selected disabled>Selecione</option>                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
                                     <option value="VESTUARIO">VESTUARIO</option>
                                     <option value="ASSISTENCIA_SOCIAL">ESP_CULTURAL</option>
                                     <option value=" BRINDES"> BRINDES</option>
@@ -211,7 +227,7 @@
 
                         <tr>
                             <td>
-                                <select class="span12" name="uni3" id="a" >
+                                <select class="span12" name="uni3" id="linhas" >
                                     <option value="">Selecionar</option>
                                     <option value="Duzia">Duzia</option>
                                     <option value="Cartela">Cartela</option>
@@ -229,11 +245,10 @@
                                 </select>
                             </td>
                             <td><input type="number" step="0.01" class="quantity" oninput="updateTotal(this)"name="quant3" ></td>
-                            <td><input type="text" class="description" name="desc3"></td>
+                            <td><textarea class="description" name="desc3" ></textarea></td>
                             <td>
-                                <select class="span12"  id="a"name="setor3">
-                                    <option value="">Selecionar</option>
-                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
+                                <select class="span12"  id="linhas"name="setor3">
+                                <option value="" selected disabled>Selecione</option>                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
                                     <option value="VESTUARIO">VESTUARIO</option>
                                     <option value="ASSISTENCIA_SOCIAL">ESP_CULTURAL</option>
                                     <option value=" BRINDES"> BRINDES</option>
@@ -270,7 +285,7 @@
 
                         <tr>
                             <td>
-                                <select class="span12" name="uni4" id="a" >
+                                <select class="span12" name="uni4" id="linhas" >
                                     <option value="">Selecionar</option>
                                     <option value="Duzia">Duzia</option>
                                     <option value="Cartela">Cartela</option>
@@ -288,11 +303,10 @@
                                 </select>
                             </td>
                             <td><input type="number" step="0.01" class="quantity" oninput="updateTotal(this)" name="quant4" ></td>
-                            <td><input type="text" class="description" name="desc4" ></td>
+                            <td><textarea class="description" name="desc4" ></textarea></td>
                             <td>
-                                <select class="span12" id="a" name="setor4">
-                                    <option value="">Selecionar</option>
-                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
+                                <select class="span12" id="linhas" name="setor4">
+                                <option value="" selected disabled>Selecione</option>                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
                                     <option value="VESTUARIO">VESTUARIO</option>
                                     <option value="ASSISTENCIA_SOCIAL">ESP_CULTURAL</option>
                                     <option value=" BRINDES"> BRINDES</option>
@@ -338,6 +352,8 @@
                     <th>
                         <input placeholder="00,00" type="number" name="valorTotal" value="" class="Value" id="valor-Total" readonly>
                           <td>
+                            <img src="../img/icons/image.svg" >
+                            <img src="../img/icons/download.svg" >
                             <input  name="arquivos1[]" multiple  type="file">
                         </td>
                     </th>
@@ -352,7 +368,7 @@
                         </tr>
                         <tr>
                             <th><b>Coordenador:</b>
-                                <select id="a" name="assiCoord" required>
+                                <select id="linhas" name="assiCoord" >
                                     <option value="">Selecionar</option>
                                 </select>
                             </th>
@@ -366,7 +382,9 @@
                         </thead>
 
 
-                        <button id="button" type="submit">Enviar</button>
+                        <button onclick="alertas()" id="button" type="submit">Enviar</button>
+                        <button class="buttons" type="button" onclick="generatePDF()">Gerar PDF</button>  
+
                         <span></span>
                         </form>
                     </table>

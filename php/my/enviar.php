@@ -1,16 +1,27 @@
 <?php
-if(!isset($_SESSION)){
-  session_start();
+if (!isset($_SESSION)) {
+    session_start();
 }
-if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))) {
+
+if (isset($_SESSION['admin']) || isset($_SESSION['usuario'])) {
     include('../conexao.php');
-    require('../menu.php');
-    require('imagem.php');
+    include('imagem.php');
+    require('../menu.php'); // Certifique-se de que o menu.php inclui o menu atualizado
+
     if (isset($_SESSION['admin'])) {
         $ID = $_SESSION['admin'];
     } else {
         $ID = $_SESSION['usuario'];
     }
+
+    $sql_usuarios = "SELECT * FROM usuarios WHERE ID = '$ID'";
+    $query_usuarios = $mysql->query($sql_usuarios) or die($mysql->error);
+    $usuario = $query_usuarios->fetch_assoc();
+
+    $nome = htmlspecialchars($usuario['nome']); // Protege contra XSS
+    $isAdmin = ($token == 1);
+
+
 //    Buscando todos os usuarios com o token de coordenador
     $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token = '7' ";
     $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
@@ -21,10 +32,7 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))) {
     $usuario = $query_usuarios->fetch_assoc();
     $assi1 = $usuario['ID'];
 
-
-
-
-    if (count($_POST) > 0) {
+    if(count($_POST) > 0) {
         $assiCoord = $_POST['assiCoord'];
         $fornece = $mysql->escape_string($_POST['fornece']);
         $setor = $mysql->escape_string($_POST['setor']);
@@ -134,7 +142,7 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))) {
             $uni2 = $mysql->escape_string($_POST['uni2']);
         } else {
         }
-        if (isset($_POST['Urg'])) {
+        if (isset($_POST['Urg'])){
             $urg = $mysql->escape_string($_POST['Urg']);
         }
         if (isset($_POST['uni3'])) {
@@ -528,72 +536,489 @@ if(isset($_SESSION['admin'])||(isset($_SESSION['usuario']))) {
             $precUni20 = $mysql->escape_string($_POST['precUni20']);
         } else {
         }
+
         $erro = false;
         $path = null;
 
-        $arquivos = $_FILES['arquivos1'];
-        print_r($arquivos['name']);
 
-        if (!empty($_FILES['arquivos1']["size"][0])){
 
-            foreach($arquivos['name'] as $index => $arq){
-                $path = enviarCapa($arquivos['error'][$index], $arquivos['name'][$index], $arquivos['tmp_name'][$index]);
+        if (!empty($_FILES['arquivo1']["size"][0])){
+            $INFERNO = $_FILES['arquivo1'];
+            $grupoImagem = uniqid();
+            foreach($INFERNO['name'] as $index => $arq){
+
+                $path = salvarImagem($INFERNO['error'][$index], $INFERNO['name'][$index], $INFERNO['tmp_name'][$index], $grupoImagem);
+
             }
-
             if ($path == "Falha ao enviar o arquivo"){
                 $erro = $path;
             }
-
             if ($path == "Tipo de arquivo nao aceito"){
                 $erro = $path;
             }
         }
 
-        if (!$erro){
+        $total = $_POST['valorTotal'];
 
-                $total = $_POST['valorTotal'];
+//  Cadastro de ordom de compra
+        $sql_code = "
+INSERT INTO `ordens` 
+    (ID,`fornece`, `setor`, `requisitante`, `coordenador`, `direcao`, `comprador`, `resebido`, `estado`,
+    `uni1`, `uni2`, `uni3`, `uni4`, `uni5`, `uni6`, `uni7`, `uni8`, `uni9`, `uni10`, `uni11`, `uni12`,
+    `uni13`, `uni14`, `uni15`, `uni16`, `uni17`, `uni18`, `uni19`, `uni20`, `quant1`, `quant2`, `quant3`,
+     `quant4`, `quant5`, `quant6`, `quant7`, `quant8`, `quant9`, `quant10`, `quant11`, `quant12`, `quant13`,
+     `quant14`, `quant15`, `quant16`, `quant17`, `quant18`, `quant19`, `quant20`, `prod1`, `prod2`, `prod3`,
+     `prod4`, `prod5`, `prod6`, `prod7`, `prod8`, `prod9`, `prod10`, `prod11`, `prod12`, `prod13`, `prod14`,
+     `prod15`, `prod16`, `prod17`, `prod18`, `prod19`, `prod20`, `desp1`, `desp2`, `desp3`, `desp4`, `desp5`,
+     `desp6`, `desp7`, `desp8`, `desp9`, `desp10`, `desp11`, `desp12`, `desp13`, `desp14`, `desp15`, `desp16`,
+     `desp17`, `desp18`, `desp19`, `desp20`, `preco1`, `preco2`, `preco3`, `preco4`, `preco5`, `preco6`, `preco7`,
+     `preco8`, `preco9`, `preco10`, `preco11`, `preco12`, `preco13`, `preco14`, `preco15`, `preco16`, `preco17`,
+     `preco18`, `preco19`, `preco20`, `Imagem`, Urgencia, `total`, `Status`, `Data`) 
+              VALUES 
+    ('','$fornece', '$setor', '$assi1', '$assiCoord', '0', '0', '0', '0', '$uni1', '$uni2', '$uni3','$uni4', '$uni5',
+     '$uni6', '$uni7','$uni8', '$uni9', '$uni10', '$uni11', '$uni12', '$uni13', '$uni14', '$uni15', '$uni16',
+     '$uni17', '$uni18', '$uni19', '$uni20','$quant1', '$quant2', '$quant3', '$quant4', '$quant5','$quant6',
+     '$quant7', '$quant8', '$quant9', '$quant10', '$quant11', '$quant12', '$quant13', '$quant14', '$quant15',
+     '$quant16', '$quant17', '$quant18', '$quant19', '$quant20', '$desc1', '$desc2', '$desc3','$desc4', '$desc5',
+     '$desc6', '$desc7', '$desc8', '$desc9', '$desc10', '$desc11', '$desc12', '$desc13', '$desc14', '$desc15',
+     '$desc16', '$desc17', '$desc18', '$desc19', '$desc20', '$setor1','$setor2', '$setor3', '$setor4', '$setor5',
+     '$setor6', '$setor7', '$setor8', '$setor9', '$setor10', '$setor11', '$setor12', '$setor13', '$setor14',
+     '$setor15', '$setor16', '$setor17', '$setor18', '$setor19','$setor20', '$precUni1', '$precUni2', '$precUni3',
+     '$precUni4', '$precUni5', '$precUni6', '$precUni7', '$precUni8', '$precUni9', '$precUni10', '$precUni11',
+     '$precUni12', '$precUni13', '$precUni14', '$precUni15', '$precUni16', '$precUni17','$precUni18', '$precUni19',
+     '$precUni20', '$path', '$urg', '$total', '0', NOW())
+";
+        $deu_certo = $mysql->query($sql_code) or die($mysql->error);
 
-        //  Cadastro de ordom de compra
-            $sql_code = "
-                INSERT INTO `ordens` 
-                (ID,`fornece`, `setor`, `requisitante`, `coordenador`, `direcao`, `comprador`, `resebido`, `estado`,
-                `uni1`, `uni2`, `uni3`, `uni4`, `uni5`, `uni6`, `uni7`, `uni8`, `uni9`, `uni10`, `uni11`, `uni12`,
-                `uni13`, `uni14`, `uni15`, `uni16`, `uni17`, `uni18`, `uni19`, `uni20`, `quant1`, `quant2`, `quant3`,
-                 `quant4`, `quant5`, `quant6`, `quant7`, `quant8`, `quant9`, `quant10`, `quant11`, `quant12`, `quant13`,
-                 `quant14`, `quant15`, `quant16`, `quant17`, `quant18`, `quant19`, `quant20`, `prod1`, `prod2`, `prod3`,
-                 `prod4`, `prod5`, `prod6`, `prod7`, `prod8`, `prod9`, `prod10`, `prod11`, `prod12`, `prod13`, `prod14`,
-                 `prod15`, `prod16`, `prod17`, `prod18`, `prod19`, `prod20`, `desp1`, `desp2`, `desp3`, `desp4`, `desp5`,
-                 `desp6`, `desp7`, `desp8`, `desp9`, `desp10`, `desp11`, `desp12`, `desp13`, `desp14`, `desp15`, `desp16`,
-                 `desp17`, `desp18`, `desp19`, `desp20`, `preco1`, `preco2`, `preco3`, `preco4`, `preco5`, `preco6`, `preco7`,
-                 `preco8`, `preco9`, `preco10`, `preco11`, `preco12`, `preco13`, `preco14`, `preco15`, `preco16`, `preco17`,
-                 `preco18`, `preco19`, `preco20`, Imagem, histAdm, histUsu, histDir, histCoo, histPro, histCom, histAlm, Urgencia,
-                 `total`, `Status`, `Data`) 
-                          VALUES 
-                ('','$fornece', '$setor', '$assi1', '$assiCoord', '0', '0', '0', '0', '$uni1', '$uni2', '$uni3','$uni4', '$uni5',
-                 '$uni6', '$uni7','$uni8', '$uni9', '$uni10', '$uni11', '$uni12', '$uni13', '$uni14', '$uni15', '$uni16',
-                 '$uni17', '$uni18', '$uni19', '$uni20','$quant1', '$quant2', '$quant3', '$quant4', '$quant5','$quant6',
-                 '$quant7', '$quant8', '$quant9', '$quant10', '$quant11', '$quant12', '$quant13', '$quant14', '$quant15',
-                 '$quant16', '$quant17', '$quant18', '$quant19', '$quant20', '$desc1', '$desc2', '$desc3','$desc4', '$desc5',
-                 '$desc6', '$desc7', '$desc8', '$desc9', '$desc10', '$desc11', '$desc12', '$desc13', '$desc14', '$desc15',
-                 '$desc16', '$desc17', '$desc18', '$desc19', '$desc20', '$setor1','$setor2', '$setor3', '$setor4', '$setor5',
-                 '$setor6', '$setor7', '$setor8', '$setor9', '$setor10', '$setor11', '$setor12', '$setor13', '$setor14',
-                 '$setor15', '$setor16', '$setor17', '$setor18', '$setor19','$setor20', '$precUni1', '$precUni2', '$precUni3',
-                 '$precUni4', '$precUni5', '$precUni6', '$precUni7', '$precUni8', '$precUni9', '$precUni10', '$precUni11',
-                 '$precUni12', '$precUni13', '$precUni14', '$precUni15', '$precUni16', '$precUni17','$precUni18', '$precUni19',
-                 '$precUni20', '$path', 0, 0, 0, 0, 0, 0, 0, '$urg', '$total', '0', NOW())
-            ";
-                $deu_certo = $mysql->query($sql_code) or die($mysql->error);
-        }
-        if (isset($deu_certo)) {
+        if ($deu_certo) {
+            $erro = false;
             $mensagem_sucesso = "Enviado Com sucesso!";
-
         }
+
 
 
     }
-
         ?>
-        
+ 
+ <!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="../../css/style.css">
+            <link rel="icon" href="../../img/a.jpg">
+            <script src="../../javaScript/enviar.js"></script>
+            <link rel="stylesheet" href="../../css/lateral.css">
+            <script src="../../javaScript/mobile-navbar.js"></script>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <script src="../../javaScript/lateral.js" defer></script>
+            <title>Projeto</title>
+        </head>
+
+        <body>
+        <nav>
+    <class class="main-menu">
+    <?php echo $top; ?>
+    </class>
+
+    <?php echo $nome; ?>
+    </div>
+
+</nav>
+
+            <main >
+                <div class="container-fluid p-5 text-center">
+                    <h1>ORDEM DE COMPRA</h1>
+                </div>
+        <?php if (isset($erro)&& $erro!=false): ?>
+                <div class="alert alert-danger" role="alert">
+        <?php echo $erro; ?>
+                </div>
+        <?php endif; ?>
+        <?php if (isset($mensagem_sucesso)): ?>
+                <div class="alert alert-success" role="alert">
+        <?php echo $mensagem_sucesso; ?>
+                </div>
+        <?php endif; ?>
+
+        <table id="tabela-ordens" class="table">
+
+            <div class="container mt-3">
+                <section id="c">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <tr>
+                                    <th for="Urg">
+                                        <b>Urgência:</b>
+                                        <select class="urgencia" name="Urg" id="a">
+                                            <option value="">Selecionar</option>
+                                            <option value="Baixa">Baixa (Até 2 semanas)</option>
+                                            <option value="Media">Média (Até 1 semana)</option>
+                                            <option value="Alta">Alta (Até 3 dias)</option>
+                                            <option value="Urgente">Urgente (Hoje)</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <b>Fornecedor:</b><input id="a" name="fornece" type="text" required>
+                                    </th>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <b>Setor:</b> <select class="span12" name="setor" id="a" required>
+                                            <option value="">Selecionar</option>
+                                            <option value="INFANTIL">INFANTIL</option>
+                                            <option value="ESCOLA">ESCOLA</option>
+                                            <option value="ESP_CULTURAL">ESP_CULTURAL</option>
+                                            <option value=" OFICINAS_ESPORTIVAS"> OFICINAS_ESPORTIVAS</option>
+                                            <option value="OFICINAS_CULTURAIS">OFICINAS_CULTURAIS</option>
+                                            <option value="LABORATORIOS">LABORATORIOS</option>
+                                            <option value="PSICOSSOCIAL">PSICOSSOCIAL</option>
+                                            <option value="RECURSOS">RECURSOS</option>
+                                            <option value="RELACIONAMENTO">RELACIONAMENTO</option>
+                                            <option value="COZINHA">COZINHA</option>
+                                            <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                                            <option value="TRANSPORTE">TRANSPORTE</option>
+                                            <option value="ALMOXARIFADO">ALMOXARIFADO</option>
+                                            <option value="RH">RH</option>
+                                        </select>
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <!--
+                                <tr>
+                                    <th>
+
+                                        ** Contador de linhas adicionadas **
+
+                                        <span style="color: #ff0000" id="linhaCount" class="linha-count">4 Colunas adicionadas</span>
+                                    </th>
+                                </tr>
+                                -->
+
+                        </thead>
+                    </table>
+                    <table method="post" border="1" class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Unidade:</th>
+                            <th>Quantidade:</th>
+                            <th>Descrição De Produto</th>
+                            <th>Tipo De Despesa</th>
+                            <th>Preço Da Unidade</th>
+                            <th>Valor Total:</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        <tr>
+                            <td>
+                                <select class="span12" name="uni1" id="a" required>
+                                    <option value="">Selecionar</option>
+                                    <option value="Duzia">Duzia</option>
+                                    <option value="Cartela">Cartela</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Saco">Saco</option>
+                                    <option value="Caixa">Caixa</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro">Metro</option>
+                                    <option value="Par">Par</option>
+                                    <option value="Par">Pacote</option>
+                                    <option value="Rolo">Rolo</option>
+                                    <option value="Kilograma">Kilograma</option>
+                                    <option value="Grama">Grama</option>
+                                    <option value="Mililitro">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" step="0.01" class="quantity" id="v1" oninput="updateTotal(this)" name="quant1"required></td>
+                            <td><textarea class="description" name="desc1" required></textarea></td>
+                            <td>
+                                <select class="span12" name="setor1" id="a" required>
+                                    <option value="">Selecionar</option>
+                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
+                                    <option value="VESTUARIO">VESTUARIO</option>
+                                    <option value="ASSISTENCIA_SOCIAL">ESP_CULTURAL</option>
+                                    <option value=" BRINDES"> BRINDES</option>
+                                    <option value="COMBUSTIVEIS">COMBUSTIVEIS</option>
+                                    <option value="COMPUTADORES_PERIFERICOS">COMPUTADORES_PERIFERICOS</option>
+                                    <option value="CONSERTO_VEICULO">CONSERTO_VEICULO</option>
+                                    <option value="CONSERTOS_REPAROS_PREDIAL">CONSERTOS_REPAROS_PREDIAL</option>
+                                    <option value="CORREIO">CORREIO</option>
+                                    <option value="CURSOS_TREINAMENTOS">CURSOS_TREINAMENTOS</option>
+                                    <option value="DESPESAS_COM_VIAGENS">DESPESAS_COM_VIAGENS</option>
+                                    <option value="FESTAS_PROMOCOES">FESTAS_PROMOCOES</option>
+                                    <option value="FRETES_CARRETOS">FRETES_CARRETOS</option>
+                                    <option value="INFORMATICA">INFORMATICA</option>
+                                    <option value="INSTRUMENTOS_MUSICAIS">INSTRUMENTOS_MUSICAIS</option>
+                                    <option value="LICENCIAMENTOS">LICENCIAMENTOS</option>
+                                    <option value="LIMPEZA">LIMPEZA</option>
+                                    <option value="MAQUINAS_APARELHOS_EQUIPAMENTOS">MAQUINAS_APARELHOS_EQUIPAMENTOS</option>
+                                    <option value="MATERIAL_CONSUMO">MATERIAL_CONSUMO</option>
+                                    <option value="MATERIAL_DIDATICO_CEP">MATERIAL_DIDATICO_CEP</option>
+                                    <option value="MATERIAL_DIDATICO_ESCOLAR">MATERIAL_DIDATICO_ESCOLAR</option>
+                                    <option value="MATERIAL_EXPEDIENTE">MATERIAL_EXPEDIENTE</option>
+                                    <option value="MULTAS_DETRAN">MULTAS_DETRAN</option>
+                                    <option value="PROMOCOES_EVENTOS">PROMOCOES_EVENTOS</option>
+                                    <option value="PROPAGANDA_PUBLICIDADE">PROPAGANDA_PUBLICIDADE</option>
+                                    <option value="REMEDIOS_MEDICAMENTOS">REMEDIOS_MEDICAMENTOS</option>
+                                    <option value="REPRODUCOES_GRAFICAS">REPRODUCOES_GRAFICAS</option>
+                                    <option value="SEGURO_ADOLESCENTES">SEGURO_ADOLESCENTES</option>
+                                    <option value="SEGURO_VEICULOS_PREDIAL">SEGURO_VEICULOS_PREDIAL</option>
+                                </select>
+                            </td>
+                            <td><input type="number" class="unitPrice" id="v2" step="0.01" oninput="updateTotal(this)" name="precUni1" required></td>
+                            <td class="totalValue" id="valor">0.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select class="span12" name="uni2" id="a" >
+                                    <option value="">Selecionar</option>
+                                    <option value="Duzia">Duzia</option>
+                                    <option value="Cartela">Cartela</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Saco">Saco</option>
+                                    <option value="Caixa">Caixa</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro">Metro</option>
+                                    <option value="Par">Par</option>
+                                    <option value="Par">Pacote</option>
+                                    <option value="Rolo">Rolo</option>
+                                    <option value="Kilograma">Kilograma</option>
+                                    <option value="Grama">Grama</option>
+                                    <option value="Mililitro">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" step="0.01" class="quantity"  oninput="updateTotal(this)" name="quant2" ></td>
+                            <td><textarea class="description" name="desc2" ></textarea></td>
+                            <td>
+                                <select class="span12"  id="a"name="setor2">
+                                    <option value="">Selecionar</option>
+                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
+                                    <option value="VESTUARIO">VESTUARIO</option>
+                                    <option value="ASSISTENCIA_SOCIAL">ESP_CULTURAL</option>
+                                    <option value=" BRINDES"> BRINDES</option>
+                                    <option value="COMBUSTIVEIS">COMBUSTIVEIS</option>
+                                    <option value="COMPUTADORES_PERIFERICOS">COMPUTADORES_PERIFERICOS</option>
+                                    <option value="CONSERTO_VEICULO">CONSERTO_VEICULO</option>
+                                    <option value="CONSERTOS_REPAROS_PREDIAL">CONSERTOS_REPAROS_PREDIAL</option>
+                                    <option value="CORREIO">CORREIO</option>
+                                    <option value="CURSOS_TREINAMENTOS">CURSOS_TREINAMENTOS</option>
+                                    <option value="DESPESAS_COM_VIAGENS">DESPESAS_COM_VIAGENS</option>
+                                    <option value="FESTAS_PROMOCOES">FESTAS_PROMOCOES</option>
+                                    <option value="FRETES_CARRETOS">FRETES_CARRETOS</option>
+                                    <option value="INFORMATICA">INFORMATICA</option>
+                                    <option value="INSTRUMENTOS_MUSICAIS">INSTRUMENTOS_MUSICAIS</option>
+                                    <option value="LICENCIAMENTOS">LICENCIAMENTOS</option>
+                                    <option value="LIMPEZA">LIMPEZA</option>
+                                    <option value="MAQUINAS_APARELHOS_EQUIPAMENTOS">MAQUINAS_APARELHOS_EQUIPAMENTOS</option>
+                                    <option value="MATERIAL_CONSUMO">MATERIAL_CONSUMO</option>
+                                    <option value="MATERIAL_DIDATICO_CEP">MATERIAL_DIDATICO_CEP</option>
+                                    <option value="MATERIAL_DIDATICO_ESCOLAR">MATERIAL_DIDATICO_ESCOLAR</option>
+                                    <option value="MATERIAL_EXPEDIENTE">MATERIAL_EXPEDIENTE</option>
+                                    <option value="MULTAS_DETRAN">MULTAS_DETRAN</option>
+                                    <option value="PROMOCOES_EVENTOS">PROMOCOES_EVENTOS</option>
+                                    <option value="PROPAGANDA_PUBLICIDADE">PROPAGANDA_PUBLICIDADE</option>
+                                    <option value="REMEDIOS_MEDICAMENTOS">REMEDIOS_MEDICAMENTOS</option>
+                                    <option value="REPRODUCOES_GRAFICAS">REPRODUCOES_GRAFICAS</option>
+                                    <option value="SEGURO_ADOLESCENTES">SEGURO_ADOLESCENTES</option>
+                                    <option value="SEGURO_VEICULOS_PREDIAL">SEGURO_VEICULOS_PREDIAL</option>
+                                </select>
+                            </td>
+                            <td><input type="number" class="unitPrice" step="0.01"  oninput="updateTotal(this)"name="precUni2" ></td>
+                            <td class="totalValue"  id="valor" name="vt2">0.00</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <select class="span12" name="uni3" id="a" >
+                                    <option value="">Selecionar</option>
+                                    <option value="Duzia">Duzia</option>
+                                    <option value="Cartela">Cartela</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Saco">Saco</option>
+                                    <option value="Caixa">Caixa</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro">Metro</option>
+                                    <option value="Par">Par</option>
+                                    <option value="Par">Pacote</option>
+                                    <option value="Rolo">Rolo</option>
+                                    <option value="Kilograma">Kilograma</option>
+                                    <option value="Grama">Grama</option>
+                                    <option value="Mililitro">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" step="0.01" class="quantity" oninput="updateTotal(this)"name="quant3" ></td>
+                            <td><textarea class="description" name="desc3"></textarea></td>
+                            <td>
+                                <select class="span12"  id="a"name="setor3">
+                                    <option value="">Selecionar</option>
+                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
+                                    <option value="VESTUARIO">VESTUARIO</option>
+                                    <option value="ASSISTENCIA_SOCIAL">ESP_CULTURAL</option>
+                                    <option value=" BRINDES"> BRINDES</option>
+                                    <option value="COMBUSTIVEIS">COMBUSTIVEIS</option>
+                                    <option value="COMPUTADORES_PERIFERICOS">COMPUTADORES_PERIFERICOS</option>
+                                    <option value="CONSERTO_VEICULO">CONSERTO_VEICULO</option>
+                                    <option value="CONSERTOS_REPAROS_PREDIAL">CONSERTOS_REPAROS_PREDIAL</option>
+                                    <option value="CORREIO">CORREIO</option>
+                                    <option value="CURSOS_TREINAMENTOS">CURSOS_TREINAMENTOS</option>
+                                    <option value="DESPESAS_COM_VIAGENS">DESPESAS_COM_VIAGENS</option>
+                                    <option value="FESTAS_PROMOCOES">FESTAS_PROMOCOES</option>
+                                    <option value="FRETES_CARRETOS">FRETES_CARRETOS</option>
+                                    <option value="INFORMATICA">INFORMATICA</option>
+                                    <option value="INSTRUMENTOS_MUSICAIS">INSTRUMENTOS_MUSICAIS</option>
+                                    <option value="LICENCIAMENTOS">LICENCIAMENTOS</option>
+                                    <option value="LIMPEZA">LIMPEZA</option>
+                                    <option value="MAQUINAS_APARELHOS_EQUIPAMENTOS">MAQUINAS_APARELHOS_EQUIPAMENTOS</option>
+                                    <option value="MATERIAL_CONSUMO">MATERIAL_CONSUMO</option>
+                                    <option value="MATERIAL_DIDATICO_CEP">MATERIAL_DIDATICO_CEP</option>
+                                    <option value="MATERIAL_DIDATICO_ESCOLAR">MATERIAL_DIDATICO_ESCOLAR</option>
+                                    <option value="MATERIAL_EXPEDIENTE">MATERIAL_EXPEDIENTE</option>
+                                    <option value="MULTAS_DETRAN">MULTAS_DETRAN</option>
+                                    <option value="PROMOCOES_EVENTOS">PROMOCOES_EVENTOS</option>
+                                    <option value="PROPAGANDA_PUBLICIDADE">PROPAGANDA_PUBLICIDADE</option>
+                                    <option value="REMEDIOS_MEDICAMENTOS">REMEDIOS_MEDICAMENTOS</option>
+                                    <option value="REPRODUCOES_GRAFICAS">REPRODUCOES_GRAFICAS</option>
+                                    <option value="SEGURO_ADOLESCENTES">SEGURO_ADOLESCENTES</option>
+                                    <option value="SEGURO_VEICULOS_PREDIAL">SEGURO_VEICULOS_PREDIAL</option>
+                                </select>
+                            </td>
+                            <td><input type="number" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni3" ></td>
+                            <td class="totalValue" name="vt3">0.00</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <select class="span12" name="uni4" id="a" >
+                                    <option value="">Selecionar</option>
+                                    <option value="Duzia">Duzia</option>
+                                    <option value="Cartela">Cartela</option>
+                                    <option value="Litro">Litro</option>
+                                    <option value="Saco">Saco</option>
+                                    <option value="Caixa">Caixa</option>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro">Metro</option>
+                                    <option value="Par">Par</option>
+                                    <option value="Par">Pacote</option>
+                                    <option value="Rolo">Rolo</option>
+                                    <option value="Kilograma">Kilograma</option>
+                                    <option value="Grama">Grama</option>
+                                    <option value="Mililitro">Mililitro</option>
+                                </select>
+                            </td>
+                            <td><input type="number" step="0.01" class="quantity" oninput="updateTotal(this)" name="quant4" ></td>
+                            <td><textarea class="description" name="desc4" ></textarea></td>
+                            <td>
+                                <select class="span12" id="a" name="setor4">
+                                    <option value="">Selecionar</option>
+                                    <option value="ALIMENTACAO">ALIMENTACAO</option>
+                                    <option value="VESTUARIO">VESTUARIO</option>
+                                    <option value="ASSISTENCIA_SOCIAL">ESP_CULTURAL</option>
+                                    <option value=" BRINDES"> BRINDES</option>
+                                    <option value="COMBUSTIVEIS">COMBUSTIVEIS</option>
+                                    <option value="COMPUTADORES_PERIFERICOS">COMPUTADORES_PERIFERICOS</option>
+                                    <option value="CONSERTO_VEICULO">CONSERTO_VEICULO</option>
+                                    <option value="CONSERTOS_REPAROS_PREDIAL">CONSERTOS_REPAROS_PREDIAL</option>
+                                    <option value="CORREIO">CORREIO</option>
+                                    <option value="CURSOS_TREINAMENTOS">CURSOS_TREINAMENTOS</option>
+                                    <option value="DESPESAS_COM_VIAGENS">DESPESAS_COM_VIAGENS</option>
+                                    <option value="FESTAS_PROMOCOES">FESTAS_PROMOCOES</option>
+                                    <option value="FRETES_CARRETOS">FRETES_CARRETOS</option>
+                                    <option value="INFORMATICA">INFORMATICA</option>
+                                    <option value="INSTRUMENTOS_MUSICAIS">INSTRUMENTOS_MUSICAIS</option>
+                                    <option value="LICENCIAMENTOS">LICENCIAMENTOS</option>
+                                    <option value="LIMPEZA">LIMPEZA</option>
+                                    <option value="MAQUINAS_APARELHOS_EQUIPAMENTOS">MAQUINAS_APARELHOS_EQUIPAMENTOS</option>
+                                    <option value="MATERIAL_CONSUMO">MATERIAL_CONSUMO</option>
+                                    <option value="MATERIAL_DIDATICO_CEP">MATERIAL_DIDATICO_CEP</option>
+                                    <option value="MATERIAL_DIDATICO_ESCOLAR">MATERIAL_DIDATICO_ESCOLAR</option>
+                                    <option value="MATERIAL_EXPEDIENTE">MATERIAL_EXPEDIENTE</option>
+                                    <option value="MULTAS_DETRAN">MULTAS_DETRAN</option>
+                                    <option value="PROMOCOES_EVENTOS">PROMOCOES_EVENTOS</option>
+                                    <option value="PROPAGANDA_PUBLICIDADE">PROPAGANDA_PUBLICIDADE</option>
+                                    <option value="REMEDIOS_MEDICAMENTOS">REMEDIOS_MEDICAMENTOS</option>
+                                    <option value="REPRODUCOES_GRAFICAS">REPRODUCOES_GRAFICAS</option>
+                                    <option value="SEGURO_ADOLESCENTES">SEGURO_ADOLESCENTES</option>
+                                    <option value="SEGURO_VEICULOS_PREDIAL">SEGURO_VEICULOS_PREDIAL</option>
+                                </select>
+                            </td>
+                            <td>
+                                    <input type="number" class="unitPrice" step="0.01"oninput="updateTotal(this)"   name="precUni4">
+
+                            </td>
+                            <td class="totalValue" >0.00</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <th><b>Valor Geral</b></th>
+                    <th><input placeholder="00,00" type="number" name="valorTotal" value="" class="Value" id="valor-Total" readonly></th>
+                        <th><input type="file" name="arquivo1[]" multiple></th>
+                    <table class="table" >
+
+                        <thead>
+
+                        <tr>
+                            <th><b>Requisitante:</b> <?php echo $usuario['nome']; ?></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th><b>Coordenador:</b>
+                                <select id="a" name="assiCoord" required>
+                                    <option value="">Selecionar</option>
+                                    <?php
+//                                    Consulta ao banco de dados para a listagens dos coordenadores
+                                    if($num_assinatura==0){
+                                        $sql_usuarios_assinatura = "SELECT * FROM usuarios WHERE token2 = '7' ";
+                                        $query_usuarios_assinatura = $mysql->query($sql_usuarios_assinatura) or die($mysql->error);
+                                        while ($assinatura = $query_usuarios_assinatura->fetch_assoc()){
+                                            ?>
+                                            <option value="<?php echo $assinatura['ID'];?>"><?php echo $assinatura['nome'];?></option>
+
+                                            <?php
+                                        }}else{
+                                        while ($assinatura = $query_usuarios_assinatura->fetch_assoc()){?>
+                                            <option value="<?php echo $assinatura['ID'];?>"><?php echo $assinatura['nome'];?></option>
+                                        <?php }
+                                    }
+
+                                    ?>
+                                </select>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                <b>Aprovador:</b>
+                            </th>
+                        </tr>
+                        </thead>
+
+
+                        <button type="submit" class="btn btn-dark" id="button">Enviar</button>
+                       
+                        </form>
+                    </table>
+                </section>
+            </div>
+            </table>
+        </main>
+
+        </body>
+        </html>
+
+
     <?php } else {
         header("Location:../logout.php");
         die();

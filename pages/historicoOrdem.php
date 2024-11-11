@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,6 +18,7 @@
 
 
     <title>Historico De Ordens</title>
+    
 </head>
 <body>
 <nav class="main-menu">

@@ -1,3 +1,16 @@
+<?php
+    session_start();
+    include '../php/conexao.php';
+    require_once '../php/Projetos/serviceProjetos.php';
+
+    if(count($_POST)>0)
+    {
+        
+        cadastroProjeto();
+
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,6 +26,7 @@
 
 
     <title>Cadastrar Novo Usuário</title>
+    
 </head>
 <body>
 <nav class="main-menu">
@@ -35,11 +49,11 @@
             <form action="" method="post">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome:</label>
-                    <input name="nome" type="text" class="form-control" required>
+                    <input name="nomeProjeto" type="text" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="nome" class="form-label">Valor:</label>
-                    <input name="valor" type="number" step="0.1" class="form-control" required>
+                    <input name="valorProjeto" type="number" step="0.1" class="form-control" required>
                 </div>
 
                 <br>

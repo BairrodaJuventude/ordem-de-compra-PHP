@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -14,6 +18,7 @@
 
     
         <title>Editar Ordem</title>
+        
     </head>
 
     <body>
@@ -28,10 +33,7 @@
         <div class="container-fluid p-5 text-center">
             <h1>ORDEM DE COMPRA</h1>
         </div>
-            <div class="alert alert-danger" role="alert">
-            </div>
-            <div class="alert alert-success" role="alert">
-            </div>
+           
         <div class="container mt-3">
             <section id="c">
                 <table class="table">
@@ -39,13 +41,13 @@
                     <tr>
                         <form action="" method="post">
                             <tr>
-                                <th><b>Fornecedor:</b><input id="a" name="fornece" value="" type="text" required></th>
+                                <th><b>Fornecedor:</b><input id="linhas" name="fornece" value="" type="text" required></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>
                             <tr>
-                                <th><b>Setor:</b> <select class="span12" name="setor" id="a" required>
+                                <th><b>Setor:</b> <select class="span12" name="setor" id="linhas" required>
                                         <option  value=""></option>
                                         <option value="">Selecionar</option>
                                         <option value="INFANTIL">INFANTIL</option>
@@ -90,9 +92,9 @@
                     <tr>
                         <td><input type="text" value=""class="unit" name="uni1" required></td>
                         <td><input type="number" value="" class="quantity" id="v1" oninput="updateTotal(this)" name="quant1"required></td>
-                        <td><input type="text" value=""  class="description"name="desc1" required></td>
+                        <td><textarea class="description" name="desc1" ></textarea></td>
                         <td>
-                            <select class="span12" name="setor1" id="a" required>
+                            <select class="span12" name="setor1" id="linhas" required>
                                 <option  value="" ></option>
                                 <option value="">Selecionar</option>
                                 <option value="ALIMENTACAO">ALIMENTACAO</option>
@@ -132,9 +134,9 @@
                     <tr>
                         <td><input type="text" value=""class="unit" name="uni2"></td>
                         <td><input type="number" value="" class="quantity" oninput="updateTotal(this)" name="quant2" ></td>
-                        <td><input type="text" value="" class="description" name="desc2" ></td>
+                        <td><textarea class="description" name="desc2" ></textarea></td>
                         <td>
-                            <select class="span12" id="a" name="setor2">
+                            <select class="span12" id="linhas" name="setor2">
                                 <option  value="" ></option>
                                 <option value="">Selecionar</option>
                                 <option value="ALIMENTACAO">ALIMENTACAO</option>
@@ -175,9 +177,9 @@
                     <tr>
                         <td><input type="text" value="" class="unit"name="uni3" ></td>
                         <td><input type="number" value="" class="quantity" oninput="updateTotal(this)"name="quant3" ></td>
-                        <td><input type="text" value="" class="description" name="desc3"></td>
+                        <td><textarea class="description" name="desc3" ></textarea></td>
                         <td>
-                            <select class="span12"  id="a"name="setor3">
+                            <select class="span12"  id="linhas"name="setor3">
                                 <option  value="" ></option>
                                 <option value="">Selecionar</option>
                                 <option value="ALIMENTACAO">ALIMENTACAO</option>
@@ -218,9 +220,9 @@
                     <tr>
                         <td><input type="text" value=" " class="unit" name="uni4" ></td>
                         <td><input type="number" value=" " class="quantity" oninput="updateTotal(this)" name="quant4" ></td>
-                        <td><input type="text" value=" " class="description" name="desc4" ></td>
+                        <td><textarea class="description" name="desc4" ></textarea></td>
                         <td>
-                            <select class="span12" id="a" name="setor4">
+                            <select class="span12" id="linhas" name="setor4">
                                 <option  value="" ></option>
                                 <option value="">Selecionar</option>
                                 <option value="ALIMENTACAO">ALIMENTACAO</option>
@@ -277,7 +279,7 @@
                     </tr>
                     <tr>
                         <th><b>Coordenador:</b>
-                                <select id="a" name="assiCoord" required>
+                                <select id="linhas" name="assiCoord" required>
                                     <option value="">Selecionar</option>
                                     
                                 
@@ -296,7 +298,7 @@
                     </thead>
 
 
-                    <button id="button" type="submit">Enviar</button>
+                    <button id="button" type="submit">Finalizar</button>
                     <span></span>
                     </form>
                 </table>

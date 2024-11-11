@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,11 +13,13 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="icon" href="../img/logobranca.jpg">
 
+
     <script src="../javaScript/lateral.js" defer></script>
     <script src="../javaScript/mobile-navbar.js"></script>
 
 
     <title>Home</title>
+    
 </head>
 
 <body>

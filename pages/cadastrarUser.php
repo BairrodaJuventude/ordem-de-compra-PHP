@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,6 +19,7 @@
 
 
     <title>Cadastrar Novo Usuário</title>
+    
 </head>
 <body>
 <nav class="main-menu">

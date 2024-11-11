@@ -6,12 +6,17 @@ html {
   font-family: "Arial", sans-serif;
 }
 
+img {
+  width: 40%;
+  margin-top: -6%;
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #1a1a1a;
+  background-color: #d5d5d5;
   color: #fff;
 }
 
@@ -24,22 +29,22 @@ body {
 }
 
 .login-form {
-  background: #2c2c2c;
+  background: #ffffff;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   text-align: center;
-  width: 300px;
+  width: 35%;
 }
 
 .login-form h2 {
   margin-bottom: 20px;
-  color: #0baa18;
+  color: #203261;
 }
 
 .box-user {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   left: -3%;
 }
 
@@ -47,8 +52,8 @@ body {
   width: 100%;
   padding: 10px;
   background: none;
-  border: 1px solid #555;
-  color: #fff;
+  border: 1px solid #203261;
+  color: #000000;
   font-size: 16px;
   border-radius: 5px;
   outline: none;
@@ -59,7 +64,7 @@ body {
   position: absolute;
   top: 10px;
   left: 10px;
-  color: #aaa;
+  color: #020202;
   transition: top 0.3s, font-size 0.3s, color 0.3s;
 }
 
@@ -68,13 +73,13 @@ body {
   top: -20px;
   left: 10px;
   color: #268523;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .btn {
   display: inline-block;
   padding: 10px 20px;
-  background: #268523;
+  background: #3aba6d;
   border: none;
   border-radius: 5px;
   color: #333;
@@ -86,7 +91,7 @@ body {
 }
 
 .btn:hover {
-  background: #268523;
+  background: #1b703d;
   color: #fff;
 }
 
@@ -162,4 +167,15 @@ body {
   background: transparent;
   height: 3em;
   border: solid 1px gray;
+}
+
+p {
+  color: #203261;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.whatsapp-link {
+  text-decoration: underline;
+  color: blue;
 }

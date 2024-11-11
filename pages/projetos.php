@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -14,6 +17,7 @@
 
 
         <title>Projetos</title>
+        
     </head>
     <body>
     <nav class="main-menu">
@@ -35,8 +39,8 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th><a id="d" href="cadastrar_projeto.php">Cadastrar Novo Projeto</a></th>
-                        <th><a id="d" href="lista_projetos.php">Lista De Projetos</a></th>
+                        <th><a id="d" href="cadastrarProjetos.php">Cadastrar Novo Projeto</a></th>
+                        <th><a id="d" href="listarProjetos.php">Lista De Projetos</a></th>
                     </tr>
 
                 </table>

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,6 +17,7 @@
     <script src="../javaScript/mobile-navbar.js"></script>
 
     <title>Cadastrar Novo Setor</title>
+    
 </head>
 <body>
 <nav class="main-menu">

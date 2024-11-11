@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +18,7 @@
 
     
     <title>Editar Usuário</title>
+    
 </head>
 <body>
 <nav class="main-menu">

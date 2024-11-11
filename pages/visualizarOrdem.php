@@ -1,3 +1,35 @@
+<?php
+
+session_start();
+
+require_once '../php/OrdemDeCompra/ServiceOrdemDeCompra.php';
+require_once '../php/Usuario/ServiceUsuarios.php';
+pegaId();
+include '../php/Configuracao/conexao.php';
+include '../php/menu.php';
+
+if (!isset($_GET['id'])) {
+    die("Identificador Não Encontrado");
+}
+$ordem = new OrdemDeCompra(pegaIdCriptOrdem($_GET['id']), Null, Null, false, null, null);
+
+$requisitante = new usuarios($ordem->SelecionaOrdem()[0]['requisitante'], null);
+$coordenador = new usuarios($ordem->SelecionaOrdem()[0]['coordenador'], null);
+$aprovador = new usuarios(null, true);
+
+if (count($_POST) > 0) {
+    if (!empty($_POST['Status']) && empty($_POST['projeto'])) {
+        segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], null);
+    } elseif (!empty($_POST['Status']) && !empty($_POST['projeto'])) {
+        segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], $_POST['projeto']);
+    }
+}
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,207 +40,183 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="../img/logobranca.jpg">
 
-
+    <script src="../javaScript/enviar.js"></script>
     <script src="../javaScript/lateral.js" defer></script>
     <script src="../javaScript/mobile-navbar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  
+    <script src="../javaScript/alertas.js"></script>
+    <script src="../javaScript/pdf.js" defer></script>
 
 
     <title>Visualizar Ordem</title>
+    
 </head>
 <body>
-
 <nav class="main-menu">
-
+    
     <?php 
-                
+            
         include '../php/menu.php';
         echo $top;
-    
+                
     ?>
 
 </nav>
-
 <main>
+ 
+<div id="content">  
     <div class="container-fluid p-5 text-center ">
-        <h1>ORDEM DE COMPRA</h1>
+        <h1> ORDEM DE COMPRA </h1>
     </div>
 
-    <div class="container mt-3">
-    <section id="c">
-        <table class="table">
-            <thead>
-            <tr>
-                <form action="" method="post">
+    <div class="container">
+        <section id="containerGeral">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th for="data"><b>Urgência:</b>
-                            <select class="urgencia" name="Urg" id="a">
-                                <option value=""></option>
-
-                            </select>
+                        <form id="orderForm" action="" method="post">
+                        <tr>
+                        <th for="data">
+                            <b>Urgência: </b><?php echo $ordem->SelecionaOrdem()[0]['Urgencia']; ?>
                         </th>
                     </tr>
                     <tr>
-                        <th><b>Fornecedor:</b><input id="a" value="" name="fornece" type="text" readonly required></th>
+                        <th><b>Fornecedor: </b><input id="a" value="<?php echo $ordem->SelecionaOrdem()[0]['fornece']; ?>" name="fornece" type="text" readonly required></th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                     <tr>
-                        <th><b>Setor:</b> <select class="span12" name="setor" id="a" readonly required>
-                                    <option value=""></option>
-                            </select></th>
+                        <th><b>Setor:</b> <?php echo $ordem->SelecionaOrdem()[0]['setor']; ?></th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
-            </thead>
-        </table>
-        <table method="post" border="1" class="table table-hover">
-            <tr>
-                <th>Unidade:</th>
-                <th>Quantidade:</th>
-                <th>Descrição De Produto</th>
-                <th>Tipo De Despesa</th>
-                <th>Preço Da Unidade</th>
-                <th>Valor Total:</th>
-            </tr>
-            <tr>
-                <td><input type="text" class="unit" name="uni1" value=""readonly></td>
-                <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant1" value=""readonly></td>
-                <td><input type="text"  class="description"name="desc1" value="" readonly></td>
+                        
+                    </tr>
+                </thead>
+            </table>
+
+            <table method="post" border="1" class="table">
+                <tr>
+                    <th>Unidade:</th>
+                    <th>Quantidade:</th>
+                    <th>Descrição De Produto</th>
+                    <th>Tipo De Despesa</th>
+                    <th>Preço Da Unidade</th>
+                    <th>Valor Total:</th>
+                </tr>
+                <tr>
+                <td><input type="text" class="unit" name="uni1" value="<?php echo $ordem->SelecionaOrdem()[0]['uni1']; ?>"readonly></td>
+                <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant1" value="<?php echo $ordem->SelecionaOrdem()[0]['quant1']; ?>"readonly></td>
+                <td><input type="text"  class="description"name="desc1" value="<?php echo $ordem->SelecionaOrdem()[0]['prod1']; ?>" readonly></td>
                 <td>
-                    <select class="span12" name="setor1" id="a" readonly>
-                            <option value=""></option>
-                    </select>
+                    <?php echo $ordem->SelecionaOrdem()[0]['desp1']; ?>
                 </td>
-                <td><input type="text"  oninput="updateTotal(this)" name="precUni1" value=""readonly></td>
+                <td><input type="text"  oninput="updateTotal(this)" name="precUni1" value=" <?php echo $ordem->SelecionaOrdem()[0]['preco1']; ?>"readonly></td>
                 <td class="totalValue" id="valor"> </td>
             </tr>
 
                <tr>
-                   <td><input type="text" class="unit" name="uni2" value=""readonly></td>
-                   <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant2"value=""readonly></td>
-                   <td><input type="text"  class="description"name="desc1" value="" readonly></td>
+                   <td><input type="text" class="unit" name="uni2" value="<?php echo $ordem->SelecionaOrdem()[0]['uni2']; ?>"readonly></td>
+                   <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant2"value="<?php echo $ordem->SelecionaOrdem()[0]['quant2']; ?>"readonly></td>
+                   <td><input type="text"  class="description"name="desc1" value="<?php echo $ordem->SelecionaOrdem()[0]['prod2']; ?>" readonly></td>
                    <td>
-                       <select class="span12" name="setor1" id="a" readonly>
-                           <option value=""></option>
-                       </select>
+                       <?php echo $ordem->SelecionaOrdem()[0]['desp2']; ?>
                    </td>
-                   <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni2" value=""readonly></td>
+                   <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni2" value="<?php echo $ordem->SelecionaOrdem()[0]['preco2']; ?>"readonly></td>
                    <td class="totalValue" id="valor"></td>
                </tr>
                 <tr>
-                    <td><input type="text" class="unit" name="uni3" value=""readonly></td>
-                    <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant3"value=""readonly></td>
-                    <td><input type="text"  class="description"name="desc3" value="" readonly></td>
+                    <td><input type="text" class="unit" name="uni3" value="<?php echo $ordem->SelecionaOrdem()[0]['uni3']; ?>"readonly></td>
+                    <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant3"value="<?php echo $ordem->SelecionaOrdem()[0]['quant3']; ?>"readonly></td>
+                    <td><input type="text"  class="description"name="desc3" value="<?php echo $ordem->SelecionaOrdem()[0]['prod3']; ?>" readonly></td>
                     <td>
-                        <select class="span12" name="setor3" id="a" readonly>
-                            <option value=""></option>
-                        </select>
+                        <?php echo $ordem->SelecionaOrdem()[0]['desp3']; ?>
                     </td>
-                    <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni3" value=""readonly></td>
+                    <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni3" value="<?php echo $ordem->SelecionaOrdem()[0]['preco3']; ?>"readonly></td>
                     <td class="totalValue" id="valor"></td>
                 </tr>
                 <tr>
-                    <td><input type="text" class="unit" name="uni4" value=""readonly></td>
-                    <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant4"value=""readonly></td>
-                    <td><input type="text"  class="description"name="desc1" value="" readonly></td>
+                    <td><input type="text" class="unit" name="uni4" value="<?php echo $ordem->SelecionaOrdem()[0]['uni4']; ?>"readonly></td>
+                    <td><input type="number" class="quantity" oninput="updateTotal(this)" name="quant4"value="<?php echo $ordem->SelecionaOrdem()[0]['quant4']; ?>"readonly></td>
+                    <td><input type="text"  class="description"name="desc1" value="<?php echo $ordem->SelecionaOrdem()[0]['prod4']; ?>" readonly></td>
                     <td>
-                        <select class="span12" name="setor4" id="a" readonly>
-                            <option value=""></option>
-                        </select>
+                        <?php echo $ordem->SelecionaOrdem()[0]['desp4']; ?>
                     </td>
-                    <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni4" value=""readonly></td>
+                    <td><input type="text" class="unitPrice" step="0.01" oninput="updateTotal(this)" name="precUni4" value="<?php echo $ordem->SelecionaOrdem()[0]['preco4']; ?>"readonly></td>
                     <td class="totalValue" id="valor"></td>
-                </tr>
-            
+                </tr>  
             <th><b>Valor Geral</b></th>
-            <th><input placeholder="00,00" type="text" name="valorTotal" value="" class="Value" id="valor-Total" readonly></th>
-            <th><img src="" alt=""></th>
+            <th><input placeholder="00,00" type="text" name="valorTotal" value="<?php echo $ordem->SelecionaOrdem()[0]['total']; ?>" class="Value" id="valor-Total" readonly></th>
 
-            
-                <th>
-                    <b>Projetos</b>
-                    <b>
-           </select>
-                        
-                        
-                    </b>
-                </th>
-                <th><b></b></th>
-                <th>
-                    <b>
-                        <button type="submit" name="Status" value="2">Encaminhar</button>
-                        <button type="submit" name="Status" value="7">Não Possui Projeto</button>
-                    </b>
-                </th>
-            
-                    <th>
-                    <td><b>Projeto: </b></td>
-                    </th>
-                
-        
-        
         </table>
-<!--        Vericacao de tokens para a mostra de Um campo de autorizacao de envio   -->
-<!--            <button id="button" style="background-color: #ff0000; color: white;" name="status" value="" type="submit">Rejeitar</button>-->
-            <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="4" type="submit">Autorizar</button>
-<!--            <button id="button" style="background-color: #ff0000; color: white;" name="status" value="" type="submit">Rejeitar</button>-->
-            <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="5" type="submit">Autorizar</button>
-<!--           <button class="buttonmover"  name="reseb" value="1" type="submit">Mover Para Historico</button>-->
-        
         <table class="table">
             <thead>
-            <tr>
-                <th><b>Requisitante:</b>
+            <th><b>Projeto: </b> <?php if ($ordem->SelecionaOrdem()[0]['id_projeto'] != null){$projeto = new projeto($ordem->SelecionaOrdem()[0]['id_projeto'], null); echo $projeto->SelecionaProjeto()[0]['nome']; } ?></th>
 
-             
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr>
-                <th><b>Coordenador:</b>
-                        
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-           
+            <?php if (is_array(verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID']))) {?>
                     <tr>
-                        <th><b>Aprovador:</b>
-
-                            <select id="a" name="assiDi">
-                               
-                            </select>
-
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-
+                        <?php if (verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[0] == "Nenhum Projeto Com Este Valor"){ ?>
+                            <td>
+                                <button id='button' style='background-color: #f00; color: white;' name='Status' value='7' type='submit'>Não Possui Projeto</button>
+                            </td>
+                        <?php }else{ ?>
+                            <td>
+                                <b>Projeto:</b>
+                                <select name='projeto' id="a" class="span12" required><option value="">Selecione</option>
+                                    <?php for ($i=0;$i<count(verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID']));$i++){?>
+                                        <option value="<?php echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['ID']; ?>"><?php echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['nome'].": ". verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['valor']; ?></option>
+                                    <?php }?>
+                                </select>
+                            </td>
+                            <td>
+                                <button id='button' style='background-color: #0000ff; color: white;' name='Status' value='2' type='submit'>Encaminhar</button>
+                                <button id='button' style='background-color: #f00; color: white;' name='Status' value='7' type='submit'>Não Possui Projeto</button>
+                            </td>
+                        <?php } ?>
                     </tr>
-                   
-                            <button>Salvar</button>
-                          
-                        <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="1" type="submit">Encaminhar</button>
-               
-                        <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="3" type="submit">Redirecionar</button>
-                  
-                        <button id="button" style="background-color: #0000ff; color: white;" name="Status" value="8" type="submit">Redirecionar</button>
-                    
-        </thead>
 
-            <span></span>
+                <?php }else{ echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID']);} ?>
 
-            </form>
-        </table>
-    </section>
+                <tr>
+                    <th>
+                        <b>Requisitante: <?php echo $requisitante->SelecionaUsuario()[0]['nome']; ?></b>
+                    </th>
+
+                </tr>
+                <tr>
+                    <th>
+                        <b>Coordenador: <?php echo $coordenador->SelecionaUsuario()[0]['nome']; ?></b>
+                    </th>
+                </tr>
+                        <tr>
+                            <th>
+                                <b>Aprovador: <?php ?></b>
+
+                            </th>
+                        </tr>
+                </thead>
+
+            </table>
+            
+           </form>
+        </section>
     </div>
+    </div>
+<
+
+                  
+                
+                <div class="Buttons-Pdf-Salvar">
+                    <th>
+                        <button class="buttons" type="button" onclick="generatePDF()">Gerar PDF</button>  
+                    </th>
+                </div>
+        </div>
+
+     
+
+ 
 </main>
-
-<script src="../../javaScript/enviar.js"></script>
-
-    </html>
+</html>

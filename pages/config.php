@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +18,7 @@
 
     
     <title>Configurações</title>
+    
 </head>
 <body>
 <nav class="main-menu">
@@ -34,8 +39,8 @@
     <thead>
       <tr>
         <th><a id="d" href="cadastrarUser.php">Cadastrar Novo Usuario</a></th>
-        <th><a id="d" href="listaUser.php">Lista De Usuarios</a></th>
-          <th><a id="d" href="cadastrarSetores.php">Cadastrar Novo Setor</a></th>
+        <th><a id="d" href="listarUser.php">Lista De Usuarios</a></th>
+        <th><a id="d" href="cadastrarSetores.php">Cadastrar Novo Setor</a></th>
         <th><a id="d" href="ordensGeral.php">Ordens de Aquisição</a></th>
         
       </tr>

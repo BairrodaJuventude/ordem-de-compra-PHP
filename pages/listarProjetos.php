@@ -1,3 +1,14 @@
+<?php
+session_start();
+include '../php/conexao.php';
+require_once '../php/Projetos/ServiceProjetos.php';
+require_once '../php/Usuario/ServiceUsuarios.php';
+pegaId();
+include '../php/menu.php';
+
+$projetos = ListarProjetos();
+?>
+
 <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -14,6 +25,7 @@
 
 
         <title>Lista De Projetos</title>
+        
     </head>
     <body>
     <nav class="main-menu">
@@ -45,7 +57,21 @@
                     </tbody>
                     
                         <tr>
-                            <td>Nenhum Projeto Cadastrado...</td>
+                        <?php for ($i = 0; $i < count($projetos[0]); $i++) {?>
+                        <tr>
+                                <td>
+                                    <?php echo $projetos[0][$i]['ID']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $projetos[0][$i]['nome']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $projetos[0][$i]['valor']; ?>
+                                </td>
+                                </tr> 
+    <!--                         <td>Nenhum Usuario Cadastrado...</td>-->
+                            
+                        <?php } ?>
                         </tr>
 
                             <td></td>
