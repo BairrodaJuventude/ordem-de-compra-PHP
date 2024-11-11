@@ -13,8 +13,14 @@ function listarProjetos(): array
 
 function cadastroProjeto()
 {
-    $nome = $_POST['nomeProjeto'];
+    include '../php/Configuracao/conexao.php';
 
+    $nome = $mysql->escape_string($_POST['nomeProjeto']);
+    $valor = $mysql->escape_string($_POST['valorProjeto']);
+
+    $mysql->query("INSERT INTO `projetos`(`nome`, `valor`) VALUES ('{$nome}', '{$valor}')");
+
+    return true;
 }
 
 function addRubrica($quantidade)

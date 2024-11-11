@@ -2,7 +2,7 @@
     require_once '../php/Projetos/ServiceProjetos.php';
     include '../php/Configuracao/conexao.php';
 
-print_r(listarProjetos());
+
 
 ?>
 <!doctype html>
