@@ -12,7 +12,7 @@
     if (!isset($_GET['id'])){
         die("Identificador Não Encontrado");
     }
-    $ordem = new OrdemDeCompra(pegaIdCriptOrdem($_GET['id']), Null, Null,false, null, null);
+    $ordem = new OrdemDeCompra(pegaIdCriptOrdem($_GET['id']), Null, Null,false, null, null, false);
 
 
     $requisitante = new usuarios($ordem->SelecionaOrdem()[0]['requisitante'], null);

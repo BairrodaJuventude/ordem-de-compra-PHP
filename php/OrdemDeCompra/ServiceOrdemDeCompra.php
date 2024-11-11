@@ -83,42 +83,41 @@ function EnviarOrdemDeCompra()
  function ListarOrdemDeCompra($IdUsuario, $OrdensRecebidas)
  {
 
-    if (!empty($IdUsuario))
+    if (isset($IdUsuario))
     {
-
-        if($OrdensRecebidas)
+        if(isset($OrdensRecebidas))
         {
+
             $VerificaUsuario = new usuarios($IdUsuario,null);
 
 
             if (($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras")||($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projetos")){
 
-                $ordem = new OrdemDeCompra(null, $IdUsuario, true, false, false,false);
+                $ordem = new OrdemDeCompra(null, $IdUsuario, true, false, false,false, false);
 
             }else
                 if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador")
                 {
-
-                    $ordem = new OrdemDeCompra( null, $IdUsuario, false, false, true, false);
+                    $ordem = new OrdemDeCompra( null, $IdUsuario, false, false, true, false, null);
 
                 }else
                     if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Aprovador")
                     {
 
-                        $ordem = new OrdemDeCompra( null, $IdUsuario, false, false, false, true);
+                        $ordem = new OrdemDeCompra( null, $IdUsuario, false, false, false, true, false);
 
                     }else
                     {
-                        $ordem = new OrdemDeCompra( null, $IdUsuario, false, true, false, false );
+                        $ordem = new OrdemDeCompra( null, $IdUsuario, false, true, false, false, false );
                     }
-        }if(!$OrdensRecebidas)
+        }else
         {
-            $ordem = new OrdemDeCompra( null, $IdUsuario, false, true, false, false );
+            $ordem = new OrdemDeCompra( null, $IdUsuario, false, true, false, false, false );
         }
 
     }else{
 
-        $ordem = new OrdemDeCompra(null, null, null, null, false, false);
+        $ordem = new OrdemDeCompra(null, null, null, null, false, false, false);
 
     }
 
@@ -128,13 +127,13 @@ function EnviarOrdemDeCompra()
  }
 function selecionaOrdem($Id)
 {
-    $Ordem = new OrdemDeCompra($Id, null, null, false, false, false);
+    $Ordem = new OrdemDeCompra($Id, null, null, false, false, false, false);
 
     return $Ordem->SelecionaOrdem();
 }
 function pegaIdCriptOrdem($Id)
 {
-    $pegaOrdem = new OrdemDeCompra(null, null, null, false, false,false);
+    $pegaOrdem = new OrdemDeCompra(null, null, null, false, false,false, false);
     $quantidadeOrdens = count($pegaOrdem->getAll());
     for ($i =0; $i<$quantidadeOrdens;$i++)
     {
@@ -151,7 +150,7 @@ function verificaTokenMostraBotao ($Idusuario, $IdOrdem)
 {
 
     $usuario = new usuarios($Idusuario, null);
-    $ordem = new OrdemDeCompra($IdOrdem, null, null,false,false,false);
+    $ordem = new OrdemDeCompra($IdOrdem, null, null,false,false,false, false);
     $projetos = new Projeto(null, $ordem->SelecionaOrdem()[0]['total']);
 
     if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 0)){
@@ -280,12 +279,12 @@ function ArquivarOrdem($IdOrdem,$Requisitante, $Coordenador, $Aprovador)
 }
 
 
-// Nao Testado editarOrdem
+
 function editarOrdem($IdOrdem)
 {
 
     include '../php/Configuracao/conexao.php';
-
+print_r($_POST);
 
     $Urgencia = $_POST['Urg'];
     $Fornecedor = $mysql->escape_string($_POST['fornece']);
@@ -297,23 +296,26 @@ function editarOrdem($IdOrdem)
     $Dispesa1 = $_POST['setor1'];
     $Preco1 = $mysql->escape_string($_POST['precUni1']);
 
-    $Unidade2 = $mysql->escape_string($_POST['uni2']);
-    $Quantidade2 = $_POST['quant2'];
-    $Descricao2 = $mysql->escape_string($_POST['desc2']);
-    $Dispesa2 = $_POST['setor2'];
-    $Preco2 = $mysql->escape_string($_POST['precUni2']);
 
-    $Unidade3 = $mysql->escape_string($_POST['uni3']);
-    $Quantidade3 = $_POST['quant3'];
-    $Descricao3 = $mysql->escape_string($_POST['desc3']);
-    $Dispesa3 = $_POST['setor3'];
-    $Preco3 = $mysql->escape_string($_POST['precUni3']);
+        $Unidade2 = $mysql->escape_string($_POST['uni2']);
+        $Quantidade2 = $_POST['quant2'];
+        $Descricao2 = $mysql->escape_string($_POST['desc2']);
+        $Dispesa2 = $_POST['setor2'];
+        $Preco2 = $mysql->escape_string($_POST['precUni2']);
 
-    $Unidade4 = $mysql->escape_string($_POST['uni4']);
-    $Quantidade4 = $_POST['quant4'];
-    $Descricao4 = $mysql->escape_string($_POST['desc4']);
-    $Dispesa4 = $_POST['setor4'];
-    $Preco4 = $mysql->escape_string($_POST['precUni4']);
+        $Unidade3 = $mysql->escape_string($_POST['uni3']);
+        $Quantidade3 = $_POST['quant3'];
+        $Descricao3 = $mysql->escape_string($_POST['desc3']);
+        $Dispesa3 = $_POST['setor3'];
+        $Preco3 = $mysql->escape_string($_POST['precUni3']);
+
+
+        $Unidade4 = $mysql->escape_string($_POST['uni4']);
+        $Quantidade4 = $_POST['quant4'];
+        $Descricao4 = $mysql->escape_string($_POST['desc4']);
+        $Dispesa4 = $_POST['setor4'];
+        $Preco4 = $mysql->escape_string($_POST['precUni4']);
+
 
     $ValorGeral = $_POST['valorTotal'];
 
@@ -344,6 +346,7 @@ function editarOrdem($IdOrdem)
         die($erro);
         return false;
     }
+
 
     $mysql->query("UPDATE ordens SET
     fornece = '$Fornecedor', setor = '$Setor', requisitante = '$Requisitante', coordenador = '$Coordenador',

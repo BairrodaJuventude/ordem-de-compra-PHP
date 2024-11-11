@@ -89,7 +89,7 @@ function editarUsuario($Id, $novoNome, $novoEmail, $novaSenha, $novoToken)
         return die("Identificador Nao Encontrado");
     }
 
-    $selecionaUsuario = new usuarios($SelecionaId);
+    $selecionaUsuario = new usuarios($SelecionaId, false);
 
     if (empty($novoNome)||empty($novoToken)||empty($novoEmail))
     {

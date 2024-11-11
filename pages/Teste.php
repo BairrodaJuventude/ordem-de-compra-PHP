@@ -1,9 +1,9 @@
 <?php
-require_once '../php/Usuario/ServiceUsuarios.php';
-include '../php/Configuracao/conexao.php';
+    require_once '../php/Projetos/ServiceProjetos.php';
+    include '../php/Configuracao/conexao.php';
 
+print_r(listarProjetos());
 
-print_r(listaAprovadores());
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,6 +15,8 @@ print_r(listaAprovadores());
     <title>Document</title>
 </head>
 <body>
+
+
 
 </body>
 </html>
