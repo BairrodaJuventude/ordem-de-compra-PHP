@@ -15,10 +15,11 @@ function cadastroRubrica()
 {
     include '../php/Configuracao/conexao.php';
 
-    $nome = $mysql->escape_string($_POST['nomeRubrica']);
+    $nomeRubrica = $mysql->escape_string($_POST['nomeRubrica']);
 
 
-    $mysql->query("INSERT INTO `rubricas`(ID, `rubrica`, dataCadastro) VALUES ('', '{$nome}', NOW())");
+
+    $mysql->query("INSERT INTO `rubricas`( `rubrica`) VALUES ('{$nomeRubrica}')");
 
     return true;
 }

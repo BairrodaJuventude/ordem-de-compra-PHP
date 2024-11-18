@@ -1,9 +1,8 @@
 <?php
-    require_once '../php/Setor/ServiceSetor.php';
+    require_once '../php/Rubrica/ServiceRubricas.php';
     include '../php/Configuracao/conexao.php';
 
-if ($_POST)
-    cadastraSetor();
+print_r(listarRubricas());
 
 ?>
 <!doctype html>
@@ -19,8 +18,8 @@ if ($_POST)
 
 <form action="" method="post">
 
-    <input type="text" name="nomeSetor">
-    <input type="number" step="0.01" name="valorSetor">
+    <input type="text" name="nomeRubrica">
+
     <input type="submit">
 
 
