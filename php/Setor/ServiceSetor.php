@@ -2,7 +2,7 @@
 
     include 'Setor.php';
 
-    function listarSetores(): array
+    function listarSetor(): array
     {
 
         $selecionaSetores = new Setor(null);
@@ -13,8 +13,14 @@
     function cadastraSetor()
     {
 
-        $dados = implode(",", $_POST);
-        $colunas = $mysql->query("SHOW COLUMNS FROM Setor");
+        include '../php/Configuracao/conexao.php';
 
-print_r($colunas);
+        $nomeSetor =  $mysql->escape_string($_POST['nomeSetor']);
+        $valorSetor = $mysql->escape_string($_POST['valorSetor']);
+
+
+
+        $mysql->query("INSERT INTO `setor`(`Setor`, `valor`) VALUES ('{$nomeSetor}','{$valorSetor}')");
+
+        return true;
     }

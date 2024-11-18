@@ -1,9 +1,9 @@
 <?php
-    require_once '../php/OrdemDeCompra/ServiceOrdemDeCompra.php';
-    require_once '../php/Usuario/ServiceUsuarios.php';
+    require_once '../php/Setor/ServiceSetor.php';
     include '../php/Configuracao/conexao.php';
 
-print_r(ListarOrdemDeCompra(pegaId(), false, true));
+if ($_POST)
+    cadastraSetor();
 
 ?>
 <!doctype html>
@@ -17,7 +17,14 @@ print_r(ListarOrdemDeCompra(pegaId(), false, true));
 </head>
 <body>
 
+<form action="" method="post">
 
+    <input type="text" name="nomeSetor">
+    <input type="number" step="0.01" name="valorSetor">
+    <input type="submit">
+
+
+</form>
 
 </body>
 </html>
