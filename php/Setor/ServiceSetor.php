@@ -10,6 +10,14 @@
 
         return $Setores;
     }
+    function selecionaSetor($IdSetor): array
+    {
+
+        $selecionaSetores = new Setor($IdSetor);
+        $Setores[] = $selecionaSetores->getAll();
+
+        return $Setores;
+    }
     function cadastraSetor()
     {
 
