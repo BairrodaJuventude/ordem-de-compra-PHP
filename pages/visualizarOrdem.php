@@ -12,13 +12,15 @@
     if (!isset($_GET['id'])){
         die("Identificador Não Encontrado");
     }
-    $ordem = new OrdemDeCompra(pegaIdCriptOrdem($_GET['id']), Null, Null,false, null, null, false);
+    $ordem = new OrdemDeCompra(pegaIdCriptOrdem($_GET['id']), Null, Null,false);
 
 
     $requisitante = new usuarios($ordem->SelecionaOrdem()[0]['requisitante'], null);
     $coordenador = new usuarios($ordem->SelecionaOrdem()[0]['coordenador'], null);
-    $aprovador = new usuarios($ordem->SelecionaOrdem()[0]['direcao'], null);
-
+    if ($ordem->SelecionaOrdem()[0]['direcao'] != 0)
+    {
+        $aprovador = new usuarios($ordem->SelecionaOrdem()[0]['direcao'], null);
+    }
     if (count($_POST)>0)
     {
         if(!empty($_POST['Status']) && empty($_POST['projeto'])){
@@ -154,7 +156,7 @@
                         <?php }else{ ?>
                             <td>
                                 <b>Projeto:</b>
-                                <select name='projeto' id="a" class="span12" required><option value="">Selecione</option>
+                                <select name='projeto' id="a" class="span12" ><option value="">Selecione</option>
                                     <?php for ($i=0;$i<count(verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID']));$i++){?>
                                         <option value="<?php echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['ID']; ?>"><?php echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['nome'].": ". verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['valor']; ?></option>
                                     <?php }?>
@@ -182,7 +184,7 @@
                 </tr>
                         <tr>
                             <th>
-                                <b>Aprovador: <?php echo $aprovador->SelecionaUsuario()[0]['nome']; ?></b>
+                                <b>Aprovador: <?php if ($ordem->SelecionaOrdem()[0]['direcao'] != 0){ echo $aprovador->SelecionaUsuario()[0]['nome']; }?></b>
 
                             </th>
                         </tr>

@@ -10,9 +10,9 @@ class Projeto
     public function __construct($caracteristica, $valor)
     {
         include '../php/Configuracao/conexao.php';
+        require_once '../php/Rubrica/ServiceRubricas.php';
 
         if ($caracteristica) {
-
             $this->selecionaProjetos = $mysql->query("SELECT * FROM Projetos WHERE ID = '{$caracteristica}'");
 
         }
@@ -22,10 +22,11 @@ class Projeto
             $this->selecionaProjetos = $mysql->query("SELECT * FROM Projetos WHERE valor >= '{$valor}'");
 
         }
-        if ((!$caracteristica) && ($valor)){
-            $this->selecionaProjetos = $mysql->query("SELECT * FROM `Projetos` ORDER BY `Projeto`.`ID` DESC ");
+      else{
+            $this->selecionaProjetos = $mysql->query("SELECT * FROM `Projetos` ORDER BY `Projetos`.`ID` ASC ");
 
         }
+
         $this->quantProjetos = $this->selecionaProjetos->num_rows;
 
         for ($i = 0; $i < $this->quantProjetos; $i++) {
@@ -37,10 +38,27 @@ class Projeto
 
     public function getAll()
     {
+
+        include '../php/Configuracao/conexao.php';
+
         if ($this->quantProjetos == 0 )
         {
             return "Nenhum Projeto Cadastrado";
         }
+
+//        $selecionaColunas = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE 'rubrica_%'");
+//
+//        while ($colunas = $selecionaColunas->fetch_assoc())
+//        {
+//            $colunasNome[] = $colunas['COLUMN_NAME'];
+//        }
+//
+//        $quantidadeColunasNome = count($colunasNome);
+//
+//        for ($i=0; $i< $quantidadeColunasNome;$i++)
+//        {
+//
+//        }
 
         return $this->Projetos;
 

@@ -7,18 +7,19 @@ class usuarios
     private $usuarios;
     private Int $quantUsuarios;
 
-
     public function __construct($IdUsuario, $Aprovador)
     {
         include '../php/Configuracao/conexao.php';
 
-        if (isset($IdUsuario)){
+        if ($IdUsuario){
             include '../php/Configuracao/conexao.php';
            $this->selecionaUsuarios = $mysql->query("SELECT * FROM usuarios WHERE ID = '{$IdUsuario}'");
-        }elseif (isset($Aprovador)){
+        }
+        if ($Aprovador){
             include '../php/Configuracao/conexao.php';
            $this->selecionaUsuarios = $mysql->query("SELECT * FROM usuarios WHERE token = '5' OR token2 = '5'");
-        }else
+        }
+        if((!$IdUsuario)&&(!$Aprovador))
         {
             $this->selecionaUsuarios = $mysql->query("SELECT * FROM `usuarios` ORDER BY `usuarios`.`ID` DESC ");
 
@@ -35,6 +36,10 @@ class usuarios
 
     public function getAll()
     {
+        if ($this->quantUsuarios == 0)
+        {
+            $this->usuarios = "Nenhum Usuario Encontrado";
+        }
         for ($i = 0; $i < $this->quantUsuarios;$i++){
 
             if ($this->usuarios[$i]['token'] == 1){
@@ -81,6 +86,13 @@ class usuarios
 
     public function SelecionaUsuario()
     {
+
+        if ($this->quantUsuarios == 0)
+        {
+            $this->usuarios = "Nenhum Usuario Encontrado";
+            return $this->usuarios;
+        }
+
         for ($i = 0; $i < $this->quantUsuarios;$i++){
 
             if ($this->usuarios[$i]['token'] == 1){

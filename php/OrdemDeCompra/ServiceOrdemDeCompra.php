@@ -98,6 +98,9 @@ function EnviarOrdemDeCompra()
            $ordem = new OrdemDeCompra(false, $IdUsuario,  false, true);
        }
 
+   }else
+   {
+       $ordem = new OrdemDeCompra(false, false, false, false);
    }
 
     $ordens[] = $ordem->getAll();
@@ -132,24 +135,35 @@ function verificaTokenMostraBotao ($Idusuario, $IdOrdem)
     $ordem = new OrdemDeCompra($IdOrdem, null,false, false);
     $projetos = new Projeto(null, $ordem->SelecionaOrdem()[0]['total']);
 
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 0)){
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "Admin")) && ($ordem->SelecionaOrdem()[0]['Status'] == 0)){
+
         return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='1' type='submit'>Encaminhar</button>";
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Coordenador")||($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 3)){
-        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Encaminhar</button>";
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Coordenador")||($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 3)){
+        return "<button id='button' style='background-color: #ca1818; color: white;' name='Status' value='8' type='submit'>Rejeitar</button><button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Encaminhar</button>";
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Projeto")|| ($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 1)){
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Coordenador")||($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 7)){
+        return "<button id='button' style='background-color: #ca1818; color: white;' name='Status' value='8' type='submit'>Rejeitar</button><button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Encaminhar</button>";
+    }
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Projeto")|| ($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 1)){
         if (is_string($projetos->getAll())){
              $teste[] ="Nenhum Projeto Com Este Valor";
             return $teste;
         }
         return $projetos->getAll();
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "admin") ) && ($ordem->SelecionaOrdem()[0]['Status'] == 2)){
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Usuario")|| ($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 8)){
+        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='3' type='submit'>Editar</button>";
+    }
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Usuario")|| ($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 9)){
+        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Editar</button>";
+
+    }
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "Admin") ) && ($ordem->SelecionaOrdem()[0]['Status'] == 2)){
         return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='3' type='submit'>Encaminhar</button>";
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Aprovador")||($usuario->SelecionaUsuario()[0]['token2'] == "Aprovador")||($usuario->SelecionaUsuario()[0]['token'] == "admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 4)){
-        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='5' type='submit'>Aprovar</button>";
+    if ((($usuario->SelecionaUsuario()[0]['token'] == "Aprovador")||($usuario->SelecionaUsuario()[0]['token2'] == "Aprovador")||($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 4)){
+        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='5' type='submit'>Aprovar</button><button id='button' style='background-color: #ff0000; color: white;' name='Status' value='9' type='submit'>Não Aprovar</button>";
     }
 
 
@@ -169,6 +183,25 @@ function segueRota($numeroRota, $IdOrdem, $IdProjeto)
         $mysql->query("UPDATE projetos SET valor = '$NovoValor' WHERE ID = '$IdProjeto'");
 
     }else{
+
+        if(($mysql->query("SELECT Status FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc()['Status'] == 7)&&($numeroRota == 4))
+        {
+
+            $IdSetor = $mysql->query("SELECT Setor FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc()['Setor'];
+
+            if($mysql->query("SELECT valor FROM setor WHERE ID = '$IdSetor'")->fetch_assoc()['valor'] < $mysql->query("SELECT total FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc()['total'])
+            {
+                return "Setor Não Tem o Valor Necessario!";
+            }
+
+            $NovoValorSetor = $mysql->query("SELECT valor FROM setor WHERE ID = '$IdSetor'")->fetch_assoc()['valor'] - $mysql->query("SELECT total FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc()['total'];
+
+            $mysql->query("UPDATE setor SET valor = '{$NovoValorSetor}' WHERE ID = '$IdSetor'");
+
+//            $mysql->query("UPDATE ordens SET Status = '$numeroRota' WHERE ID = '$IdOrdem'");
+//
+//            $mysql->query("UPDATE setor SET Status = '$numeroRota' WHERE ID = '$IdOrdem'");
+        }
         $mysql->query("UPDATE ordens SET Status = '$numeroRota' WHERE ID = '$IdOrdem'");
     }
 

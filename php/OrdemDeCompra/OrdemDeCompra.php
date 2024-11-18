@@ -153,6 +153,14 @@ class OrdemDeCompra
             if($this->ordens[$i]['Status'] == 7){
 
                 $this->ordens[$i]['Status'] = "Não ha Projeto";
+            }else
+            if($this->ordens[$i]['Status'] == 8){
+
+                $this->ordens[$i]['Status'] = "Não Autorizado Pelo Coordenador";
+            }else
+            if($this->ordens[$i]['Status'] == 9){
+
+                $this->ordens[$i]['Status'] = "Não Autorizado Pelo Aprovador";
             }
 
 

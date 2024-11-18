@@ -8,6 +8,7 @@ function listarProjetos(): array
     $selecionaProjetos = new Projeto(false, false);
     $projetos[] = $selecionaProjetos->getAll();
 
+
     return $projetos;
 }
 function selecionaProjeto($IdProjeto): array
