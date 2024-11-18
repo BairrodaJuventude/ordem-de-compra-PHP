@@ -5,7 +5,15 @@ require_once 'Projeto.php';
 function listarProjetos(): array
 {
 
-    $selecionaProjetos = new Projeto(null, null);
+    $selecionaProjetos = new Projeto(false, false);
+    $projetos[] = $selecionaProjetos->getAll();
+
+    return $projetos;
+}
+function selecionaProjeto($IdProjeto): array
+{
+
+    $selecionaProjetos = new Projeto($IdProjeto, false);
     $projetos[] = $selecionaProjetos->getAll();
 
     return $projetos;
@@ -56,7 +64,12 @@ function editarProjeto($IdProjeto)
     $colunasRubrica = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE 'rubrica_%' ");
     $colunasValorRubrica = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE 'valorRubrica_%' ");
 
-    $mysql->query("");
+    $colunasRubrica = implode(",", $colunasRubrica);
+    $colunasValorRubrica = implode(",", $colunasValorRubrica);
+
+    $novoValorTotalProjeto = array_sum($_POST['valorRubrica']);
+
+    $mysql->query("UPDATE `projetos` SET nome = '{$novoNome}', {$colunasRubrica} = {$novaRubrica}, {$colunasValorRubrica} = {$novoValorRubrica}, valor = {$novoValorTotalProjeto}");
 }
 
 function addQuantidadeRubrica($quantidade)

@@ -11,18 +11,19 @@ class Projeto
     {
         include '../php/Configuracao/conexao.php';
 
-        if (isset($caracteristica)) {
+        if ($caracteristica) {
+
+            $this->selecionaProjetos = $mysql->query("SELECT * FROM Projetos WHERE ID = '{$caracteristica}'");
+
+        }
+        if ($valor) {
 
             include '../php/Configuracao/conexao.php';
-            $this->selecionaProjetos = $mysql->query("SELECT * FROM Projeto WHERE ID = '{$caracteristica}'");
+            $this->selecionaProjetos = $mysql->query("SELECT * FROM Projetos WHERE valor >= '{$valor}'");
 
-        }else if (isset($valor)) {
-
-            include '../php/Configuracao/conexao.php';
-            $this->selecionaProjetos = $mysql->query("SELECT * FROM Projeto WHERE valor >= '{$valor}'");
-
-        } else {
-            $this->selecionaProjetos = $mysql->query("SELECT * FROM `Projeto` ORDER BY `Projeto`.`ID` DESC ");
+        }
+        if ((!$caracteristica) && ($valor)){
+            $this->selecionaProjetos = $mysql->query("SELECT * FROM `Projetos` ORDER BY `Projeto`.`ID` DESC ");
 
         }
         $this->quantProjetos = $this->selecionaProjetos->num_rows;
@@ -40,6 +41,7 @@ class Projeto
         {
             return "Nenhum Projeto Cadastrado";
         }
+
         return $this->Projetos;
 
     }

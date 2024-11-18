@@ -5,12 +5,20 @@ require_once 'Rubrica.php';
 function listarRubricas(): array
 {
 
-    $selecionaRubricas = new Rubrica();
+    $selecionaRubricas = new Rubrica(false);
+    $Rubricas[] = $selecionaRubricas->getAll();
+
+    return $Rubricas;
+
+}
+function selecionaRubrica($IdRubrica): array
+{
+
+    $selecionaRubricas = new Rubrica($IdRubrica);
     $Rubricas[] = $selecionaRubricas->getAll();
 
     return $Rubricas;
 }
-
 function cadastroRubrica()
 {
     include '../php/Configuracao/conexao.php';

@@ -8,12 +8,19 @@ class Rubrica
     private int $quantRubricas;
 
 
-    public function __construct()
+    public function __construct($IdRubrica)
     {
         include '../php/Configuracao/conexao.php';
 
-            $this->selecionaRubricas = $mysql->query("SELECT * FROM `Rubricas` ORDER BY `Rubricas`.`ID` ASC ");
+        if ($IdRubrica)
+        {
 
+            $this->selecionaRubricas = $mysql->query("SELECT * FROM `Rubricas` WHERE ID = '{$IdRubrica}'");
+
+        }else{
+
+            $this->selecionaRubricas = $mysql->query("SELECT * FROM `Rubricas` ORDER BY `Rubricas`.`ID` ASC ");
+        }
 
         $this->quantRubricas = $this->selecionaRubricas->num_rows;
 
