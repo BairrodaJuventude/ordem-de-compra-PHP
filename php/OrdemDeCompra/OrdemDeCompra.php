@@ -28,7 +28,7 @@ class OrdemDeCompra
                    $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (Status = '0' OR Status = '2') AND histCom = 0");
 
                }
-               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projetos") {
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projeto") {
                    $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE Status = '1' AND histPro = 0");
 
                }
@@ -41,7 +41,7 @@ class OrdemDeCompra
 
                }
                if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador") {
-                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histCoo = 0 AND Status = 3");
+                   $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histCoo = 0 AND (Status = 3 OR Status = 7)");
 
                }
                if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Aprovador") {
@@ -109,11 +109,6 @@ class OrdemDeCompra
                    $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (requisitante = '{$IdUsuario}' OR coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histDir = 1");
 
                }
-           }
-
-           if (( !isset($IdOrdem) )&&( !isset($IdUsuario) ) && (!isset($Recebe)) && (!isset($Historico)))
-           {
-               $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE 0 ");
            }
 
        }else{

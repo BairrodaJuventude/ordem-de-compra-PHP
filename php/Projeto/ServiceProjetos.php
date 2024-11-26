@@ -90,6 +90,7 @@ function addQuantidadeRubrica($quantidade)
     {
 
         $mysql->query("ALTER TABLE `projetos` ADD `rubrica_{$sequencia[$i_2]}` INT NULL AFTER `valorRubrica_{$quantidadeColumn}`, ADD `valorRubrica_{$sequencia[$i_2]}` double NULL AFTER `rubrica_{$sequencia[$i_2]}` ");
+        $mysql->query("ALTER TABLE `projetos` ADD FOREIGN KEY (`rubrica_{$sequencia[$i_2]}`) REFERENCES `rubricas`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT; ");
         $i_2--;
 
     }

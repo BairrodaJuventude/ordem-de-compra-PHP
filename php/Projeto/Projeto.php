@@ -46,20 +46,6 @@ class Projeto
             return "Nenhum Projeto Cadastrado";
         }
 
-//        $selecionaColunas = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE 'rubrica_%'");
-//
-//        while ($colunas = $selecionaColunas->fetch_assoc())
-//        {
-//            $colunasNome[] = $colunas['COLUMN_NAME'];
-//        }
-//
-//        $quantidadeColunasNome = count($colunasNome);
-//
-//        for ($i=0; $i< $quantidadeColunasNome;$i++)
-//        {
-//
-//        }
-
         return $this->Projetos;
 
     }

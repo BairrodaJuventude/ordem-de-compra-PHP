@@ -153,10 +153,10 @@ function verificaTokenMostraBotao ($Idusuario, $IdOrdem)
         return $projetos->getAll();
     }
     if ((($usuario->SelecionaUsuario()[0]['token'] == "Usuario")|| ($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 8)){
-        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='3' type='submit'>Editar</button>";
+        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='3' type='submit'>Reenviar</button>";
     }
     if ((($usuario->SelecionaUsuario()[0]['token'] == "Usuario")|| ($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 9)){
-        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Editar</button>";
+        return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Reenviar</button>";
 
     }
     if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "Admin") ) && ($ordem->SelecionaOrdem()[0]['Status'] == 2)){

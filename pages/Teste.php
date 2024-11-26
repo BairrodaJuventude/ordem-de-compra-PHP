@@ -1,8 +1,13 @@
 <?php
-    require_once '../php/Projeto/ServiceProjetos.php';
+    require_once '../php/Setor/ServiceSetor.php';
     include '../php/Configuracao/conexao.php';
 
-listarProjetos();
+if ($_POST)
+{
+
+
+    print_r(cadastraSetor());
+}
 
 ?>
 <!doctype html>
@@ -18,12 +23,15 @@ listarProjetos();
 
 <form action="" method="post">
 
-    <input type="text" name="nomeRubrica">
-
+    <input type="text" name="nomeSetor">
+    <input type="number" name="rubrica[]">
+    <input type="number" name="valorRubrica[]">
+    <input type="number" name="rubrica[]">
+    <input type="number" name="valorRubrica[]">
     <input type="submit">
 
-
 </form>
+
 
 </body>
 </html>
