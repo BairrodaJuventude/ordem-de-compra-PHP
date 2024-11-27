@@ -18,32 +18,32 @@ function EnviarOrdemDeCompra()
     $Dispesa1 = $_POST['setor1'];
     $Preco1 = $mysql->escape_string($_POST['precUni1']);
 
-    $Unidade2 = $mysql->escape_string($_POST['uni2']);
-    $Quantidade2 = $_POST['quant2'];
-    $Descricao2 = $mysql->escape_string($_POST['desc2']);
-    $Dispesa2 = $_POST['setor2'];
-    $Preco2 = $mysql->escape_string($_POST['precUni2']);
+    $Unidade2 = $mysql->escape_string($_POST['uni2'] ?? null);
+    $Quantidade2 = $_POST['quant2'] ?? null;
+    $Descricao2 = $mysql->escape_string($_POST['desc2']?? null);
+    $Dispesa2 = $_POST['setor2']?? null;
+    $Preco2 = $mysql->escape_string($_POST['precUni2']?? null);
 
-    $Unidade3 = $mysql->escape_string($_POST['uni3']);
-    $Quantidade3 = $_POST['quant3'];
-    $Descricao3 = $mysql->escape_string($_POST['desc3']);
-    $Dispesa3 = $_POST['setor3'];
-    $Preco3 = $mysql->escape_string($_POST['precUni3']);
+    $Unidade3 = $mysql->escape_string($_POST['uni3']?? null);
+    $Quantidade3 = $_POST['quant3']?? null;
+    $Descricao3 = $mysql->escape_string($_POST['desc3']?? null);
+    $Dispesa3 = $_POST['setor3']?? null;
+    $Preco3 = $mysql->escape_string($_POST['precUni3']?? null);
 
-    $Unidade4 = $mysql->escape_string($_POST['uni4']);
+    $Unidade4 = $mysql->escape_string($_POST['uni4']?? null);
     $Quantidade4 = $_POST['quant4'];
-    $Descricao4 = $mysql->escape_string($_POST['desc4']);
-    $Dispesa4 = $_POST['setor4'];
-    $Preco4 = $mysql->escape_string($_POST['precUni4']);
+    $Descricao4 = $mysql->escape_string($_POST['desc4']?? null);
+    $Dispesa4 = $_POST['setor4']?? null;
+    $Preco4 = $mysql->escape_string($_POST['precUni4']?? null);
 
     $ValorGeral = $_POST['valorTotal'];
 
     $Requisitante = $_POST['requisitante'];
     $Coordenador = $_POST['assiCoord'];
-    $Aprovador = $_POST['aprovador'];
+
 
     $path = false;
-    $arquivos = $_FILES['arquivos1'];
+    $arquivos = $_FILES['arquivos1']?? null;
 
     if (!empty($_FILES['arquivos1']["size"][0])){
 
@@ -67,13 +67,13 @@ function EnviarOrdemDeCompra()
     }
 
     $mysql->query("INSERT INTO ordens
-    (`fornece`, `setor`, `requisitante`, `coordenador`, `direcao`, `uni1`,
+    (`fornece`, `setor`, `requisitante`, `coordenador`, `uni1`,
      `uni2`, `uni3`, `uni4`, `quant1`, `quant2`,`quant3`, `quant4`, `prod1`,
      `prod2`, `prod3`, `prod4`, `desp1`, `desp2`,`desp3`, `desp4`, `preco1`,
      `preco2`, `preco3`, `preco4`, `Imagem`, `histAdm`,`histUsu`, `histDir`,
      `histCoo`, `histPro`, `histCom`, `histAlm`,`Urgencia`,`total`, `Status`, `Data`)
     VALUES
-     ('$Fornecedor', '$Setor', '$Requisitante', '$Coordenador', '$Aprovador', '$Unidade1',
+     ('$Fornecedor', '$Setor', '$Requisitante', '$Coordenador', '$Unidade1',
       '$Unidade2', '$Unidade3', '$Unidade4', '$Quantidade1', '$Quantidade2', '$Quantidade3', '$Quantidade4',
       '$Descricao1', '$Descricao2', '$Descricao3', '$Descricao4', '$Dispesa1', '$Dispesa2', '$Dispesa3', '$Dispesa4',
       $Preco1, '$Preco2', '$Preco3', '$Preco4', '$path', 0, 0, 0, 0, 0, 0, 0, '$Urgencia', '$ValorGeral', 0, NOW())");
@@ -168,19 +168,52 @@ function verificaTokenMostraBotao ($Idusuario, $IdOrdem)
 
 
 }
-function segueRota($numeroRota, $IdOrdem, $IdProjeto)
+
+// Testar
+function segueRota($numeroRota, $IdOrdem, $IdProjeto, $IdRubrica)
 {
     include '../php/Configuracao/conexao.php';
     if ($IdProjeto != Null){
 
-        $ValorOrdem =  $mysql->query("SELECT * FROM ordens WHERE ID = '$IdOrdem'");
 
-        $ValorProjeto =  $mysql->query("SELECT valor FROM projetos WHERE ID = '$IdProjeto'");
+
+        $nomeColunasPesquisa = $mysql->query("DESCRIBE projetos");
+
+        while ($nomeColunas = $nomeColunasPesquisa->fetch_assoc()) {
+            $NomeDaColuna = $nomeColunas['Field'];
+
+            $NomeColunaEncontrado = $mysql->query("SELECT $NomeDaColuna FROM projetos WHERE ID = $IdProjeto AND $NomeDaColuna = '$IdRubrica'");
+
+            // Verificar se algum valor foi encontrado
+            if ($NomeColunaEncontrado->num_rows > 0) {
+
+                $numeroColuna = substr( $nomeColunas['Field'], 8, 1);
+
+                $valorRubrica = $mysql->query("SELECT valorRubrica_{$numeroColuna} FROM projetos WHERE ID = {$IdProjeto}")->fetch_assoc();
+                $valorTotalProjeto = $mysql->query("SELECT valor FROM projetos WHERE ID = {$IdProjeto}")->fetch_assoc();
+                $valorTotalOrdem = $mysql->query("SELECT total FROM `ordens` WHERE ID = {$IdOrdem}")->fetch_assoc();
+
+                if ($valorRubrica > $valorTotalOrdem)
+                {
+
+                    $NovoValorRubrica = $valorRubrica - $valorTotalOrdem;
+
+                    $novoValorProjeto = $valorTotalProjeto- $valorTotalOrdem;
+
+                    $mysql->query("UPDATE ordens SET Status = '$numeroRota', id_projeto = '$IdProjeto' WHERE ID = '$IdOrdem'");
+                    $mysql->query("UPDATE projetos SET valorRubrica_{$numeroColuna} = '$NovoValorRubrica', valor = $novoValorProjeto WHERE ID = '$IdProjeto'");
+
+                }else{
+                    die("Nao Ah valor Suficiente nesta Rubrica");
+                }
+            }else{
+                die("Rubrica Nao Encontrada");
+            }
+        }
 
         $NovoValor = $ValorProjeto->fetch_assoc()['valor']-$ValorOrdem->fetch_assoc()['total'];
 
-        $mysql->query("UPDATE ordens SET Status = '$numeroRota', id_projeto = '$IdProjeto' WHERE ID = '$IdOrdem'");
-        $mysql->query("UPDATE projetos SET valor = '$NovoValor' WHERE ID = '$IdProjeto'");
+
 
     }else{
 
