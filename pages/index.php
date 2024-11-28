@@ -36,7 +36,7 @@ session_start();
         <div class="dev1"><span></span></div>
         <div class="dev2">
             
-            <h1 id="f">Bem-Vindo, <b><?php echo $nome; ?></b>👋</h1>
+            <h1 id="f">Bem-Vindo,  teste<b><?php echo $nome; ?></b>👋</h1>
         </div>
     </main>
 </body>
