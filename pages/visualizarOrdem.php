@@ -3,6 +3,7 @@
     session_start();
 
     require_once '../php/OrdemDeCompra/ServiceOrdemDeCompra.php';
+    require_once '../php/Projeto/ServiceProjetos.php';
     require_once '../php/Usuario/ServiceUsuarios.php';
     pegaId();
     include '../php/Configuracao/conexao.php';
@@ -23,10 +24,10 @@
     }
     if (count($_POST)>0)
     {
-        if(!empty($_POST['Status']) && empty($_POST['projeto'])){
-            segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], null);
+        if(!empty($_POST['Status']) && empty($_POST['projeto']) && empty($_POST['Projeto']) ){
+            segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], null, null);
         }elseif (!empty($_POST['Status']) && !empty($_POST['projeto'])){
-            segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], $_POST['projeto']);
+            print_r(segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], explode("_",$_POST['projeto'])[0], explode("_",$_POST['projeto'])[1]));
 
         }
     }
@@ -153,13 +154,43 @@
                             <td>
                                 <button id='button' style='background-color: #f00; color: white;' name='Status' value='7' type='submit'>Não Possui Projeto</button>
                             </td>
-                        <?php }else{ ?>
+                        <?php }else{
+
+                            $quantidadeRubrica = $mysql->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'projetos' AND COLUMN_NAME LIKE 'rubrica_%'")->fetch_assoc()['COUNT(*)'];
+
+                            // ID projeto: verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['ID']
+
+                            ?>
                             <td>
                                 <b>Projeto:</b>
                                 <select name='projeto' id="a" class="span12" ><option value="">Selecione</option>
-                                    <?php for ($i=0;$i<count(verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID']));$i++){?>
-                                        <option value="<?php echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['ID']; ?>"><?php echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['nome'].": ". verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['valor']; ?></option>
-                                    <?php }?>
+                                    <?php
+                                        for ($i=0;$i<count(verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID']));$i++){
+
+                                            $filtraApenasVetoresRubricasDividido = array_filter(verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i], function ($key)
+                                            {
+                                                return str_starts_with($key, 'rubrica_');
+                                            }, ARRAY_FILTER_USE_KEY);
+
+                                            $filtraApenasVetoresRubricas[] = $filtraApenasVetoresRubricasDividido;
+
+                                            foreach ($filtraApenasVetoresRubricas as $sub_array)
+                                            {
+                                                $filtraApenasRubricasNaoVazias = array_filter($sub_array, function ($value)
+                                                {
+                                                    return !empty($value);
+                                                });
+                                            }?>
+
+                                            <option> <?php echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['nome'];?></option>
+
+                                            <?php for ($r=0;$r<count($filtraApenasRubricasNaoVazias);$r++)
+                                            {?>
+
+                                                <option value="<?php echo verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['ID'].'_'.selecionaRubrica($filtraApenasRubricasNaoVazias['rubrica_'.$r+1])[0][0]['ID'];?>"> <?php print_r (selecionaRubrica($filtraApenasRubricasNaoVazias['rubrica_'.$r+1])[0][0]['rubrica']);?></option>
+
+                                    <?php   }
+                                        }?>
                                 </select>
                             </td>
                             <td>

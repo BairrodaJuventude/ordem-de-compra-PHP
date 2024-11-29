@@ -175,46 +175,40 @@ function segueRota($numeroRota, $IdOrdem, $IdProjeto, $IdRubrica)
     include '../php/Configuracao/conexao.php';
     if ($IdProjeto != Null){
 
-
-
         $nomeColunasPesquisa = $mysql->query("DESCRIBE projetos");
 
-        while ($nomeColunas = $nomeColunasPesquisa->fetch_assoc()) {
-            $NomeDaColuna = $nomeColunas['Field'];
+        if ($nomeColunasPesquisa) {
+            while ($nomeColunas = $nomeColunasPesquisa->fetch_assoc()) {
+                $NomeDaColuna = $nomeColunas['Field'];
 
-            $NomeColunaEncontrado = $mysql->query("SELECT $NomeDaColuna FROM projetos WHERE ID = $IdProjeto AND $NomeDaColuna = '$IdRubrica'");
+                $NomeColunaEncontrado = $mysql->query("SELECT $NomeDaColuna FROM projetos WHERE ID = $IdProjeto AND $NomeDaColuna = '$IdRubrica'");
+                // Verificar se algum valor foi encontrado
+                if ($NomeColunaEncontrado->num_rows > 0) {
 
-            // Verificar se algum valor foi encontrado
-            if ($NomeColunaEncontrado->num_rows > 0) {
+                    $numeroColuna = substr($nomeColunas['Field'], 8, 1);
 
-                $numeroColuna = substr( $nomeColunas['Field'], 8, 1);
+                    $valorRubrica = $mysql->query("SELECT valorRubrica_{$numeroColuna} FROM projetos WHERE ID = {$IdProjeto}")->fetch_assoc()['valorRubrica_'.$numeroColuna];
+                    $valorTotalProjeto = $mysql->query("SELECT valor FROM projetos WHERE ID = {$IdProjeto}")->fetch_assoc()['valor'];
+                    $valorTotalOrdem = $mysql->query("SELECT total FROM `ordens` WHERE ID = {$IdOrdem}")->fetch_assoc()['total'];
 
-                $valorRubrica = $mysql->query("SELECT valorRubrica_{$numeroColuna} FROM projetos WHERE ID = {$IdProjeto}")->fetch_assoc();
-                $valorTotalProjeto = $mysql->query("SELECT valor FROM projetos WHERE ID = {$IdProjeto}")->fetch_assoc();
-                $valorTotalOrdem = $mysql->query("SELECT total FROM `ordens` WHERE ID = {$IdOrdem}")->fetch_assoc();
+                    if ($valorRubrica > $valorTotalOrdem) {
 
-                if ($valorRubrica > $valorTotalOrdem)
-                {
+                        $NovoValorRubrica = $valorRubrica - $valorTotalOrdem;
 
-                    $NovoValorRubrica = $valorRubrica - $valorTotalOrdem;
+                        $novoValorProjeto = $valorTotalProjeto - $valorTotalOrdem;
 
-                    $novoValorProjeto = $valorTotalProjeto- $valorTotalOrdem;
-
-                    $mysql->query("UPDATE ordens SET Status = '$numeroRota', id_projeto = '$IdProjeto' WHERE ID = '$IdOrdem'");
-                    $mysql->query("UPDATE projetos SET valorRubrica_{$numeroColuna} = '$NovoValorRubrica', valor = $novoValorProjeto WHERE ID = '$IdProjeto'");
-
-                }else{
-                    die("Nao Ah valor Suficiente nesta Rubrica");
+                        $mysql->query("UPDATE ordens SET Status = '$numeroRota', id_projeto = '$IdProjeto' WHERE ID = '$IdOrdem'");
+                        $mysql->query("UPDATE projetos SET valorRubrica_{$numeroColuna} = '$NovoValorRubrica', valor = $novoValorProjeto WHERE ID = '$IdProjeto'");
+                        break;
+                    } else {
+                        die("Nao Ah valor Suficiente nesta Rubrica");
+                    }
                 }
-            }else{
-                die("Rubrica Nao Encontrada");
             }
+        }else
+        {
+            die("Nao Ah valor Suficiente nesta Rubrica");
         }
-
-        $NovoValor = $ValorProjeto->fetch_assoc()['valor']-$ValorOrdem->fetch_assoc()['total'];
-
-
-
     }else{
 
         if(($mysql->query("SELECT Status FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc()['Status'] == 7)&&($numeroRota == 4))
