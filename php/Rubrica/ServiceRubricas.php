@@ -31,3 +31,15 @@ function cadastroRubrica()
 
     return true;
 }
+function editarRubrica($IdRubrica)
+{
+    include '../php/Configuracao/conexao.php';
+
+    $nomeRubrica = $mysql->escape_string($_POST['nomeRubrica']);
+
+
+
+    $mysql->query("UPDATE `rubricas` SET `rubrica` = '{$nomeRubrica}', dataUpdate = NOW() WHERE ID = '{$IdRubrica}'");
+
+    return true;
+}
