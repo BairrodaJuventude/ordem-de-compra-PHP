@@ -30,8 +30,8 @@ function cadastroProjeto()
     $valorRubricas = implode(",", $_POST['valorRubrica']);
 
     $limit= count($_POST['rubrica']);
-    $rubricaColuna = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE 'rubrica_%' LIMIT {$limit}");
-    $valorRubricaColuna = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE 'valorRubrica_%' LIMIT {$limit}");
+    $rubricaColuna = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'projetos' AND TABLE_SCHEMA ='compras' AND COLUMN_NAME LIKE 'rubrica_%' LIMIT {$limit}");
+    $valorRubricaColuna = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'projetos' AND TABLE_SCHEMA ='compras' AND COLUMN_NAME LIKE 'valorRubrica_%' LIMIT {$limit}");
 
 
     while ($rubrica = $rubricaColuna->fetch_assoc()) {
