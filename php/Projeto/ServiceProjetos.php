@@ -70,7 +70,7 @@ function editarProjeto($IdProjeto)
 
     $novoValorTotalProjeto = array_sum($_POST['valorRubrica']);
 
-    $mysql->query("UPDATE `projetos` SET nome = '{$novoNome}', {$colunasRubrica} = {$novaRubrica}, {$colunasValorRubrica} = {$novoValorRubrica}, valor = {$novoValorTotalProjeto}");
+    $mysql->query("UPDATE `projetos` SET nome = '{$novoNome}', {$colunasRubrica} = {$novaRubrica}, {$colunasValorRubrica} = {$novoValorRubrica}, valor = {$novoValorTotalProjeto} WHERE ID = '{$IdProjeto}'");
 }
 
 function addQuantidadeRubrica($quantidade)
