@@ -17,12 +17,12 @@ class Setor
         if (isset($IdSetor)) {
 
             include '../php/Configuracao/conexao.php';
-            $this->selecionaSetor = $mysql->query("SELECT * FROM Setor WHERE ID = '{$IdSetor}'");
+            $this->selecionaSetor = $mysql->query("SELECT * FROM setores WHERE ID = '{$IdSetor}'");
 
         }
         if (!isset($valor)) {
 
-            $this->selecionaSetor = $mysql->query("SELECT * FROM `Setor` ORDER BY `Setor`.`ID` DESC ");
+            $this->selecionaSetor = $mysql->query("SELECT * FROM `setores` ORDER BY `setores`.`ID` DESC ");
 
         }
         $this->quantSetor = $this->selecionaSetor->num_rows;
