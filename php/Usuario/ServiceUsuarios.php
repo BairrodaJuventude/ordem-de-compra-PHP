@@ -66,7 +66,7 @@ function verificaAdmin()
     }
 
 }
-function editarUsuario($Id, $novoNome, $novoEmail, $novaSenha, $novoToken)
+function editarUsuario($Id, $novoNome, $novoEmail, $novaSenha, $novoToken, $novoToken2)
 {
 
     include ('../php/Configuracao/conexao.php');
@@ -105,9 +105,10 @@ function editarUsuario($Id, $novoNome, $novoEmail, $novaSenha, $novoToken)
     $novoNomeCrip = $mysql->escape_string($novoNome);
     $novoEmailCrip = $mysql->escape_string($novoEmail);
     $novoTokenCrip = $mysql->escape_string($novoToken);
+    $novoTokenCrip2 = $mysql->escape_string($novoToken2);
     date_default_timezone_set('America/Sao_Paulo');
 
-   $mysql->query("UPDATE `usuarios` SET `nome`= '$novoNomeCrip',`email`='$novoEmailCrip',`senha`='$novaSenhaCrip',`token`='$novoTokenCrip', atualiza = now()  WHERE ID = '$SelecionaId'");
+   $mysql->query("UPDATE `usuarios` SET `nome`= '$novoNomeCrip',`email`='$novoEmailCrip',`senha`='$novaSenhaCrip',`token`='$novoTokenCrip',,`token2`='$novoTokenCrip2', atualiza = now()  WHERE ID = '$SelecionaId'");
 
         return true;
 
@@ -136,6 +137,50 @@ function pegaId()
     }
 
     return $Id;
+}
+function verificaSetorCompras()
+{
+
+    include ('../php/Configuracao/conexao.php');
+
+    if (!isset($_SESSION)){
+        session_start();
+    }
+
+    if(isset($_SESSION['usuario']))
+    {
+        $Id =$_SESSION['usuario'];
+    }
+
+    if(isset($_SESSION['admin']))
+    {
+        $Id =$_SESSION['admin'];
+    }
+
+    if (!$Id)
+    {
+        logout();
+    }
+
+    $dados = new usuarios($Id, false);
+    $usuario = $dados->SelecionaUsuario();
+
+
+    if
+    (
+        (($usuario[0]['token'] == "Compras")&& ($usuario[0]['token2'] == 'Coordenador')) ||
+        (($usuario[0]['token2'] == "Compras")&& ($usuario[0]['token'] == 'Coordenador')) ||
+        (($usuario[0]['token'] == "Admin")&& ($usuario[0]['token2'] == 'Admin')) ||
+        (($usuario[0]['token2'] == "Admin")&& ($usuario[0]['token'] == 'Admin')) ||
+        (($usuario[0]['token'] == "Compras")&& ($usuario[0]['token2'] == 'Compras')) ||
+        (($usuario[0]['token2'] == "Compras")&& ($usuario[0]['token'] == 'Compras'))
+    )
+    {
+        return true;
+    }else{
+        die("Voce Nao tem Permicao Para Acessar Esta Pagina!");
+    }
+
 }
 
 function pegaIdCriptUsuario($Id)

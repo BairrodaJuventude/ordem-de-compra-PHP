@@ -18,7 +18,7 @@
 
     if (count($_POST)>0)
     {
-        echo editarUsuario($usuario->SelecionaUsuario()[0]['ID'], $_POST['nome'], $_POST['email'], $_POST['senha'],$_POST['token']);
+        echo editarUsuario($usuario->SelecionaUsuario()[0]['ID'], $_POST['nome'], $_POST['email'], $_POST['senha'],$_POST['token'],$_POST['token2']);
 
     }
 
@@ -81,6 +81,19 @@
                        <option value="13">Almoxarifado</option>
 
                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="token2" class="form-label">Tipo de Usuário:</label>
+                    <select name="token2" class="form-select" required>
+                        <option value="" selected disabled>Selecione</option>
+                        <option value="1">Admin</option>
+                        <option value="3">Usuario</option>
+                        <option value="5">Aprovador</option>
+                        <option value="7">Coordenador</option>
+                        <option value="11">Projetos</option>
+                        <option value="12">Compras</option>
+                        <option value="13">Almoxarifado</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Salvar Alterações</button>
