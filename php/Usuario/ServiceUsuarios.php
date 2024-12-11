@@ -181,6 +181,49 @@ function verificaSetorCompras()
         die("Voce Nao tem Permicao Para Acessar Esta Pagina!");
     }
 
+}function verificaSetorProjetos()
+{
+
+    include ('../php/Configuracao/conexao.php');
+
+    if (!isset($_SESSION)){
+        session_start();
+    }
+
+    if(isset($_SESSION['usuario']))
+    {
+        $Id =$_SESSION['usuario'];
+    }
+
+    if(isset($_SESSION['admin']))
+    {
+        $Id =$_SESSION['admin'];
+    }
+
+    if (!$Id)
+    {
+        logout();
+    }
+
+    $dados = new usuarios($Id, false);
+    $usuario = $dados->SelecionaUsuario();
+
+
+    if
+    (
+        (($usuario[0]['token'] == "Projeto")&& ($usuario[0]['token2'] == 'Coordenador')) ||
+        (($usuario[0]['token2'] == "Projeto")&& ($usuario[0]['token'] == 'Coordenador')) ||
+        (($usuario[0]['token'] == "Admin")&& ($usuario[0]['token2'] == 'Admin')) ||
+        (($usuario[0]['token2'] == "Admin")&& ($usuario[0]['token'] == 'Admin')) ||
+        (($usuario[0]['token'] == "Projeto")&& ($usuario[0]['token2'] == 'Projeto')) ||
+        (($usuario[0]['token2'] == "Projeto")&& ($usuario[0]['token'] == 'Projeto'))
+    )
+    {
+        return true;
+    }else{
+        die("Voce Nao tem Permicao Para Acessar Esta Pagina!");
+    }
+
 }
 
 function pegaIdCriptUsuario($Id)

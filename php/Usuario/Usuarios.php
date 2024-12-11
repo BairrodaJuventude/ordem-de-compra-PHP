@@ -122,6 +122,33 @@ class usuarios
             if ($this->usuarios[$i]['token'] == 13){
 
                 $this->usuarios[$i]['token'] = "Almoxarifado";
+            } if ($this->usuarios[$i]['token2'] == 1){
+
+                $this->usuarios[$i]['token2'] = "Admin";
+            }else
+            if ($this->usuarios[$i]['token2'] == 3){
+
+                $this->usuarios[$i]['token2'] = "Usuario";
+            }else
+            if ($this->usuarios[$i]['token2'] == 5){
+
+                $this->usuarios[$i]['token2'] = "Aprovador";
+            }else
+            if ($this->usuarios[$i]['token2'] == 7){
+
+                $this->usuarios[$i]['token2'] = "Coordenador";
+            }else
+            if ($this->usuarios[$i]['token2'] == 11){
+
+                $this->usuarios[$i]['token2'] = "Projeto";
+            }else
+            if ($this->usuarios[$i]['token2'] == 12){
+
+                $this->usuarios[$i]['token2'] = "Compras";
+            }else
+            if ($this->usuarios[$i]['token2'] == 13){
+
+                $this->usuarios[$i]['token2'] = "Almoxarifado";
             }
             if($this->usuarios[$i]['Status'] == 1){
                 $this->usuarios[$i]['Status'] = "Ativado";
