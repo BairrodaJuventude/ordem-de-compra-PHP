@@ -24,11 +24,20 @@ class OrdemDeCompra
 
                $VerificaUsuario = new usuarios($IdUsuario, null);
 
-               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras") {
+               if (
+                   (($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras") && ($VerificaUsuario->SelecionaUsuario()[0]['token2'] == "Coordenador"))||
+                   (($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador") && ($VerificaUsuario->SelecionaUsuario()[0]['token2'] == "Compras"))||
+                   (($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Compras") && ($VerificaUsuario->SelecionaUsuario()[0]['token2'] == "Compras"))
+               ) {
                    $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (Status = '0' OR Status = '2') AND histCom = 0");
 
                }
-               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projeto") {
+
+               if (
+                   (($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projeto") && ($VerificaUsuario->SelecionaUsuario()[0]['token2'] == "Coordenador"))||
+                   (($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador") && ($VerificaUsuario->SelecionaUsuario()[0]['token2'] == "Projeto"))||
+                   (($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Projeto") && ($VerificaUsuario->SelecionaUsuario()[0]['token2'] == "Projeto"))
+               ) {
                    $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE Status = '1' AND histPro = 0");
 
                }
@@ -40,7 +49,7 @@ class OrdemDeCompra
                    $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histAdm = 0");
 
                }
-               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador") {
+               if ($VerificaUsuario->SelecionaUsuario()[0]['token'] == "Coordenador" || $VerificaUsuario->SelecionaUsuario()[0]['token2'] == "Coordenador") {
                    $this->selecionaOrdens = $mysql->query("SELECT * FROM `ordens` WHERE (coordenador = '{$IdUsuario}' OR direcao = '{$IdUsuario}') AND histCoo = 0 AND (Status = 3 OR Status = 7)");
 
                }

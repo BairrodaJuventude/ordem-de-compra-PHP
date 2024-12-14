@@ -24,10 +24,10 @@
     }
     if (count($_POST)>0)
     {
-        if(!empty($_POST['Status']) && empty($_POST['projeto']) && empty($_POST['Projeto']) ){
-            segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], null, null);
+        if(!empty($_POST['Status']) && empty($_POST['projeto']) ){
+            segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], null, null, pegaId());
         }elseif (!empty($_POST['Status']) && !empty($_POST['projeto'])){
-            print_r(segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], explode("_",$_POST['projeto'])[0], explode("_",$_POST['projeto'])[1]));
+            segueRota($_POST['Status'], $ordem->SelecionaOrdem()[0]['ID'], explode("_",$_POST['projeto'])[0], explode("_",$_POST['projeto'])[1], pegaId());
 
         }
     }
@@ -157,8 +157,6 @@
                         <?php }else{
 
                             $quantidadeRubrica = $mysql->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'projetos' AND COLUMN_NAME LIKE 'rubrica_%'")->fetch_assoc()['COUNT(*)'];
-
-                            // ID projeto: verificaTokenMostraBotao(pegaId(), $ordem->SelecionaOrdem()[0]['ID'])[$i]['ID']
 
                             ?>
                             <td>

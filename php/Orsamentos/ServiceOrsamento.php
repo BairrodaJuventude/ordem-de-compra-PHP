@@ -48,8 +48,8 @@ function cadastroOrsamento()
     $colunasValorRubricas = implode(",", $colunasValorRubrica);
 
     $valorTotalorsamento = array_sum($_POST['valorRubrica']);
-
-    $mysql->query("INSERT INTO `orsamentos`(`Id_setor`,$colunasRubricas, $colunasValorRubricas, `total`) VALUES ('{$IdSetor}',{$rubricas} ,{$valorRubricas}, '{$valorTotalorsamento}')");
+    $mysql->query("UPDATE `orsamentos` SET Status = 0  WHERE Id_setor = {$IdSetor}");
+    $mysql->query("INSERT INTO `orsamentos`(`Id_setor`,$colunasRubricas, $colunasValorRubricas, Status, `total`) VALUES ('{$IdSetor}',{$rubricas} ,{$valorRubricas}, 1, '{$valorTotalorsamento}')");
 
     return true;
 }
@@ -87,6 +87,7 @@ function editarOrsamento($IdOrsamento)
 
     $novoValorTotalorsamento = array_sum($_POST['valorRubrica']);
 
+    $mysql->query("UPDATE `orsamentos` SET Id_setor = '{$IdSetor}', {$rubricasValores}, {$valoresRubricas}, total = {$novoValorTotalorsamento} WHERE ID = {$IdOrsamento}");
     $mysql->query("UPDATE `orsamentos` SET Id_setor = '{$IdSetor}', {$rubricasValores}, {$valoresRubricas}, total = {$novoValorTotalorsamento} WHERE ID = {$IdOrsamento}");
 }
 

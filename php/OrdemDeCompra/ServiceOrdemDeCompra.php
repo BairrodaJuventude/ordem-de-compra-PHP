@@ -135,31 +135,96 @@ function verificaTokenMostraBotao ($Idusuario, $IdOrdem)
     $ordem = new OrdemDeCompra($IdOrdem, null,false, false);
     $projetos = new Projeto(null, $ordem->SelecionaOrdem()[0]['total']);
 
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "Admin")) && ($ordem->SelecionaOrdem()[0]['Status'] == 0)){
+    if (
+        (
+            (($usuario->SelecionaUsuario()[0]['token'] == "Compras") && ($usuario->SelecionaUsuario()[0]['token2'] == "Coordenador"))||
+            (($usuario->SelecionaUsuario()[0]['token2'] == "Compras") && ($usuario->SelecionaUsuario()[0]['token'] == "Coordenador"))||
+            (($usuario->SelecionaUsuario()[0]['token2'] == "Compras") && ($usuario->SelecionaUsuario()[0]['token'] == "Compras"))||
+            ($usuario->SelecionaUsuario()[0]['token'] == "Admin")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Admin")
+        ) &&
+        ($ordem->SelecionaOrdem()[0]['Status'] == 0))
+    {
 
         return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='1' type='submit'>Encaminhar</button>";
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Coordenador")||($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 3)){
+
+    if (
+        (
+            ($usuario->SelecionaUsuario()[0]['token'] == "Coordenador")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Coordenador")||
+            ($usuario->SelecionaUsuario()[0]['token'] == "Admin")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Admin")
+        )  &&
+        ($ordem->SelecionaOrdem()[0]['Status'] == 3))
+    {
         return "<button id='button' style='background-color: #ca1818; color: white;' name='Status' value='8' type='submit'>Rejeitar</button><button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Encaminhar</button>";
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Coordenador")||($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 7)){
+
+    if (
+        (
+            ($usuario->SelecionaUsuario()[0]['token'] == "Coordenador")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Coordenador")||
+            ($usuario->SelecionaUsuario()[0]['token'] == "Admin")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Admin")
+        )  &&
+        ($ordem->SelecionaOrdem()[0]['Status'] == 7))
+    {
         return "<button id='button' style='background-color: #ca1818; color: white;' name='Status' value='8' type='submit'>Rejeitar</button><button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Encaminhar</button>";
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Projeto")|| ($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 1)){
+
+    if (
+        (
+
+            (($usuario->SelecionaUsuario()[0]['token'] == "Projeto") && ($usuario->SelecionaUsuario()[0]['token2'] == "Coordenador"))||
+            (($usuario->SelecionaUsuario()[0]['token2'] == "Projeto") && ($usuario->SelecionaUsuario()[0]['token'] == "Coordenador"))||
+            (($usuario->SelecionaUsuario()[0]['token2'] == "Projeto") && ($usuario->SelecionaUsuario()[0]['token'] == "Projeto"))||
+            (($usuario->SelecionaUsuario()[0]['token'] == "Admin")|| ($usuario->SelecionaUsuario()[0]['token2'] == "Admin"))
+        ) &&
+        ($ordem->SelecionaOrdem()[0]['Status'] == 1))
+    {
         if (is_string($projetos->getAll())){
              $teste[] ="Nenhum Projeto Com Este Valor";
             return $teste;
         }
         return $projetos->getAll();
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Usuario")|| ($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 8)){
+
+    if (
+        (
+            ($usuario->SelecionaUsuario()[0]['token'] == "Usuario")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Usuario")||
+            ($usuario->SelecionaUsuario()[0]['token'] == "Admin")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Admin")
+        )  &&
+        ($ordem->SelecionaOrdem()[0]['Status'] == 8))
+    {
         return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='3' type='submit'>Reenviar</button>";
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Usuario")|| ($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 9)){
+
+    if (
+        (
+            ($usuario->SelecionaUsuario()[0]['token'] == "Usuario")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Usuario")||
+            ($usuario->SelecionaUsuario()[0]['token'] == "Admin")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Admin")
+        )  &&
+        ($ordem->SelecionaOrdem()[0]['Status'] == 9))
+    {
         return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='4' type='submit'>Reenviar</button>";
 
     }
-    if ((($usuario->SelecionaUsuario()[0]['token'] == "Compras")||($usuario->SelecionaUsuario()[0]['token'] == "Admin") ) && ($ordem->SelecionaOrdem()[0]['Status'] == 2)){
+
+    if (
+        (
+            (($usuario->SelecionaUsuario()[0]['token'] == "Compras") && ($usuario->SelecionaUsuario()[0]['token2'] == "Coordenador"))||
+            (($usuario->SelecionaUsuario()[0]['token2'] == "Compras") && ($usuario->SelecionaUsuario()[0]['token'] == "Coordenador"))||
+            (($usuario->SelecionaUsuario()[0]['token2'] == "Compras") && ($usuario->SelecionaUsuario()[0]['token'] == "Compras"))||
+            ($usuario->SelecionaUsuario()[0]['token'] == "Admin")||
+            ($usuario->SelecionaUsuario()[0]['token2'] == "Admin")
+        ) &&
+        ($ordem->SelecionaOrdem()[0]['Status'] == 2))
+    {
         return "<button id='button' style='background-color: #0000ff; color: white;' name='Status' value='3' type='submit'>Encaminhar</button>";
     }
     if ((($usuario->SelecionaUsuario()[0]['token'] == "Aprovador")||($usuario->SelecionaUsuario()[0]['token2'] == "Aprovador")||($usuario->SelecionaUsuario()[0]['token'] == "Admin"))  && ($ordem->SelecionaOrdem()[0]['Status'] == 4)){
@@ -170,9 +235,12 @@ function verificaTokenMostraBotao ($Idusuario, $IdOrdem)
 }
 
 // Testar
-function segueRota($numeroRota, $IdOrdem, $IdProjeto, $IdRubrica)
+function segueRota($numeroRota, $IdOrdem, $IdProjeto, $IdRubrica, $Idusuario)
 {
     include '../php/Configuracao/conexao.php';
+
+    $usuario = new usuarios($Idusuario, null);
+
     if ($IdProjeto != Null){
 
         $nomeColunasPesquisa = $mysql->query("DESCRIBE projetos");
@@ -182,7 +250,7 @@ function segueRota($numeroRota, $IdOrdem, $IdProjeto, $IdRubrica)
                 $NomeDaColuna = $nomeColunas['Field'];
 
                 $NomeColunaEncontrado = $mysql->query("SELECT $NomeDaColuna FROM projetos WHERE ID = $IdProjeto AND $NomeDaColuna = '$IdRubrica'");
-                // Verificar se algum valor foi encontrado
+
                 if ($NomeColunaEncontrado->num_rows > 0) {
 
                     $numeroColuna = substr($nomeColunas['Field'], 8, 1);
@@ -191,7 +259,8 @@ function segueRota($numeroRota, $IdOrdem, $IdProjeto, $IdRubrica)
                     $valorTotalProjeto = $mysql->query("SELECT valor FROM projetos WHERE ID = {$IdProjeto}")->fetch_assoc()['valor'];
                     $valorTotalOrdem = $mysql->query("SELECT total FROM `ordens` WHERE ID = {$IdOrdem}")->fetch_assoc()['total'];
 
-                    if ($valorRubrica > $valorTotalOrdem) {
+                    if ($valorRubrica > $valorTotalOrdem)
+                    {
 
                         $NovoValorRubrica = $valorRubrica - $valorTotalOrdem;
 
@@ -200,6 +269,16 @@ function segueRota($numeroRota, $IdOrdem, $IdProjeto, $IdRubrica)
                         $mysql->query("UPDATE ordens SET Status = '$numeroRota', id_projeto = '$IdProjeto' WHERE ID = '$IdOrdem'");
                         $mysql->query("UPDATE projetos SET valorRubrica_{$numeroColuna} = '$NovoValorRubrica', valor = $novoValorProjeto WHERE ID = '$IdProjeto'");
                         break;
+                    }else if (($valorRubrica < $valorTotalOrdem) && ($usuario->SelecionaUsuario()[0]['token'] == 'Admin'))
+                    {
+                        $NovoValorRubrica = $valorRubrica - $valorTotalOrdem;
+
+                        $novoValorProjeto = $valorTotalProjeto - $valorTotalOrdem;
+
+                        $mysql->query("UPDATE ordens SET Status = '$numeroRota', id_projeto = '$IdProjeto' WHERE ID = '$IdOrdem'");
+                        $mysql->query("UPDATE projetos SET valorRubrica_{$numeroColuna} = '$NovoValorRubrica', valor = $novoValorProjeto WHERE ID = '$IdProjeto'");
+                        break;
+
                     } else {
                         die("Nao Ah valor Suficiente nesta Rubrica");
                     }
@@ -216,18 +295,168 @@ function segueRota($numeroRota, $IdOrdem, $IdProjeto, $IdRubrica)
 
             $IdSetor = $mysql->query("SELECT Setor FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc()['Setor'];
 
-            if($mysql->query("SELECT valor FROM setor WHERE ID = '$IdSetor'")->fetch_assoc()['valor'] < $mysql->query("SELECT total FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc()['total'])
+            $colunasDespParaFiltroOrdem = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME LIKE 'desp%' ");
+
+            while($nomeColunasDespFiltro = $colunasDespParaFiltroOrdem->fetch_assoc())
             {
-                return "Setor Não Tem o Valor Necessario!";
+                $nomeColunaArray[] = $nomeColunasDespFiltro['COLUMN_NAME'];
+            }
+            $nomeColuna = implode(',', $nomeColunaArray);
+
+            $ordemDesp = $mysql->query("SELECT {$nomeColuna} FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc();
+
+            $filtrandoColunasNaoVazias = array_filter($ordemDesp, function($subArray) {
+                return !empty($subArray);
+            });
+
+            $colunasRubricas = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'orsamentos' AND TABLE_SCHEMA ='compras' AND COLUMN_NAME LIKE 'rubricaSetor_%' ");
+
+            while($ColunasRubricasWhile = $colunasRubricas->fetch_assoc())
+            {
+                $nomeColunasRubricasGrupo[] = $ColunasRubricasWhile['COLUMN_NAME'];
             }
 
-            $NovoValorSetor = $mysql->query("SELECT valor FROM setor WHERE ID = '$IdSetor'")->fetch_assoc()['valor'] - $mysql->query("SELECT total FROM ordens WHERE ID = '$IdOrdem'")->fetch_assoc()['total'];
+            $nomeColunasRubricas = implode(',', $nomeColunasRubricasGrupo);
 
-            $mysql->query("UPDATE setor SET valor = '{$NovoValorSetor}' WHERE ID = '$IdSetor'");
+            $pesquisaOrsamento = $mysql->query("SELECT $nomeColunasRubricas FROM orsamentos WHERE Id_setor = {$IdSetor} AND Status = 1");
 
-//            $mysql->query("UPDATE ordens SET Status = '$numeroRota' WHERE ID = '$IdOrdem'");
-//
-//            $mysql->query("UPDATE setor SET Status = '$numeroRota' WHERE ID = '$IdOrdem'");
+            if($pesquisaOrsamento->num_rows <= 0)
+            {
+                die("Nao Ah Orsamento Ativo Neste Setor");
+            }
+            for ($i=0; $i<count($filtrandoColunasNaoVazias);$i++)
+            {
+                $filtrandoColunasNaoVaziasValores[$i] = $filtrandoColunasNaoVazias['desp'.$i+1];
+            }
+
+            $ORSAMENTO = $pesquisaOrsamento->fetch_assoc();
+
+            for ($i=0; $i< count($ORSAMENTO);$i++)
+            {
+                $pesquisaOrsamentoValoresEvaloresVazios[$i] = $ORSAMENTO['rubricaSetor_'.$i+1];
+
+            }
+
+            $pesquisaOrsamentoValores = array_filter($pesquisaOrsamentoValoresEvaloresVazios, function($subArray) {
+                return !empty($subArray);
+            });
+
+            $rubricasQueNaoEstaoNoOrsamento = array_diff($filtrandoColunasNaoVaziasValores, $pesquisaOrsamentoValores);
+
+            if($rubricasQueNaoEstaoNoOrsamento != null)
+            {
+                die( "No Orsamento Ativo Nao Foi Previsto Algum(ns) Deste(s) item(ns)!");
+            }
+
+            $rubricasQueExistemNoOrsamento = array_intersect($filtrandoColunasNaoVaziasValores, $pesquisaOrsamentoValores);
+
+            $pesquisaColunasOrsamento = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'orsamentos' AND TABLE_SCHEMA = 'compras' AND COLUMN_NAME LIKE 'rubricaSetor_%'");
+
+            foreach ($ORSAMENTO as $chave1 => $valor1) {
+
+                if (in_array($valor1, $rubricasQueExistemNoOrsamento, true)) {
+                    $correspondencias[] = mb_substr($chave1, -1);;
+                }
+            }
+
+            $colunasQuantidade = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ordens' AND TABLE_SCHEMA ='compras' AND COLUMN_NAME LIKE 'quant%' ");
+            $colunasPrecoUnidade = $mysql->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ordens' AND TABLE_SCHEMA ='compras' AND COLUMN_NAME LIKE 'preco%' ");
+
+            while($colunasQuantidadeWhile = $colunasQuantidade->fetch_assoc())
+            {
+                $colunasQuantidadeArray[] = $colunasQuantidadeWhile['COLUMN_NAME'];
+            }
+
+            while($colunasPrecoUnidadeWhile = $colunasPrecoUnidade->fetch_assoc())
+            {
+                $colunasPrecoUnidadeArray[] = $colunasPrecoUnidadeWhile['COLUMN_NAME'];
+            }
+
+            $colunasQuantidade = implode(',', $colunasQuantidadeArray);
+            $colunasPrecoUnidade = implode(',', $colunasPrecoUnidadeArray);
+
+            $colunasComValoresVazios = $mysql->query("SELECT $colunasQuantidade, $colunasPrecoUnidade FROM ordens WHERE ID = '{$IdOrdem}'")->fetch_assoc();
+
+            $colunasComValores = array_filter($colunasComValoresVazios, function($subArray) {
+                return !empty($subArray);
+            });
+
+            for ($i = 1; $i <= count($correspondencias); $i++) {
+                $resultado[] = $colunasComValores["quant$i"] * $colunasComValores["preco$i"];
+            }
+
+
+
+            for($i=0;$i<count($correspondencias);$i++)
+            {
+
+                $colunaDescontoarray[] = 'valorRubricaSetor_'.$correspondencias[$i];
+
+                $colunaDesconto = implode(',', $colunaDescontoarray);
+
+                $pesquisaOrsamentoComOsNomesDasColunas = $mysql->query("SELECT $colunaDesconto FROM orsamentos WHERE Id_setor = {$IdSetor} AND Status = 1")->fetch_assoc();
+
+                $chaves = range(1, count($pesquisaOrsamentoComOsNomesDasColunas));
+                $enumerado = array_combine($chaves, $pesquisaOrsamentoComOsNomesDasColunas);
+
+                $resultados = array_map(function ($a, $b) {
+                    return $a > $b;
+                }, $resultado, $enumerado);
+
+                $fazCalculo = !in_array(true, $resultados);
+            }
+
+
+
+
+                if ($fazCalculo === true)
+                {
+                    $valorBanco = $enumerado;
+                    $valorTotalDeCadaRubrica = $resultado;
+
+                    for ($i = 0; $i < count($correspondencias); $i++) {
+                        $novosValores[] = $valorBanco[$i+1] - $valorTotalDeCadaRubrica[$i];
+
+                         $novosValoresRespectivasColunasArray[] = $colunaDescontoarray[$i].'='.$novosValores[$i];
+
+
+                    }
+
+                    $novosValoresRespectivasColunas  = implode(',',$novosValoresRespectivasColunasArray);
+
+                    $mysql->query("UPDATE orsamentos SET $novosValoresRespectivasColunas WHERE Id_setor = '{$IdSetor}' AND Status = 1");
+
+                }
+
+            elseif(
+                ($fazCalculo === false) &&
+                (
+                    ($usuario->SelecionaUsuario()[0]['token'] == 'Admin') ||
+                    ($usuario->SelecionaUsuario()[0]['token2'] == 'Admin')
+                )
+            )
+            {
+
+                $valorBanco = $enumerado;
+                $valorTotalDeCadaRubrica = $resultado;
+                for ($i = 0; $i < count($correspondencias); $i++) {
+
+                    $novosValores[] = $valorBanco[$i+1] - $valorTotalDeCadaRubrica[$i];
+
+                    $novosValoresRespectivasColunasArray[] = $colunaDescontoarray[$i].'='.$novosValores[$i];
+
+                }
+
+                $novosValoresRespectivasColunas  = implode(',',$novosValoresRespectivasColunasArray);
+
+                $mysql->query("UPDATE orsamentos SET $novosValoresRespectivasColunas WHERE Id_setor = '{$IdSetor}' AND Status = 1");
+            }
+            else
+            {
+                die("Seu Orsamento Ativo Nao Contem Valor Sufuciente Em Alguma Destas Rubricas!");
+            }
+
+
         }
         $mysql->query("UPDATE ordens SET Status = '$numeroRota' WHERE ID = '$IdOrdem'");
     }
